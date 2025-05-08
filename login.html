@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Electro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+        .top-bar {
+            background-color: #191b24;
+            color: white;
+            padding: 10px 0;
+        }
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .top-bar-left {
+            display: flex;
+            gap: 20px;
+        }
+        .top-bar-right {
+            display: flex;
+            gap: 20px;
+        }
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+        }
+        .header {
+            background-color: #191b24;
+            padding: 20px 0;
+            border-bottom: 1px solid #2d2f3a;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .logo {
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .logo span {
+            color: #e21818;
+        }
+        .search-bar {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        .search-bar button {
+            background-color: #e21818;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .header-right {
+            display: flex;
+            gap: 20px;
+        }
+        .wishlist, .cart {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .nav {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-content {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .nav a {
+            color: #191b24;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: block;
+        }
+        .nav a:hover, .nav a.active {
+            color: #e21818;
+        }
+        .nav a.active {
+            border-bottom: 2px solid #e21818;
+        }
+        .breadcrumb {
+            background-color: #f5f5f5;
+            padding: 15px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .breadcrumb-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .breadcrumb h1 {
+            color: #191b24;
+            font-size: 24px;
+        }
+        .breadcrumb-links {
+            color: #888;
+        }
+        .breadcrumb-links a {
+            color: #191b24;
+            text-decoration: none;
+        }
+        .main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .auth-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .auth-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #191b24;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .error-message {
+            color: #e21818;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .auth-btn {
+            background-color: #e21818;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 20px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .auth-btn:hover {
+            background-color: #c61212;
+        }
+        .auth-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .auth-links a {
+            color: #e21818;
+            text-decoration: none;
+        }
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+        .newsletter {
+            background-color: #f8f8f8;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .newsletter h2 {
+            margin-bottom: 20px;
+            color: #191b24;
+        }
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        .newsletter-form button {
+            background-color: #e21818;
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #191b24;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <h1>LOGIN</h1>
+            <div class="breadcrumb-links">
+                <a href="index.html">HOME</a> / <span>LOGIN</span>
+            </div>
+        </div>
+    </div>
+    
+    <main class="main">
+        <div class="auth-container">
+            <h2 class="auth-title">Login to Your Account</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                    <div class="error-message" id="email-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                    <div class="error-message" id="password-error"></div>
+                </div>
+                <button type="submit" class="auth-btn">LOGIN</button>
+                <div class="auth-links">
+                    <p>Don't have an account? <a href="register.html">Register Here</a></p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+        // Check login status on page load and update the auth link
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthLink();
+        });
+        
+        // Function to update the authentication link based on login status
+        function updateAuthLink() {
+            const authLink = document.getElementById('auth-link');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (currentUser) {
+                authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
+                authLink.href = '#';
+                authLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('currentUser');
+                    alert('You have been logged out successfully!');
+                    window.location.reload();
+                });
+            } else {
+                authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
+                authLink.href = 'login.html';
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            
+            // Get form values
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            // Validate email
+            if (!email) {
+                showError('email-error', 'Email is required');
+                return;
+            } else if (!isValidEmail(email)) {
+                showError('email-error', 'Please enter a valid email address');
+                return;
+            }
+            
+            // Validate password
+            if (!password) {
+                showError('password-error', 'Password is required');
+                return;
+            }
+            
+            // Retrieve users from local storage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Check if user exists
+            const user = users.find(user => user.email === email && user.password === password);
+            
+            if (user) {
+                // Set current user
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid email or password');
+            }
+        });
+        
+        function showError(id, message) {
+            const errorElement = document.getElementById(id);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body>
+</html>
