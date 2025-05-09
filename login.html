@@ -266,9 +266,9 @@
             <h2 class="auth-title">Login to Your Account</h2>
             <form id="login-form">
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email">
-                    <div class="error-message" id="email-error"></div>
+                    <label for="userName">User Name</label>
+                    <input type="userName" id="userName" placeholder="Enter your user name">
+                    <div class="error-message" id="userName-error"></div>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -283,84 +283,79 @@
         </div>
     </main>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        // Check login status on page load and update the auth link
-        document.addEventListener('DOMContentLoaded', function() {
+        $(document).ready(function () {
             updateAuthLink();
-        });
-        
-        // Function to update the authentication link based on login status
-        function updateAuthLink() {
-            const authLink = document.getElementById('auth-link');
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
-            if (currentUser) {
-                authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
-                authLink.href = '#';
-                authLink.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    localStorage.removeItem('currentUser');
-                    alert('You have been logged out successfully!');
-                    window.location.reload();
+    
+            // Handle login form submission using jQuery
+            $('#login-form').on('submit', function (e) {
+                e.preventDefault();
+    
+                // Hide previous error messages
+                $('#userName-error, #password-error').hide();
+    
+                // Get form values
+                const userName = $('#userName').val().trim();
+                const password = $('#password').val().trim();
+    
+                // Validate email
+                if (!userName) return showError('userName-error', 'userName is required');
+                if (!isValidEmail(userName)) return showError('userName-error', 'Please enter a valid userName');
+    
+                // Validate password
+                if (!password) return showError('password-error', 'Password is required');
+    
+                // Call backend API for login
+                $.ajax({
+                    url: 'https://localhost:7111/api/auth/login', // Adjust your URL if needed
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ userName: userName, password: password }),
+                    success: function (response) {
+                        // Store user in localStorage
+                        localStorage.setItem('currentUser', JSON.stringify(response));
+                        window.location.href = 'index.html';
+                    },
+                    error: function (xhr) {
+                        const errMsg = xhr.responseJSON?.message || 'Login failed. Please check your credentials.';
+                        alert(errMsg);
+                    }
                 });
-            } else {
-                authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
-                authLink.href = 'login.html';
+            });
+    
+            // Auth link toggle (login/logout)
+            function updateAuthLink() {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const authLink = $('#auth-link');
+    
+                if (currentUser) {
+                    authLink.html('<i class="fa fa-user-o"></i> Logout');
+                    authLink.attr('href', '#').off('click').on('click', function (e) {
+                        e.preventDefault();
+                        localStorage.removeItem('currentUser');
+                        alert('You have been logged out successfully!');
+                        location.reload();
+                    });
+                } else {
+                    authLink.html('<i class="fa fa-user-o"></i> LogIn');
+                    authLink.attr('href', 'login.html');
+                }
             }
-        }
-
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Reset error messages
-            document.getElementById('email-error').style.display = 'none';
-            document.getElementById('password-error').style.display = 'none';
-            
-            // Get form values
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            // Validate email
-            if (!email) {
-                showError('email-error', 'Email is required');
-                return;
-            } else if (!isValidEmail(email)) {
-                showError('email-error', 'Please enter a valid email address');
-                return;
+    
+            // Error display
+            function showError(id, message) {
+                $('#' + id).text(message).show();
             }
-            
-            // Validate password
-            if (!password) {
-                showError('password-error', 'Password is required');
-                return;
-            }
-            
-            // Retrieve users from local storage
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            // Check if user exists
-            const user = users.find(user => user.email === email && user.password === password);
-            
-            if (user) {
-                // Set current user
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                window.location.href = 'index.html';
-            } else {
-                alert('Invalid email or password');
+    
+            // username validation
+            function isValidUserName(userName) {
+                const regex = /^[a-zA-Z0-9._-]{3,}$/; // Adjust regex as needed
+                return regex.test(userName);
             }
         });
-        
-        function showError(id, message) {
-            const errorElement = document.getElementById(id);
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
-        }
-        
-        function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
     </script>
+    
 </body>
 </html>

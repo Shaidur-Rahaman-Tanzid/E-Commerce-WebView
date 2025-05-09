@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +12,17 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+
         body {
             background-color: #f5f5f5;
         }
+
         .top-bar {
             background-color: #191b24;
             color: white;
             padding: 10px 0;
         }
+
         .top-bar-content {
             display: flex;
             justify-content: space-between;
@@ -26,23 +30,28 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
         .top-bar-left {
             display: flex;
             gap: 20px;
         }
+
         .top-bar-right {
             display: flex;
             gap: 20px;
         }
+
         .top-bar a {
             color: white;
             text-decoration: none;
         }
+
         .header {
             background-color: #191b24;
             padding: 20px 0;
             border-bottom: 1px solid #2d2f3a;
         }
+
         .header-content {
             display: flex;
             justify-content: space-between;
@@ -51,27 +60,32 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+
         .logo {
             color: white;
             font-size: 36px;
             font-weight: bold;
             text-decoration: none;
         }
+
         .logo span {
             color: #e21818;
         }
+
         .search-bar {
             display: flex;
             flex: 1;
             max-width: 600px;
             margin: 0 20px;
         }
+
         .search-bar input {
             flex: 1;
             padding: 10px 15px;
             border: none;
             border-radius: 4px 0 0 4px;
         }
+
         .search-bar button {
             background-color: #e21818;
             color: white;
@@ -80,44 +94,55 @@
             border-radius: 0 4px 4px 0;
             cursor: pointer;
         }
+
         .header-right {
             display: flex;
             gap: 20px;
         }
-        .wishlist, .cart {
+
+        .wishlist,
+        .cart {
             color: white;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .nav {
             background-color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .nav-content {
             display: flex;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
         .nav a {
             color: #191b24;
             text-decoration: none;
             padding: 15px 20px;
             display: block;
         }
-        .nav a:hover, .nav a.active {
+
+        .nav a:hover,
+        .nav a.active {
             color: #e21818;
         }
+
         .nav a.active {
             border-bottom: 2px solid #e21818;
         }
+
         .breadcrumb {
             background-color: #f5f5f5;
             padding: 15px 0;
             border-bottom: 1px solid #eaeaea;
         }
+
         .breadcrumb-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -126,43 +151,52 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .breadcrumb h1 {
             color: #191b24;
             font-size: 24px;
         }
+
         .breadcrumb-links {
             color: #888;
         }
+
         .breadcrumb-links a {
             color: #191b24;
             text-decoration: none;
         }
+
         .main {
             max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
         }
+
         .auth-container {
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             padding: 40px;
             max-width: 500px;
             margin: 0 auto;
         }
+
         .auth-title {
             text-align: center;
             margin-bottom: 30px;
             color: #191b24;
         }
+
         .form-group {
             margin-bottom: 20px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             color: #555;
         }
+
         .form-group input {
             width: 100%;
             padding: 12px 15px;
@@ -170,12 +204,14 @@
             border-radius: 4px;
             font-size: 16px;
         }
+
         .error-message {
             color: #e21818;
             font-size: 14px;
             margin-top: 5px;
             display: none;
         }
+
         .auth-btn {
             background-color: #e21818;
             color: white;
@@ -187,41 +223,50 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
         .auth-btn:hover {
             background-color: #c61212;
         }
+
         .auth-links {
             text-align: center;
             margin-top: 20px;
         }
+
         .auth-links a {
             color: #e21818;
             text-decoration: none;
         }
+
         .auth-links a:hover {
             text-decoration: underline;
         }
+
         .newsletter {
             background-color: #f8f8f8;
             padding: 40px 0;
             text-align: center;
             margin-top: 60px;
         }
+
         .newsletter h2 {
             margin-bottom: 20px;
             color: #191b24;
         }
+
         .newsletter-form {
             display: flex;
             max-width: 500px;
             margin: 0 auto;
         }
+
         .newsletter-form input {
             flex: 1;
             padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 4px 0 0 4px;
         }
+
         .newsletter-form button {
             background-color: #e21818;
             color: white;
@@ -230,12 +275,14 @@
             border-radius: 0 4px 4px 0;
             cursor: pointer;
         }
+
         .social-icons {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 30px;
         }
+
         .social-icon {
             width: 40px;
             height: 40px;
@@ -249,141 +296,201 @@
         }
     </style>
 </head>
-    
-    <div class="breadcrumb">
-        <div class="breadcrumb-content">
-            <h1>REGISTER</h1>
-            <div class="breadcrumb-links">
-                <a href="index.html">HOME</a> / <span>REGISTER</span>
-            </div>
+
+<div class="breadcrumb">
+    <div class="breadcrumb-content">
+        <h1>REGISTER</h1>
+        <div class="breadcrumb-links">
+            <a href="index.html">HOME</a> / <span>REGISTER</span>
         </div>
     </div>
-    
-    <main class="main">
-        <div class="auth-container">
-            <h2 class="auth-title">Create Your Account</h2>
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your full name">
-                    <div class="error-message" id="name-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" placeholder="Enter your email">
-                    <div class="error-message" id="email-error"></div>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Create a password">
-                    <div class="error-message" id="password-error"></div>
-                </div>
-                <button type="submit" class="auth-btn">REGISTER</button>
-                <div class="auth-links">
-                    <p>Already have an account? <a href="login.html">Login Here</a></p>
-                </div>
-            </form>
-        </div>
-    </main>
+</div>
 
+<main class="main">
+    <div class="auth-container">
+        <h2 class="auth-title">Create Your Account</h2>
+        <form id="register-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter your full name">
+                <div class="error-message" id="name-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email">
+                <div class="error-message" id="email-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="phone" id="phone" placeholder="Enter your phone number">
+                <div class="error-message" id="phone-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password">
+                <div class="error-message" id="password-error"></div>
+            </div>
+            <button type="submit" class="auth-btn">REGISTER</button>
+            <div class="auth-links">
+                <p>Already have an account? <a href="login.html">Login Here</a></p>
+            </div>
 
-    <script>
-        // Check login status on page load and update the auth link
-        document.addEventListener('DOMContentLoaded', function() {
-            updateAuthLink();
+                <!-- OTP Form (Initially Hidden) -->
+    <div class="auth-container" id="otp-container" style="display:none;">
+        <h2 class="auth-title">Enter OTP</h2>
+        <form id="otp-form">
+            <div class="form-group">
+                <label for="otp">OTP Code</label>
+                <input type="text" id="otp" placeholder="Enter the OTP sent to your phone">
+                <div class="error-message" id="otp-error"></div>
+            </div>
+            <button type="submit" class="auth-btn" id="validate-otp-btn" onclick="validate_otp()">Validate OTP</button>
+        </form>
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        updateAuthLink();
+
+        // Handle registration form submission
+        $('#register-form').on('submit', function (e) {
+            e.preventDefault();
+
+            // Hide error messages
+            $('#name-error, #email-error, #password-error, #phone-error').hide();
+
+            // Get values
+            const name = $('#name').val().trim();
+            const email = $('#email').val().trim();
+            const password = $('#password').val().trim();
+            const phone = $('#phone').val().trim();
+
+            // Validation
+            if (!name) return showError('name-error', 'Name is required');
+            if (!phone) return showError('phone-error', 'Phone number is required');
+            if (phone.length < 10) return showError('phone-error', 'Phone number must be at least 10 digits');
+            if (!email) return showError('email-error', 'Email is required');
+            if (!isValidEmail(email)) return showError('email-error', 'Invalid email address');
+            if (!password) return showError('password-error', 'Password is required');
+            if (password.length < 6) return showError('password-error', 'Password must be at least 6 characters');
+
+            // API call
+            $.ajax({
+                url: 'https://localhost:7111/api/user/register',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    userName: name,
+                    email: email,
+                    phone: phone,
+                    password: password,
+                }),
+                success: function () {
+                    $("#register-container").css("display", "none");
+                    $("#otp-container").css("display", "block");
+                    // document.getElementById('register-container').style.display = 'none';
+                    // document.getElementById('otp-container').style.display = 'block';
+                },
+                error: function (xhr) {
+                    const errMsg = xhr.responseJSON?.message || 'Registration failed.';
+                    alert(errMsg);
+                }
+            });
         });
         
-        // Function to update the authentication link based on login status
+        // // Handle OTP form submission
+        // $('#otp-form').on('submit', function (e) {
+        //     e.preventDefault();
+
+        //     const otp = $('#otp').val().trim();
+        //     const userName = $('#email').val().trim();
+        //     const service = 'register';
+
+        //     // Make an API call to validate the OTP (adjust the URL and logic accordingly)
+        //     $.ajax({
+        //         url: 'https://localhost:7111/api/user/validate-otp', // Adjust to your actual OTP validation API
+        //         method: 'POST',
+        //         contentType: 'application/json',
+        //         data: JSON.stringify({
+        //             otp: otp,
+        //             userName: userName,
+        //             service: service
+        //         }),
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 alert('OTP verified successfully! You are now logged in.');
+        //                 window.location.href = 'login.html'; // Redirect to a dashboard or main page
+        //             } else {
+        //                 $('#otp-error').text('Invalid OTP. Please try again.').show();
+        //             }
+        //         },
+        //         error: function (xhr) {
+        //             alert('OTP verification failed. Please try again.');
+        //         }
+        //     });
+        // });
+
+        // Update login/logout link
         function updateAuthLink() {
-            const authLink = document.getElementById('auth-link');
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            
+            const authLink = $('#auth-link');
+
             if (currentUser) {
-                authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
-                authLink.href = '#';
-                authLink.addEventListener('click', function(e) {
+                authLink.html('<i class="fa fa-user-o"></i> Logout');
+                authLink.attr('href', '#').off('click').on('click', function (e) {
                     e.preventDefault();
                     localStorage.removeItem('currentUser');
-                    alert('You have been logged out successfully!');
-                    window.location.reload();
+                    alert('Logged out successfully!');
+                    location.reload();
                 });
             } else {
-                authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
-                authLink.href = 'login.html';
+                authLink.html('<i class="fa fa-user-o"></i> LogIn');
+                authLink.attr('href', 'login.html');
             }
         }
 
-        document.getElementById('register-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Reset error messages
-            document.getElementById('name-error').style.display = 'none';
-            document.getElementById('email-error').style.display = 'none';
-            document.getElementById('password-error').style.display = 'none';
-            
-            // Get form values
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            
-            // Validate name
-            if (!name) {
-                showError('name-error', 'Name is required');
-                return;
-            }
-            
-            // Validate email
-            if (!email) {
-                showError('email-error', 'Email is required');
-                return;
-            } else if (!isValidEmail(email)) {
-                showError('email-error', 'Please enter a valid email address');
-                return;
-            }
-            
-            // Validate password
-            if (!password) {
-                showError('password-error', 'Password is required');
-                return;
-            } else if (password.length < 6) {
-                showError('password-error', 'Password must be at least 6 characters');
-                return;
-            }
-            
-            // Retrieve existing users or create empty array
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            
-            // Check if email already exists
-            if (users.some(user => user.email === email)) {
-                showError('email-error', 'Email already in use');
-                return;
-            }
-            
-            // Add new user
-            users.push({
-                name,
-                email,
-                password,
-                createdAt: new Date().toISOString()
-            });
-            
-            // Save to localStorage
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            alert('Registration successful! Please login.');
-            window.location.href = 'login.html';
-        });
-        
         function showError(id, message) {
-            const errorElement = document.getElementById(id);
-            errorElement.textContent = message;
-            errorElement.style.display = 'block';
+            $('#' + id).text(message).show();
         }
-        
+
         function isValidEmail(email) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
-    </script>
+    });
+    function validate_otp() {
+        const otp = document.getElementById('otp').value;
+        const userName = document.getElementById('email').value;
+        const service = 'register';
+
+        // Make an API call to validate the OTP (adjust the URL and logic accordingly)
+        $.ajax({
+            url: 'https://localhost:7111/api/user/validate-otp', // Adjust to your actual OTP validation API
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                otp: otp,
+                userName: userName,
+                service: service
+            }),
+            success: function (response) {
+                if (response.success) {
+                    alert('OTP verified successfully! You are now logged in.');
+                    window.location.href = 'login.html'; // Redirect to a dashboard or main page
+                } else {
+                    $('#otp-error').text('Invalid OTP. Please try again.').show();
+                }
+            },
+            error: function (xhr) {
+                alert('OTP verification failed. Please try again.');
+            }
+        });
+    }
+
+</script>
+
+
 </body>
+
 </html>
