@@ -284,6 +284,7 @@
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/utils.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -315,7 +316,8 @@
                     data: JSON.stringify({ userName: userName, password: password }),
                     success: function (response) {
                         // Store user in localStorage
-                        localStorage.setItem('currentUser', JSON.stringify(response));
+                        var token = JSON.parse(response.token.message);
+                        localStorage.setItem('currentUser', JSON.stringify(token));
                         window.location.href = 'index.html';
                     },
                     error: function (xhr) {

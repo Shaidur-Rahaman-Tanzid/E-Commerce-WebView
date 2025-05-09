@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Electro</title>
+    <link type="text/css" rel="stylesheet" href="/css/general.css"/>
+</head>
+
+<body>
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <h1>PROFILE</h1>
+            <div class="breadcrumb-links">
+                <a href="index.html">HOME</a> / <span>PROFILE</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2>My Profile</h2>
+            </div>
+            <div class="profile-details">
+                <div class="detail-group">
+                    <label>Full Name</label>
+                    <span id="userName">Loading...</span>
+                </div>
+                <div class="detail-group">
+                    <label>Email Address</label>
+                    <span id="userEmail">Loading...</span>
+                </div>
+                <div class="detail-group">
+                    <label>Phone Number</label>
+                    <span id="userPhone">Loading...</span>
+                </div>
+                <div class="detail-group">
+                    <label>Member Since</label>
+                    <span id="userCreatedAt">Loading...</span>
+                </div>
+            </div>
+            <button class="edit-profile-btn" onclick="window.location.href='edit-profile.html'">Edit Profile</button>
+            <div class="error-message" id="error-message"></div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if user is logged in
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Fetch user profile data
+            $.ajax({
+                url: 'https://localhost:7111/api/user/profile',
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${currentUser.token}`
+                },
+                success: function(response) {
+                    $('#userName').text(response.userName || 'N/A');
+                    $('#userEmail').text(response.email || 'N/A');
+                    $('#userPhone').text(response.phone || 'N/A');
+                    $('#userCreatedAt').text(new Date(response.createdAt).toLocaleDateString() || 'N/A');
+                },
+                error: function(xhr) {
+                    $('#error-message').text('Failed to load profile data. Please try again.').show();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
