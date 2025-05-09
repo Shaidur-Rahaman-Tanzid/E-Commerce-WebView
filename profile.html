@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div id="header"></div>
     <div class="breadcrumb">
         <div class="breadcrumb-content">
             <h1>PROFILE</h1>
@@ -49,6 +50,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            $('#header').load('/Views/layout/header.html');
             // Check if user is logged in
             const currentUser = JSON.parse(localStorage.getItem('currentUser'));
             if (!currentUser) {
