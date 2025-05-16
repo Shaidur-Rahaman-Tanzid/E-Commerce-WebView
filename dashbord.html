@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC-Shop Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <style>
+        :root {
+            --primary-color: #dc0a2d;
+            --dark-color: #1c1c25;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Responsive Sidebar */
+        .sidebar {
+            background-color: var(--dark-color);
+            color: white;
+            min-height: 100vh;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .sidebar-sticky {
+            position: sticky;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 20px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .sidebar .nav-link {
+            color: #ccc;
+            padding: 12px 20px;
+            margin-bottom: 5px;
+            border-left: 4px solid transparent;
+            white-space: nowrap;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .brand {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        /* Toggle button for sidebar */
+        .sidebar-toggle {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        /* Main content area */
+        .main-content {
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .top-bar {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+
+        .stats-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .bg-primary-soft {
+            background-color: var(--primary-color);
+        }
+
+        .bg-info-soft {
+            background-color: #0dcaf0;
+        }
+
+        .bg-success-soft {
+            background-color: #198754;
+        }
+
+        .bg-warning-soft {
+            background-color: #ffc107;
+        }
+
+        .stats-info h5 {
+            margin-bottom: 5px;
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .stats-info span {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #c0001d;
+            border-color: #c0001d;
+        }
+
+        .user-action a {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .badge-status {
+            padding: 5px 10px;
+            border-radius: 30px;
+            font-weight: normal;
+        }
+
+        .pagination {
+            margin-bottom: 0;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .avatar-col {
+            width: 60px;
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            color: white;
+            background: none;
+            opacity: 1;
+        }
+
+        .user-detail {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-detail img {
+            margin-right: 10px;
+        }
+
+        /* Product add page */
+        #product-add-page {
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+
+        #product-add-page h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        #product-add-page .form-label {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        #product-add-page .form-control {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px 12px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        #product-add-page .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(220, 10, 45, 0.25);
+        }
+
+        #product-add-page .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        #product-add-page .btn-primary:hover {
+            background-color: #b50924;
+        }
+        #products-section {
+           width: 80%;
+           margin-left: 250px;
+           margin-right: 60px;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+        #addProductForm{
+            margin-right: 20px;
+            width: 80%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 250px;
+                position: fixed;
+                left: -250px;
+                height: 100%;
+            }
+            
+            .sidebar.show {
+                left: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .sidebar-toggle {
+                display: block;
+                margin-bottom: 15px;
+            }
+
+            .main-content.sidebar-open {
+                margin-left: 250px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .sidebar {
+                width: 250px;
+                position: fixed;
+            }
+            
+            .main-content {
+                margin-left: 250px;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .stats-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stats-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .table-responsive {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .top-bar .search-form {
+                width: 100%;
+            }
+            
+            .user-detail {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar col-md-3 col-lg-2 d-md-block">
+        <div class="brand">PC-Shop</div>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#users" class="nav-link" data-page="users">
+                    <i class="fas fa-users"></i> User Management
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#products-section" class="nav-link" data-page="products">
+                    <i class="fas fa-box"></i> Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#categories" class="nav-link" data-page="categories">
+                    <i class="fas fa-tags"></i> Categories
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#orders" class="nav-link" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#reports" class="nav-link" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings" class="nav-link" data-page="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </li>
+            <li class="nav-item mt-5">
+                <a href="#logout" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div>
+                <h4 class="mb-0">Admin Dashboard</h4>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="dropdown me-3">
+                    <a href="#" class="position-relative text-dark" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell fa-lg"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">New order received</a></li>
+                        <li><a class="dropdown-item" href="#">New user registered</a></li>
+                        <li><a class="dropdown-item" href="#">Low stock alert</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+                        id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/api/placeholder/40/40" alt="Admin" class="rounded-circle me-2" width="32"
+                            height="32">
+                        <span>Admin</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pages Content -->
+        <div id="page-content">
+            <!-- Dashboard Page -->
+            <div class="page" id="dashboard-page">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="stats-card mb-4">
+                            <div class="stats-icon bg-primary-soft">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h5>2,845</h5>
+                                <span>Total Users</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card mb-4">
+                            <div class="stats-icon bg-info-soft">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h5>14,721</h5>
+                                <span>Total Products</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card mb-4">
+                            <div class="stats-icon bg-success-soft">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h5>$89,245</h5>
+                                <span>Total Revenue</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card mb-4">
+                            <div class="stats-icon bg-warning-soft">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stats-info">
+                                <h5>1,354</h5>
+                                <span>New Orders</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <div>Recent Orders</div>
+                                <div>
+                                    <a href="#" class="btn btn-sm btn-primary">View All</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Customer</th>
+                                                <th>Product</th>
+                                                <th>Amount</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>#ORD-7841</td>
+                                                <td>John Doe</td>
+                                                <td>Dell XPS 13</td>
+                                                <td>$1,299</td>
+                                                <td><span class="badge bg-success badge-status">Completed</span></td>
+                                                <td>10 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7840</td>
+                                                <td>Jane Smith</td>
+                                                <td>Canon EOS R5</td>
+                                                <td>$3,899</td>
+                                                <td><span class="badge bg-warning badge-status">Processing</span></td>
+                                                <td>09 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7839</td>
+                                                <td>Robert Johnson</td>
+                                                <td>iPhone 15 Pro</td>
+                                                <td>$1,099</td>
+                                                <td><span class="badge bg-info badge-status">Shipped</span></td>
+                                                <td>09 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7838</td>
+                                                <td>Emily Davis</td>
+                                                <td>Logitech MX Master 3</td>
+                                                <td>$99</td>
+                                                <td><span class="badge bg-success badge-status">Completed</span></td>
+                                                <td>08 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7837</td>
+                                                <td>Michael Wilson</td>
+                                                <td>MacBook Pro 16"</td>
+                                                <td>$2,499</td>
+                                                <td><span class="badge bg-danger badge-status">Cancelled</span></td>
+                                                <td>07 May, 2025</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Top Selling Products
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Dell XPS 13</h6>
+                                            <small class="text-muted">Laptops</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">284 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">iPhone 15 Pro</h6>
+                                            <small class="text-muted">Smartphones</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">251 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Canon EOS R5</h6>
+                                            <small class="text-muted">Cameras</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">197 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Logitech MX Master 3</h6>
+                                            <small class="text-muted">Accessories</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">184 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">MacBook Pro 16"</h6>
+                                            <small class="text-muted">Laptops</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">153 sold</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                Recent Activities
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">New user registered</h6>
+                                            <small class="text-muted">3 mins ago</small>
+                                        </div>
+                                        <small>Username: sam_wilson</small>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Stock update</h6>
+                                            <small class="text-muted">20 mins ago</small>
+                                        </div>
+                                        <small>Lenovo ThinkPad X1 Carbon back in stock</small>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">New order placed</h6>
+                                            <small class="text-muted">1 hour ago</small>
+                                        </div>
+                                        <small>Order #ORD-7841 by John Doe</small>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">Product added</h6>
+                                            <small class="text-muted">3 hours ago</small>
+                                        </div>
+                                        <small>New product: Samsung Galaxy S25</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management Page -->
+            <div class="page" id="users-page" style="display: none;">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>User Management</div>
+                        <div>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                                <i class="fas fa-plus"></i> Add New User
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <select class="form-select" id="filterRole">
+                                    <option value="">All Roles</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="customer">Customer</option>
+                                    <option value="vendor">Vendor</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="filterStatus">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="suspended">Suspended</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search users...">
+                                    <button class="btn btn-outline-secondary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="avatar-col"></th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Registration Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
+                                        </td>
+                                        <td>John Doe</td>
+                                        <td>john.doe@example.com</td>
+                                        <td>Customer</td>
+                                        <td><span class="badge bg-success badge-status">Active</span></td>
+                                        <td>01 Feb, 2025</td>
+                                        <td class="user-action">
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
+                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
+                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
+                                        </td>
+                                        <td>Jane Smith</td>
+                                        <td>jane.smith@example.com</td>
+                                        <td>Admin</td>
+                                        <td><span class="badge bg-success badge-status">Active</span></td>
+                                        <td>15 Jan, 2025</td>
+                                        <td class="user-action">
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
+                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
+                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
+                                        </td>
+                                        <td>Robert Johnson</td>
+                                        <td>robert.johnson@example.com</td>
+                                        <td>Vendor</td>
+                                        <td><span class="badge bg-warning badge-status">Inactive</span></td>
+                                        <td>23 Mar, 2025</td>
+                                        <td class="user-action">
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
+                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
+                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
+                                        </td>
+                                        <td>Emily Davis</td>
+                                        <td>emily.davis@example.com</td>
+                                        <td>Customer</td>
+                                        <td><span class="badge bg-danger badge-status">Suspended</span></td>
+                                        <td>07 Apr, 2025</td>
+                                        <td class="user-action">
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
+                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
+                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
+                                        </td>
+                                        <td>Michael Wilson</td>
+                                        <td>michael.wilson@example.com</td>
+                                        <td>Customer</td>
+                                        <td><span class="badge bg-success badge-status">Active</span></td>
+                                        <td>19 Apr, 2025</td>
+                                        <td class="user-action">
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
+                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
+                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav>
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other pages would go here (products, categories, orders, etc.) -->
+            <div class="page" id="products-page" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Products Management</div>
+                    <div class="card-body">
+                        <p>Products management content goes here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="categories-page" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Categories Management</div>
+                    <div class="card-body">
+                        <p>Categories management content goes here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="orders-page" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Orders Management</div>
+                    <div class="card-body">
+                        <p>Orders management content goes here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="reports-page" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Reports</div>
+                    <div class="card-body">
+                        <p>Reports content goes here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page" id="settings-page" style="display: none;">
+                <div class="card">
+                    <div class="card-header">Settings</div>
+                    <div class="card-body">
+                        <p>Settings content goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- products-section -->
+    <div class="container mt-5" id="products-section">
+        <h2 class="mb-4">Add New Product</h2>
+        <form id="addProductForm"></form>
+            <div class="mb-3">
+                <label for="productName" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+            </div>
+            <div class="mb-3">
+                <label for="productCategory" class="form-label">Category</label>
+                <input type="text" class="form-control" id="productCategory" placeholder="Enter category">
+            </div>
+            <div class="mb-3">
+                <label for="productStock" class="form-label">Stock</label>
+                <input type="number" class="form-control" id="productStock" placeholder="Enter stock quantity">
+            </div>
+            <div class="mb-3">
+                <label for="productPrice" class="form-label">Price ($)</label>
+                <input type="number" step="0.01" class="form-control" id="productPrice" placeholder="Enter price">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('addProductForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('productName').value,
+                category: document.getElementById('productCategory').value,
+                stock: document.getElementById('productStock').value,
+                price: document.getElementById('productPrice').value
+            };
+            fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(result => {
+                alert('Product added successfully!');
+                document.getElementById('addProductForm').reset();
+            })
+            .catch(error => {
+                alert('Failed to add product.');
+            });
+        });
+    </script>
+    
+
+
+</body>
+</html>
