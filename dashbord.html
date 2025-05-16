@@ -867,57 +867,103 @@
     </div>
 
     <!-- products-section -->
-    <div class="container mt-5" id="products-section">
-        <h2 class="mb-4">Add New Product</h2>
-        <form id="addProductForm"></form>
-            <div class="mb-3">
-                <label for="productName" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="productName" placeholder="Enter product name">
-            </div>
-            <div class="mb-3">
-                <label for="productCategory" class="form-label">Category</label>
-                <input type="text" class="form-control" id="productCategory" placeholder="Enter category">
-            </div>
-            <div class="mb-3">
-                <label for="productStock" class="form-label">Stock</label>
-                <input type="number" class="form-control" id="productStock" placeholder="Enter stock quantity">
-            </div>
-            <div class="mb-3">
-                <label for="productPrice" class="form-label">Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="productPrice" placeholder="Enter price">
-            </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
-        </form>
-    </div>
-    <script>
-        document.getElementById('addProductForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const data = {
-                name: document.getElementById('productName').value,
-                category: document.getElementById('productCategory').value,
-                stock: document.getElementById('productStock').value,
-                price: document.getElementById('productPrice').value
-            };
-            fetch('/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(result => {
+<div class="container mt-5" id="products-section">
+    <h2 class="mb-4">Add New Product</h2>
+    <form id="addProductForm">
+        <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+        </div>
+
+        <div class="mb-3">
+            <label for="productCategory" class="form-label">Category</label>
+            <select class="form-select" id="productCategory">
+                <option value="">Select category</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Accessories</option>
+                <option value="books">Other</option>
+                <!-- Add more categories as needed -->
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="productBrand" class="form-label">Brand</label>
+            <select class="form-select" id="productBrand">
+                <option value="">Select brand</option>
+                <option value="brandA">Samsung</option>
+                <option value="brandB">GigaBite</option>
+                <option value="brandC">Valutop</option>
+                <!-- Add more brands as needed -->
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="productVendor" class="form-label">Vendor</label>
+            <select class="form-select" id="productVendor">
+                <option value="">Select vendor</option>
+                <option value="vendor1">Vendor 1</option>
+                <option value="vendor2">Vendor 2</option>
+                <!-- Add more vendors as needed -->
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="productType" class="form-label">Type</label>
+            <input type="text" class="form-control" id="productType" placeholder="Enter product type">
+        </div>
+
+        <div class="mb-3">
+            <label for="productStock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="productStock" placeholder="Enter stock quantity">
+        </div>
+
+        <div class="mb-3">
+            <label for="productPrice" class="form-label">Price ($)</label>
+            <input type="number" step="0.01" class="form-control" id="productPrice" placeholder="Enter price">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $('#addProductForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const data = {
+            name: $('#productName').val().trim(),
+            category: $('#productCategory').val(),
+            brand: $('#productBrand').val(),
+            vendor: $('#productVendor').val(),
+            type: $('#productType').val().trim(),
+            stock: parseInt($('#productStock').val(), 10),
+            price: parseFloat($('#productPrice').val())
+        };
+
+        // Basic validation
+        if (!data.name || !data.category || !data.brand || !data.vendor || !data.type) {
+            alert('Please fill out all required fields.');
+            return;
+        }
+
+        $.ajax({
+            url: '/api/products',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
                 alert('Product added successfully!');
-                document.getElementById('addProductForm').reset();
-            })
-            .catch(error => {
+                $('#addProductForm')[0].reset();
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
                 alert('Failed to add product.');
-            });
+            }
         });
-    </script>
+    });
+</script>
+
     
 
 
