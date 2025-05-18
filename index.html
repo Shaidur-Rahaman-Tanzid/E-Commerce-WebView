@@ -8,7 +8,89 @@
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	<title>PC-Shop</title>
+	<style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
 
+    h1 {
+      text-align: center;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .product-tile {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .product-tile:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      /*background-color: #ddd;*/
+      background-image: url('https://via.placeholder.com/300x180?text=Product+Image');
+      background-size: cover;
+      background-position: center;
+    }
+
+	.img-cl {
+		height: 220px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #f0f0f0;
+		overflow: hidden;
+		}
+
+		.img-cl img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
+		}
+
+
+    .product-details {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-title {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .product-description {
+      font-size: 0.9em;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .product-meta {
+      font-size: 0.8em;
+      color: #777;
+    }
+  </style>
 	
 
 	<!-- Google font -->
@@ -282,7 +364,7 @@
 				<!-- Products tab & slick -->
 				<div class="col-md-12">
 					<div class="row">
-						<div id="productContainer">
+						<div class="product-grid" id="productContainer">
 
 						</div>
 						<!-- <div class="products-tabs"> -->
@@ -1182,6 +1264,9 @@
 	<script>
 		var all_products;
 		$(document).ready(function () {
+
+			//render_products('');
+
 			$.ajax({
 				url: 'https://localhost:7111/api/product',  // or /api/products if that's your correct endpoint
 				type: 'GET',
@@ -1190,42 +1275,7 @@
 					let html = '';
 					console.log(products)
 					all_products = products;
-					all_products = [{ "productId": "4956481e-4d75-4b01-b3e8-e0e534bd1187", "productName": "Intel Core i7-12700K", "description": "High performance CPU for gaming and productivity.", "warrantyMonths": 36, "isDeleted": false, "categoryId": "1b892861-cfe0-4e33-8299-4fa2b2f32d38", "categoryName": "Electronics", "productTypeId": "579ecc26-29c0-4ef0-98ea-554412c833f9", "productTypeName": "CPU", "brandId": "74306184-1bf4-46d5-bb6b-dc1ebacbcbbd", "brandName": "Intel", "vendorId": "2cd33088-6ca7-402f-bab4-cb30fbe88cfd", "vendorName": "Tech Supplies Ltd.", "attributes": [], "purchasePrice": null, "salesPrice": null, "discountPrice": null, "finalPrice": null, "priceEffectiveFrom": null, "priceEffectiveTo": null }, { "productId": "46ca230e-2af7-49f3-b826-0e025e4584ca", "productName": "Corsair Vengeance LPX 16GB", "description": "16GB DDR4 RAM for high-speed performance.", "warrantyMonths": 12, "isDeleted": false, "categoryId": "68b0fbdf-124e-4aa2-9c89-2d9fff400929", "categoryName": "Peripherals", "productTypeId": "fa03244f-49ce-4956-9f23-83b53f43e2e8", "productTypeName": "RAM", "brandId": "0534f15b-d401-4a58-8754-90b9cc04905a", "brandName": "Corsair", "vendorId": "fcf9e714-fd91-457b-bdec-00d199c459dd", "vendorName": "PC Parts Co.", "attributes": [], "purchasePrice": null, "salesPrice": null, "discountPrice": null, "finalPrice": null, "priceEffectiveFrom": null, "priceEffectiveTo": null }, { "productId": "f779ee6a-66fc-467f-b1f8-a755585eb54d", "productName": "AMD 3500", "description": "Processor", "warrantyMonths": 2, "isDeleted": false, "categoryId": "1b892861-cfe0-4e33-8299-4fa2b2f32d38", "categoryName": "Electronics", "productTypeId": "579ecc26-29c0-4ef0-98ea-554412c833f9", "productTypeName": "CPU", "brandId": "74306184-1bf4-46d5-bb6b-dc1ebacbcbbd", "brandName": "Intel", "vendorId": "fcf9e714-fd91-457b-bdec-00d199c459dd", "vendorName": "PC Parts Co.", "attributes": [], "purchasePrice": null, "salesPrice": null, "discountPrice": null, "finalPrice": null, "priceEffectiveFrom": null, "priceEffectiveTo": null }, { "productId": "c5a95585-773f-4cbe-8484-5e0942c1d9ff", "productName": "Nvidia GeForce RTX 3080", "description": "High-end GPU for gaming and content creation.", "warrantyMonths": 24, "isDeleted": false, "categoryId": "1b892861-cfe0-4e33-8299-4fa2b2f32d38", "categoryName": "Electronics", "productTypeId": "6be52a01-aca2-40c9-9970-064b506a5bf7", "productTypeName": "GPU", "brandId": "bc5a842d-f98c-42c4-8245-240ee4b830cd", "brandName": "Nvidia", "vendorId": "3d42954d-f3c1-4374-9251-be2a48846926", "vendorName": "Gadget World", "attributes": [], "purchasePrice": null, "salesPrice": null, "discountPrice": null, "finalPrice": null, "priceEffectiveFrom": null, "priceEffectiveTo": null }, { "productId": "4d8f670d-0ae5-4ef7-9350-59ac0657cf81", "productName": "Seagate Barracuda 2TB", "description": "2TB HDD for storage needs.", "warrantyMonths": 36, "isDeleted": false, "categoryId": "c8ce551e-0f38-4613-970d-1795ad1fd99d", "categoryName": "Accessories", "productTypeId": "5f3747e9-440c-4e7c-af61-21c64d6c5b54", "productTypeName": "Storage", "brandId": "95091f5c-eac9-4b48-a069-77969645cd61", "brandName": "Seagate", "vendorId": "2cd33088-6ca7-402f-bab4-cb30fbe88cfd", "vendorName": "Tech Supplies Ltd.", "attributes": [], "purchasePrice": null, "salesPrice": null, "discountPrice": null, "finalPrice": null, "priceEffectiveFrom": null, "priceEffectiveTo": null }];
-
-					const container = document.getElementById("productContainer");
-
-  all_products.forEach(product => {
-    const card = document.createElement("div");
-    card.className = "product";
-
-    card.innerHTML = `
-      <div class="product-img">
-        <img src="${product.image}" alt="${product.productName}">
-        <div class="product-label">
-          <span class="sale">-${Math.round(((product.discountPrice - product.salesPrice) / product.discountPrice) * 100)}%</span>
-          <span class="new">NEW</span>
-        </div>
-      </div>
-      <div class="product-body">
-        <p class="product-category">${product.categoryName}</p>
-        <h3 class="product-name"><a href="#">${product.productName}</a></h3>
-        <h4 class="product-price">$${product.salesPrice.toFixed(2)} <del class="product-old-price">$${product.discountPrice.toFixed(2)}</del></h4>
-        <div class="product-rating">
-          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-        </div>
-        <div class="product-btns">
-          <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-          <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-          <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-        </div>
-      </div>
-      <div class="add-to-cart">
-        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-      </div>
-    `;
-
-    container.appendChild(card);
-  });
+					render_products(products);
 
 					// $('#productsTableBody').html(html);
 				},
@@ -1234,7 +1284,36 @@
 					alert('Failed to load products.');
 				}
 			});
+
+
 		});
+
+		function render_products(all_products){
+			const grid = document.getElementById("productContainer");
+
+			//all_products = [{"productId":"4956481e-4d75-4b01-b3e8-e0e534bd1187","productName":"Intel Core i7-12700K","description":"High performance CPU for gaming and productivity.","warrantyMonths":36,"categoryName":"Electronics","productTypeName":"CPU","brandName":"Intel","vendorName":"Tech Supplies Ltd."},{"productId":"46ca230e-2af7-49f3-b826-0e025e4584ca","productName":"Corsair Vengeance LPX 16GB","description":"16GB DDR4 RAM for high-speed performance.","warrantyMonths":12,"categoryName":"Peripherals","productTypeName":"RAM","brandName":"Corsair","vendorName":"PC Parts Co."},{"productId":"f779ee6a-66fc-467f-b1f8-a755585eb54d","productName":"AMD 3500","description":"Processor","warrantyMonths":2,"categoryName":"Electronics","productTypeName":"CPU","brandName":"Intel","vendorName":"PC Parts Co."},{"productId":"c5a95585-773f-4cbe-8484-5e0942c1d9ff","productName":"Nvidia GeForce RTX 3080","description":"High-end GPU for gaming and content creation.","warrantyMonths":24,"categoryName":"Electronics","productTypeName":"GPU","brandName":"Nvidia","vendorName":"Gadget World"},{"productId":"4d8f670d-0ae5-4ef7-9350-59ac0657cf81","productName":"Seagate Barracuda 2TB","description":"2TB HDD for storage needs.","warrantyMonths":36,"categoryName":"Accessories","productTypeName":"Storage","brandName":"Seagate","vendorName":"Tech Supplies Ltd."}];
+			all_products.forEach(product => {
+			const tile = document.createElement("div");
+			tile.className = "product-tile";
+				// <div class="product-image"><img class='img-cl' src="./img/product01.png" alt=""></div>
+			tile.innerHTML = `
+				<div class="img-cl"><img src="./img/product01.png" alt="Product"></div>
+				<div class="product-details">
+				<div class="product-title">${product.productName}</div>
+				<div class="product-description">${product.description}</div>
+				<div class="product-price">
+					<strong>Price: ${product.salesPrice} BDT</strong></div>
+				<div class="product-meta">
+					<strong>Brand:</strong> ${product.brandName}<br>
+					<strong>Type:</strong> ${product.productTypeName}<br>
+					<strong>Vendor:</strong> ${product.vendorName}<br>
+					<strong>Warranty:</strong> ${product.warrantyMonths} months
+				</div>
+				</div>
+			`;
+			grid.appendChild(tile);
+			});
+		}
 
 	</script>
 
