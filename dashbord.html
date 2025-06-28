@@ -360,11 +360,10 @@
             <!-- Sidebar Navigation Items -->
             <li class="nav-item"><a href="#dashboard" class="nav-link active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
             <li class="nav-item"><a href="#users" class="nav-link" data-page="users"><i class="fas fa-users"></i> User Management</a></li>
-            <li class="nav-item"><a href="#products-section" class="nav-link" data-page="products"><i class="fas fa-box"></i> Products</a></li>
+            <li class="nav-item"><a href="product-add.html" class="nav-link" data-page="products"><i class="fas fa-box"></i> Products</a></li>
             <li class="nav-item"><a href="#categories" class="nav-link" data-page="categories"><i class="fas fa-tags"></i> Categories</a></li>
             <li class="nav-item"><a href="#orders" class="nav-link" data-page="orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
             <li class="nav-item"><a href="#reports" class="nav-link" data-page="reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
-            <li class="nav-item"><a href="#settings" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
             <li class="nav-item mt-5"><a href="#logout" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
@@ -834,90 +833,19 @@
         </div>
     </div>
 
-    <!-- Product Add Section -->
-    <div class="container mt-5" id="products-section">
-        <h2 class="mb-4">Add New Product</h2>
-        <form id="addProductForm">
-            <div class="mb-3">
-                <label for="productName" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="productName" placeholder="Enter product name">
-            </div>
-
-            <div class="mb-3">
-                <label for="productDescription" class="form-label">Description</label>
-                <textarea class="form-control" id="productDescription" placeholder="Enter product description"></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="productWarranty" class="form-label">Warranty (months)</label>
-                <input type="number" class="form-control" id="productWarranty" placeholder="Enter warranty in months">
-            </div>
-
-            <div class="mb-3">
-                <label for="productCategory" class="form-label">Category</label>
-                <select class="form-select" id="productCategory">
-                    <option value="">Select category</option>
-                    <option value="1b892861-cfe0-4e33-8299-4fa2b2f32d38">Electronics</option>
-                    <option value="68b0fbdf-124e-4aa2-9c89-2d9fff400929">Peripherals</option>
-                    <option value="c8ce551e-0f38-4613-970d-1795ad1fd99d">Accessories</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="productBrand" class="form-label">Brand</label>
-                <select class="form-select" id="productBrand">
-                    <option value="">Select brand</option>
-                    <option value="74306184-1bf4-46d5-bb6b-dc1ebacbcbbd">Intel</option>
-                    <option value="bc5a842d-f98c-42c4-8245-240ee4b830cd">Nvidia</option>
-                    <option value="0534f15b-d401-4a58-8754-90b9cc04905a">Corsair</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="productVendor" class="form-label">Vendor</label>
-                <select class="form-select" id="productVendor">
-                    <option value="">Select vendor</option>
-                    <option value="3d42954d-f3c1-4374-9251-be2a48846926">Gadget World</option>
-                    <option value="fcf9e714-fd91-457b-bdec-00d199c459dd">PC Parts Co.</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="productType" class="form-label">Product Type</label>
-                <select class="form-select" id="productType">
-                    <option value="">Select type</option>
-                    <option value="579ecc26-29c0-4ef0-98ea-554412c833f9">CPU</option>
-                    <option value="6be52a01-aca2-40c9-9970-064b506a5bf7">GPU</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="productPurchasePrice" class="form-label">Purchase Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="productPurchasePrice">
-            </div>
-
-            <div class="mb-3">
-                <label for="productSalesPrice" class="form-label">Sales Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="productSalesPrice">
-            </div>
-
-            <div class="mb-3">
-                <label for="productDiscountPrice" class="form-label">Discount Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="productDiscountPrice">
-            </div>
-
-            <div class="mb-3">
-                <label for="productFinalPrice" class="form-label">Final Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="productFinalPrice">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Add Product</button>
-        </form>
-    </div>
+ 
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <!-- <script>
+            function updateFinalPrice() {
+        const salesPrice = parseFloat($('#productSalesPrice').val()) || 0;
+        const discountPrice = parseFloat($('#productDiscountPrice').val()) || 0;
+        const finalPrice = Math.max(salesPrice - discountPrice, 0); // Ensure it doesn't go negative
+        $('#productFinalPrice').val(finalPrice.toFixed(2));
+    }
+
+    $('#productSalesPrice, #productDiscountPrice').on('input', updateFinalPrice);
         $('#addProductForm').on('submit', function (e) {
             e.preventDefault();
 
@@ -960,7 +888,7 @@
                 }
             });
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

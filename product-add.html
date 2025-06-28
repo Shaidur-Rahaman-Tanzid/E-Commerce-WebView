@@ -1,36 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Add Product</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="Views/admin-dashboard/dashboard-css.css">
+    <title>Add New Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Product add page */
+        #product-add-page {
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: 8px;
+        }
+
+        #product-add-page h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        #product-add-page .form-label {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        #product-add-page .form-control {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 10px 12px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        #product-add-page .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(220, 10, 45, 0.25);
+        }
+
+        #product-add-page .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        #product-add-page .btn-primary:hover {
+            background-color: #b50924;
+        }
+
+        #products-section {
+            width: 80%;
+            margin-left: 250px;
+            margin-right: 60px;
+        }
+
+        #addProductForm {
+            margin-right: 20px;
+            width: 80%;
+        }
+    </style>
 </head>
+
 <body>
-    <div class="container mt-5">
+
+    <div class="container mt-5" id="products-section">
         <h2 class="mb-4">Add New Product</h2>
-        <form>
+        <form id="addProductForm">
             <div class="mb-3">
                 <label for="productName" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="productName" placeholder="Enter product name">
             </div>
+
+            <div class="mb-3">
+                <label for="productDescription" class="form-label">Description</label>
+                <textarea class="form-control" id="productDescription"
+                    placeholder="Enter product description"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="productWarranty" class="form-label">Warranty (months)</label>
+                <input type="number" class="form-control" id="productWarranty" placeholder="Enter warranty in months">
+            </div>
+
             <div class="mb-3">
                 <label for="productCategory" class="form-label">Category</label>
-                <input type="text" class="form-control" id="productCategory" placeholder="Enter category">
+                <select class="form-select" id="productCategory">
+                    <option value="">Select category</option>
+                    <option value="1b892861-cfe0-4e33-8299-4fa2b2f32d38">Electronics</option>
+                    <option value="68b0fbdf-124e-4aa2-9c89-2d9fff400929">Peripherals</option>
+                    <option value="c8ce551e-0f38-4613-970d-1795ad1fd99d">Accessories</option>
+                </select>
             </div>
+
             <div class="mb-3">
-                <label for="productStock" class="form-label">Stock</label>
-                <input type="number" class="form-control" id="productStock" placeholder="Enter stock quantity">
+                <label for="productBrand" class="form-label">Brand</label>
+                <select class="form-select" id="productBrand">
+                    <option value="">Select brand</option>
+                    <option value="74306184-1bf4-46d5-bb6b-dc1ebacbcbbd">Intel</option>
+                    <option value="bc5a842d-f98c-42c4-8245-240ee4b830cd">Nvidia</option>
+                    <option value="0534f15b-d401-4a58-8754-90b9cc04905a">Corsair</option>
+                </select>
             </div>
+
             <div class="mb-3">
-                <label for="productPrice" class="form-label">Price ($)</label>
-                <input type="number" step="0.01" class="form-control" id="productPrice" placeholder="Enter price">
+                <label for="productVendor" class="form-label">Vendor</label>
+                <select class="form-select" id="productVendor">
+                    <option value="">Select vendor</option>
+                    <option value="3d42954d-f3c1-4374-9251-be2a48846926">Gadget World</option>
+                    <option value="fcf9e714-fd91-457b-bdec-00d199c459dd">PC Parts Co.</option>
+                </select>
             </div>
+
+            <div class="mb-3">
+                <label for="productType" class="form-label">Product Type</label>
+                <select class="form-select" id="productType">
+                    <option value="">Select type</option>
+                    <option value="579ecc26-29c0-4ef0-98ea-554412c833f9">CPU</option>
+                    <option value="6be52a01-aca2-40c9-9970-064b506a5bf7">GPU</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="productPurchasePrice" class="form-label">Purchase Price ($)</label>
+                <input type="number" step="0.01" class="form-control" id="productPurchasePrice">
+            </div>
+
+            <div class="mb-3">
+                <label for="productSalesPrice" class="form-label">Sales Price ($)</label>
+                <input type="number" step="0.01" class="form-control" id="productSalesPrice">
+            </div>
+
+            <div class="mb-3">
+                <label for="productDiscountPrice" class="form-label">Discount Price ($)</label>
+                <input type="number" step="0.01" class="form-control" id="productDiscountPrice">
+            </div>
+
+            <div class="mb-3">
+                <label for="productFinalPrice" class="form-label">Final Price ($)</label>
+                <input type="number" step="0.01" class="form-control" id="productFinalPrice" readonly>
+            </div>
+
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        
+        // Auto update final price when user types in sales or discount price
+        function updateFinalPrice() {
+            const salesPrice = parseFloat($('#productSalesPrice').val()) || 0;
+            const discountPrice = parseFloat($('#productDiscountPrice').val()) || 0;
+            const finalPrice = Math.max(salesPrice - discountPrice, 0);
+            $('#productFinalPrice').val(finalPrice.toFixed(2));
+        }
+
+        $('#productSalesPrice, #productDiscountPrice').on('input', updateFinalPrice);
+
+        // Handle form submission
+        $('#addProductForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const data = {
+                name: $('#productName').val().trim(),
+                description: $('#productDescription').val().trim() || "",
+                warrantyMonths: parseInt($('#productWarranty').val(), 10) || 0,
+                productTypeId: $('#productType').val(),
+                categoryId: $('#productCategory').val(),
+                brandId: $('#productBrand').val(),
+                vendorId: $('#productVendor').val(),
+                purchasePrice: parseFloat($('#productPurchasePrice').val()) || 0,
+                salesPrice: parseFloat($('#productSalesPrice').val()) || 0,
+                discountPrice: parseFloat($('#productDiscountPrice').val()) || 0,
+                finalPrice: parseFloat($('#productFinalPrice').val()) || 0,
+                priceEffectiveFrom: new Date().toISOString(),
+                priceEffectiveTo: new Date().toISOString()
+            };
+
+            if (!data.name || !data.categoryId || !data.brandId || !data.vendorId || !data.productTypeId) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            $.ajax({
+                url: 'https://localhost:7111/api/product',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function () {
+                    alert('Product added successfully!');
+                    $('#addProductForm')[0].reset();
+                    updateFinalPrice(); // Reset final price
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert('Failed to add product.');
+                }
+            });
+        });
     </script>
+
 </body>
+
 </html>
