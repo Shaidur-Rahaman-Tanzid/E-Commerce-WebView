@@ -38,21 +38,24 @@
         /* GLOBAL: Prevent horizontal overflow and box-sizing fix */
         html, body {
             overflow-x: hidden;
-            width: 100vw;
+            width: 100%;
         }
         *, *::before, *::after {
             box-sizing: border-box;
         }
-        .container, .container-fluid {
-            overflow-x: hidden;
-            max-width: 100vw;
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+            max-width: 1170px;
+            width: 100%;
         }
         .row {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
+            margin-left: -15px;
+            margin-right: -15px;
+            display: flex;
             flex-wrap: wrap;
-            max-width: 100vw;
-            overflow-x: hidden;
         }
         [class*='col-'] {
             padding-left: 8px;
@@ -77,6 +80,19 @@
         .product-body::-webkit-scrollbar {
             display: none !important;
         }
+        /* Sidebar fixes */
+        #aside {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        .search-sidebar {
+            width: 100%;
+            margin: 0;
+            padding: 15px !important;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
         /* Responsive adjustments for filter sidebar and store */
         @media (max-width: 991.98px) {
             #aside.col-md-3 {
@@ -85,6 +101,7 @@
                 margin-bottom: 20px;
                 float: none;
                 display: block;
+                overflow: hidden;
             }
             #store.col-md-9 {
                 width: 100%;
@@ -94,6 +111,7 @@
             }
             .search-sidebar {
                 margin-bottom: 20px;
+                overflow-x: hidden;
             }
         }
         @media (max-width: 767.98px) {
@@ -124,9 +142,21 @@
                 padding: 10px;
             }
         }
-        /* Fix for filter sidebar scroll on small screens */
-        #aside {
-            overflow: visible;
+        /* Additional fixes for form elements in sidebar */
+        .search-sidebar .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .search-sidebar select,
+        .search-sidebar input {
+            width: 100%;
+            max-width: 100%;
+        }
+        .search-sidebar .row {
+            margin: 0 -8px;
+        }
+        .search-sidebar [class*='col-'] {
+            padding: 0 8px;
         }
     </style>
 
@@ -381,27 +411,27 @@
 									<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;">
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
 											<input type="checkbox" name="min_rating[]" value="5">
-											<span class="min-rating-label">★★★★★ & Up *</span>
+											<span class="min-rating-label">★★★★★</span>
 										</label>
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
 											<input type="checkbox" name="min_rating[]" value="4">
-											<span class="min-rating-label">★★★★☆ & Up *</span>
+											<span class="min-rating-label">★★★★☆</span>
 										</label>
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
 											<input type="checkbox" name="min_rating[]" value="3">
-											<span class="min-rating-label">★★★☆☆ & Up *</span>
+											<span class="min-rating-label">★★★☆☆</span>
 										</label>
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
 											<input type="checkbox" name="min_rating[]" value="2">
-											<span class="min-rating-label">★★☆☆☆ & Up *</span>
+											<span class="min-rating-label">★★☆☆☆</span>
 										</label>
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
 											<input type="checkbox" name="min_rating[]" value="1">
-											<span class="min-rating-label">★☆☆☆☆ & Up *</span>
+											<span class="min-rating-label">★☆☆☆☆</span>
 										</label>
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
 											<input type="checkbox" name="min_rating[]" value="0">
-											<span class="min-rating-label">Any Rating *</span>
+											<span class="min-rating-label">Any Rating</span>
 										</label>
 									</div>
 								</div>
@@ -441,267 +471,7 @@
 
 						<!-- store products -->
 						<div class="row">
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product01.png" alt="">
-										<div class="product-label">
-											<span class="sale">-30%</span>
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product02.png" alt="">
-										<div class="product-label">
-											<span class="new">NEW</span>
-										</div>
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<div class="clearfix visible-sm visible-xs"></div>
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product03.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<div class="clearfix visible-lg visible-md"></div>
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product04.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<div class="clearfix visible-sm visible-xs"></div>
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product05.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product06.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star-o"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product07.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product08.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
-
-							<div class="clearfix visible-sm visible-xs"></div>
-
-							<!-- product -->
-							<div class="col-md-4 col-xs-6">
-								<div class="product">
-									<div class="product-img">
-										<img src="./img/product09.png" alt="">
-									</div>
-									<div class="product-body">
-										<p class="product-category">Category</p>
-										<h3 class="product-name"><a href="#">product name goes here</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-										<div class="product-rating">
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-										</div>
-									</div>
-									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-									</div>
-								</div>
-							</div>
-							<!-- /product -->
+							<!-- All static product cards removed. Only dynamic products will be rendered by JS. -->
 						</div>
 						<!-- /store products -->
 
@@ -868,128 +638,349 @@
 		<script>
 // Static data for the whole page
 var staticData = {
-    "brands": [
-        {"count": 2, "brand_id": "b1", "brandname": "Intel"},
-        {"count": 1, "brand_id": "b2", "brandname": "Nvidia"},
-        {"count": 2, "brand_id": "b3", "brandname": "Corsair"},
-        {"count": 1, "brand_id": "b4", "brandname": "Samsung"}
+    brands: [
+        { brand_id: "c65d108e-1ce1-4d79-9012-a7a605d08604", brandname: "Intel" },
+        { brand_id: "95d38a76-1e78-46bc-a2f5-aaef69cf8e7f", brandname: "Nvidia" },
+        { brand_id: "86a9078b-30d3-4a1d-82d8-ee18e7a74857", brandname: "Corsair" },
+        { brand_id: "b1", brandname: "AMD" },
+        { brand_id: "b2", brandname: "Samsung" },
+        { brand_id: "b3", brandname: "Kingston" },
+        { brand_id: "b4", brandname: "ASUS" },
+        { brand_id: "b5", brandname: "Gigabyte" },
+        { brand_id: "b6", brandname: "Seagate" },
+        { brand_id: "b7", brandname: "Western Digital" }
     ],
-    "vendors": [
-        {"count": 2, "vendor_id": "v1", "vendorname": "Tech Supplies Ltd."},
-        {"count": 2, "vendor_id": "v2", "vendorname": "Gadget World"}
-    ],
-    "products": [
+    products: [
         {
-          "brandid": "b1",
-          "vendorid": "v1",
-          "brandname": "Intel",
-          "productid": "p1",
-          "categoryid": "c1",
-          "finalprice": 299.99,
-          "salesprice": 349.99,
-          "vendorname": "Tech Supplies Ltd.",
-          "description": "10th Gen Core i5 CPU",
-          "productname": "Intel Core i5-10400F",
-          "categoryname": "Processors",
-          "discountprice": 50.00,
-          "producttypeid": "t1",
-          "purchaseprice": 250.00,
-          "productpriceid": "pp1",
-          "warrantymonths": 36,
-          "producttypename": "CPU"
+            id: "b25900a0-a311-4d70-acc2-5411e52c6661",
+            name: "Intel Core i7-12700K",
+            brandId: "c65d108e-1ce1-4d79-9012-a7a605d08604",
+            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
+            vendorId: "05e8302a-d454-4e73-bf6c-22991f6bd793",
+            typeId: "7a9026b9-4ee2-4636-862a-1a4ccbe896a8",
+            description: "High performance CPU for gaming and productivity.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
         },
         {
-          "brandid": "b2",
-          "vendorid": "v2",
-          "brandname": "Nvidia",
-          "productid": "p2",
-          "categoryid": "c2",
-          "finalprice": 499.99,
-          "salesprice": 599.99,
-          "vendorname": "Gadget World",
-          "description": "RTX 3060 12GB GPU",
-          "productname": "Nvidia GeForce RTX 3060",
-          "categoryname": "Graphics Cards",
-          "discountprice": 100.00,
-          "producttypeid": "t2",
-          "purchaseprice": 400.00,
-          "productpriceid": "pp2",
-          "warrantymonths": 24,
-          "producttypename": "GPU"
+            id: "4afeb6ab-c744-415d-934a-e210268c300a",
+            name: "Nvidia GeForce RTX 3080",
+            brandId: "95d38a76-1e78-46bc-a2f5-aaef69cf8e7f",
+            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
+            vendorId: "c60b7b1a-3e60-4b5c-80e6-ffffc401c0da",
+            typeId: "3aea15b7-13f7-4f42-b7c1-d6eff16c678e",
+            description: "High-end GPU for gaming and content creation.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
         },
         {
-          "brandid": "b3",
-          "vendorid": "v1",
-          "brandname": "Corsair",
-          "productid": "p3",
-          "categoryid": "c3",
-          "finalprice": 89.99,
-          "salesprice": 99.99,
-          "vendorname": "Tech Supplies Ltd.",
-          "description": "16GB DDR4 RAM",
-          "productname": "Corsair Vengeance LPX 16GB",
-          "categoryname": "Memory",
-          "discountprice": 10.00,
-          "producttypeid": "t3",
-          "purchaseprice": 80.00,
-          "productpriceid": "pp3",
-          "warrantymonths": 60,
-          "producttypename": "RAM"
+            id: "5668908b-d66e-4b20-91a2-23f06b9c608c",
+            name: "Corsair Vengeance LPX 16GB",
+            brandId: "86a9078b-30d3-4a1d-82d8-ee18e7a74857",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd",
+            typeId: "6af8e6b3-5357-4fcc-a5a4-01b89d9d7513",
+            description: "16GB DDR4 RAM for high-speed performance.",
+            warrantyMonths: 12,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
         },
         {
-          "brandid": "b4",
-          "vendorid": "v2",
-          "brandname": "Samsung",
-          "productid": "p4",
-          "categoryid": "c4",
-          "finalprice": 129.99,
-          "salesprice": 149.99,
-          "vendorname": "Gadget World",
-          "description": "1TB NVMe SSD",
-          "productname": "Samsung 970 EVO Plus 1TB",
-          "categoryname": "Storage",
-          "discountprice": 20.00,
-          "producttypeid": "t4",
-          "purchaseprice": 110.00,
-          "productpriceid": "pp4",
-          "warrantymonths": 60,
-          "producttypename": "SSD"
+            id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            name: "Samsung 970 EVO Plus 1TB",
+            brandId: "b1c2d3e4-f5a6-7890-bcde-fa1234567890",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "d1e2f3a4-b5c6-7890-cdef-ab1234567890",
+            typeId: "8b9c0d1e-2f3a-4b5c-8d9e-0f1a2b3c4d5e",
+            description: "Fast NVMe SSD for quick data access.",
+            warrantyMonths: 60,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
         },
         {
-          "brandid": "b3",
-          "vendorid": "v2",
-          "brandname": "Corsair",
-          "productid": "p5",
-          "categoryid": "c3",
-          "finalprice": 59.99,
-          "salesprice": 69.99,
-          "vendorname": "Gadget World",
-          "description": "650W Power Supply",
-          "productname": "Corsair CX650M PSU",
-          "categoryname": "Power Supplies",
-          "discountprice": 10.00,
-          "producttypeid": "t5",
-          "purchaseprice": 50.00,
-          "productpriceid": "pp5",
-          "warrantymonths": 36,
-          "producttypename": "PSU"
+            id: "b2c3d4e5-f6a7-8901-bcde-fa2345678901",
+            name: "ASUS ROG Strix Z690-E",
+            brandId: "c2d3e4f5-a6b7-8901-cdef-ab2345678901",
+            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
+            vendorId: "e2f3a4b5-c6d7-8901-defa-bc2345678901",
+            typeId: "9c0d1e2f-3a4b-5c6d-8e9f-0a1b2c3d4e5f",
+            description: "High-end motherboard for Intel CPUs.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "c3d4e5f6-a7b8-9012-cdef-ab3456789012",
+            name: "Cooler Master Hyper 212",
+            brandId: "d3e4f5a6-b7c8-9012-defa-bc3456789012",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "f3a4b5c6-d7e8-9012-efab-cd3456789012",
+            typeId: "0d1e2f3a-4b5c-6d7e-8f9a-1b2c3d4e5f6a",
+            description: "Popular air cooler for CPUs.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "d4e5f6a7-b8c9-0123-defa-bc4567890123",
+            name: "EVGA SuperNOVA 750 G5",
+            brandId: "e4f5a6b7-c8d9-0123-efab-cd4567890123",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "a4b5c6d7-e8f9-0123-fabc-de4567890123",
+            typeId: "1e2f3a4b-5c6d-7e8f-9a0b-2c3d4e5f6a7b",
+            description: "Reliable 750W power supply.",
+            warrantyMonths: 120,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "e5f6a7b8-c9d0-1234-efab-cd5678901234",
+            name: "NZXT H510 Mid Tower",
+            brandId: "f5a6b7c8-d9e0-1234-fabc-de5678901234",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "b5c6d7e8-f9a0-1234-abcd-ef5678901234",
+            typeId: "2f3a4b5c-6d7e-8f9a-0b1c-3d4e5f6a7b8c",
+            description: "Minimalist PC case with tempered glass.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "f6a7b8c9-d0e1-2345-fabc-de8901234567",
+            name: "Logitech G502 HERO",
+            brandId: "a6b7c8d9-e0f1-2345-abcd-ef6789012345",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "c6d7e8f9-a0b1-2345-bcde-fa6789012345",
+            typeId: "3a4b5c6d-7e8f-9a0b-1c2d-4e5f6a7b8c9d",
+            description: "High-precision gaming mouse.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "a7b8c9d0-e1f2-3456-abcd-ef7890123456",
+            name: "Dell UltraSharp U2720Q",
+            brandId: "b7c8d9e0-f1a2-3456-bcde-fa7890123456",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "d7e8f9a0-b1c2-3456-cdef-ab7890123456",
+            typeId: "4b5c6d7e-8f9a-0b1c-2d3e-5f6a7b8c9d0e",
+            description: "27-inch 4K monitor for professionals.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "b8c9d0e1-f2a3-4567-bcde-fa8901234567",
+            name: "Razer BlackWidow V3",
+            brandId: "c8d9e0f1-a2b3-4567-cdef-ab8901234567",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "e8f9a0b1-c2d3-4567-defa-bc8901234567",
+            typeId: "5c6d7e8f-9a0b-1c2d-3e4f-6a7b8c9d0e1f",
+            description: "Mechanical gaming keyboard.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "c9d0e1f2-a3b4-5678-cdef-ab9012345678",
+            name: "Seagate Barracuda 2TB",
+            brandId: "d9e0f1a2-b3c4-5678-defa-bc9012345678",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "f9a0b1c2-d3e4-5678-efab-cd9012345678",
+            typeId: "6d7e8f9a-0b1c-2d3e-4f5a-7b8c9d0e1f2a",
+            description: "Reliable 2TB HDD for storage.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "d0e1f2a3-b4c5-6789-defa-bc0123456789",
+            name: "MSI Optix MAG272CQR",
+            brandId: "e0f1a2b3-c4d5-6789-efab-cd0123456789",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "a0b1c2d3-e4f5-6789-fabc-de0123456789",
+            typeId: "7e8f9a0b-1c2d-3e4f-5a6b-8c9d0e1f2a3b",
+            description: "27-inch curved gaming monitor.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "e1f2a3b4-c5d6-7890-efab-cd1234567890",
+            name: "Kingston A400 480GB SSD",
+            brandId: "f1a2b3c4-d5e6-7890-fabc-de1234567890",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "b1c2d3e4-f5a6-7890-cdef-ab1234567890",
+            typeId: "8f9a0b1c-2d3e-4f5a-6b7c-9d0e1f2a3b4c",
+            description: "Affordable SSD for fast boot times.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "f2a3b4c5-d6e7-8901-fabc-de2345678901",
+            name: "Gigabyte B550M DS3H",
+            brandId: "a2b3c4d5-e6f7-8901-abcd-ef2345678901",
+            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
+            vendorId: "c2d3e4f5-a6b7-8901-cdef-ab2345678901",
+            typeId: "9a0b1c2d-3e4f-5a6b-7c8d-0e1f2a3b4c5d",
+            description: "Micro ATX motherboard for AMD CPUs.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "a3b4c5d6-e7f8-9012-abcd-ef3456789012",
+            name: "AMD Ryzen 7 5800X",
+            brandId: "b3c4d5e6-f7a8-9012-bcde-fa3456789012",
+            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
+            vendorId: "d3e4f5a6-b7c8-9012-defa-bc3456789012",
+            typeId: "0b1c2d3e-4f5a-6b7c-8d9e-1f2a3b4c5d6e",
+            description: "8-core CPU for gaming and productivity.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "b4c5d6e7-f8a9-0123-bcde-fa4567890123",
+            name: "HyperX Cloud II Headset",
+            brandId: "c4d5e6f7-a8b9-0123-cdef-ab4567890123",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "e4f5a6b7-c8d9-0123-efab-cd4567890123",
+            typeId: "1c2d3e4f-5a6b-7c8d-9e0f-2a3b4c5d6e7f",
+            description: "Comfortable gaming headset with surround sound.",
+            warrantyMonths: 24,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "c5d6e7f8-a9b0-1234-cdef-ab5678901234",
+            name: "ASRock Phantom Gaming D",
+            brandId: "d5e6f7a8-b9c0-1234-defa-bc5678901234",
+            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
+            vendorId: "f5a6b7c8-d9e0-1234-fabc-de5678901234",
+            typeId: "2d3e4f5a-6b7c-8d9e-0f1a-3b4c5d6e7f8a",
+            description: "ATX motherboard for Intel CPUs.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "d6e7f8a9-b0c1-2345-defa-bc6789012345",
+            name: "ADATA XPG SX8200 Pro 512GB",
+            brandId: "e6f7a8b9-c0d1-2345-efab-cd6789012345",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "a6b7c8d9-e0f1-2345-abcd-ef6789012345",
+            typeId: "3e4f5a6b-7c8d-9e0f-1a2b-4c5d6e7f8a9b",
+            description: "High-speed NVMe SSD for gaming.",
+            warrantyMonths: 60,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "e7f8a9b0-c1d2-3456-efab-cd7890123456",
+            name: "SteelSeries QcK Mousepad",
+            brandId: "f7a8b9c0-d1e2-3456-fabc-de7890123456",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "b7c8d9e0-f1a2-3456-bcde-fa7890123456",
+            typeId: "4f5a6b7c-8d9e-0f1a-2b3c-5d6e7f8a9b0c",
+            description: "Large mousepad for smooth movement.",
+            warrantyMonths: 12,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
+        },
+        {
+            id: "f8a9b0c1-d2e3-4567-fabc-de8901234567",
+            name: "BenQ ZOWIE XL2546K",
+            brandId: "a8b9c0d1-e2f3-4567-abcd-ef8901234567",
+            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
+            vendorId: "c8d9e0f1-a2b3-4567-cdef-ab8901234567",
+            typeId: "5a6b7c8d-9e0f-1a2b-3c4d-6e7f8a9b0c1d",
+            description: "240Hz gaming monitor for esports.",
+            warrantyMonths: 36,
+            isDeleted: false,
+            createdAt: "2025-05-07T09:06:38.391+0600",
+            createdBy: "unknown",
+            updatedAt: "2025-05-07T09:06:38.391+0600",
+            updatedBy: "unknown"
         }
-    ],
-    "categories": [
-        {"count": 1, "category_id": "c1", "categoryname": "Processors"},
-        {"count": 1, "category_id": "c2", "categoryname": "Graphics Cards"},
-        {"count": 2, "category_id": "c3", "categoryname": "Memory"},
-        {"count": 1, "category_id": "c4", "categoryname": "Storage"},
-        {"count": 1, "category_id": "c5", "categoryname": "Power Supplies"}
-    ],
-    "productTypes": [
-        {"count": 1, "product_type_id": "t1", "producttypename": "CPU"},
-        {"count": 1, "product_type_id": "t2", "producttypename": "GPU"},
-        {"count": 2, "product_type_id": "t3", "producttypename": "RAM"},
-        {"count": 1, "product_type_id": "t4", "producttypename": "SSD"},
-        {"count": 1, "product_type_id": "t5", "producttypename": "PSU"}
     ]
 };
+
+// Map new product keys to legacy keys for compatibility
+staticData.products = staticData.products.map(p => ({
+    ...p,
+    productname: p.name,
+    brandid: p.brandId,
+    categoryid: p.categoryId,
+    vendorid: p.vendorId,
+    producttypeid: p.typeId,
+    // Optionally add dummy values for price/rating if needed for UI
+    finalprice: p.finalprice !== undefined ? p.finalprice : Math.floor(Math.random()*1000)+100,
+    rating: p.rating !== undefined ? p.rating : Math.floor(Math.random()*5)+1
+}));
 
 function renderProducts(products) {
 	products = products.product || [];
@@ -1037,34 +1028,38 @@ function renderProducts(products) {
 
 
 function updateLeftPanel(data) {
+    // Defensive: fallback to empty arrays if undefined
+    const categories = data.categories || [];
+    const brands = data.brands || [];
+    const productTypes = data.productTypes || [];
     // Update categories dropdown
     const categorySelect = document.getElementById('category_id');
     if (categorySelect) {
         categorySelect.innerHTML = '<option value="">-- Select --</option>' +
-            data.categories.map(cat => `<option value="${cat.category_id}">${cat.categoryname} (${cat.count})</option>`).join('');
+            categories.map(cat => `<option value="${cat.category_id}">${cat.categoryname} (${cat.count || 0})</option>`).join('');
     }
     // Update brands dropdown
     const brandSelect = document.getElementById('brand_id');
     if (brandSelect) {
         brandSelect.innerHTML = '<option value="">-- Select --</option>' +
-            data.brands.map(brand => `<option value="${brand.brand_id}">${brand.brandname} (${brand.count})</option>`).join('');
+            brands.map(brand => `<option value="${brand.brand_id}">${brand.brandname} (${brand.count || 0})</option>`).join('');
     }
     // Update product types dropdown
     const typeSelect = document.getElementById('product_type_id');
     if (typeSelect) {
         typeSelect.innerHTML = '<option value="">-- Select --</option>' +
-            data.productTypes.map(type => `<option value="${type.product_type_id}">${type.producttypename} (${type.count})</option>`).join('');
+            productTypes.map(type => `<option value="${type.product_type_id}">${type.producttypename} (${type.count || 0})</option>`).join('');
     }
     // Update aside category checkboxes
     const asideCategory = document.querySelector('.aside .checkbox-filter');
     if (asideCategory) {
-        asideCategory.innerHTML = data.categories.map((cat, i) => `
+        asideCategory.innerHTML = categories.map((cat, i) => `
             <div class="input-checkbox">
                 <input type="checkbox" id="category-${i+1}" value="${cat.category_id}">
                 <label for="category-${i+1}">
                     <span></span>
                     ${cat.categoryname}
-                    <small>(${cat.count})</small>
+                    <small>(${cat.count || 0})</small>
                 </label>
             </div>
         `).join('');
@@ -1072,13 +1067,13 @@ function updateLeftPanel(data) {
     // Update aside brand checkboxes
     const asideBrand = document.querySelectorAll('.aside .checkbox-filter')[1];
     if (asideBrand) {
-        asideBrand.innerHTML = data.brands.map((brand, i) => `
+        asideBrand.innerHTML = brands.map((brand, i) => `
             <div class="input-checkbox">
                 <input type="checkbox" id="brand-${i+1}" value="${brand.brand_id}">
                 <label for="brand-${i+1}">
                     <span></span>
                     ${brand.brandname}
-                    <small>(${brand.count})</small>
+                    <small>(${brand.count || 0})</small>
                 </label>
             </div>
         `).join('');
@@ -1167,21 +1162,24 @@ function search1() {
     renderProducts({ product: filteredProducts });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     updateLeftPanel(staticData);
     attachFilterListeners();
-    search1();
-    // Attach event listener to search button
-    var searchBtn = document.querySelector('.btn.btn-danger.btn-block');
+
+    console.log("Products available:", staticData.products.length);
+    console.log("Running search1 on page load...");
+    search1(); // <-- This should now work
+
+    const searchBtn = document.querySelector('.btn.btn-danger.btn-block');
     if (searchBtn) {
-        searchBtn.addEventListener('click', function(e) {
+        searchBtn.addEventListener('click', function (e) {
             e.preventDefault();
             search1();
         });
     }
 });
+
+
 		</script>
 	</body>
-</html>
-
 </html>
