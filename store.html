@@ -34,6 +34,102 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
+    <style>
+        /* GLOBAL: Prevent horizontal overflow and box-sizing fix */
+        html, body {
+            overflow-x: hidden;
+            width: 100vw;
+        }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        .container, .container-fluid {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+        .row {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            flex-wrap: wrap;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        [class*='col-'] {
+            padding-left: 8px;
+            padding-right: 8px;
+            min-width: 0;
+        }
+        .product {
+            min-width: 0;
+            max-width: 100%;
+            overflow-x: hidden;
+            overflow: visible !important;
+            height: auto !important;
+            max-height: none !important;
+        }
+        .product-img img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .product::-webkit-scrollbar,
+        .product-img::-webkit-scrollbar,
+        .product-body::-webkit-scrollbar {
+            display: none !important;
+        }
+        /* Responsive adjustments for filter sidebar and store */
+        @media (max-width: 991.98px) {
+            #aside.col-md-3 {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 20px;
+                float: none;
+                display: block;
+            }
+            #store.col-md-9 {
+                width: 100%;
+                max-width: 100%;
+                float: none;
+                display: block;
+            }
+            .search-sidebar {
+                margin-bottom: 20px;
+            }
+        }
+        @media (max-width: 767.98px) {
+            .product {
+                margin-bottom: 20px;
+            }
+            .product .product-img img {
+                max-width: 100%;
+                height: auto;
+            }
+            .store-filter, .store-pagination {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .store-grid {
+                margin-top: 10px;
+            }
+        }
+        @media (max-width: 575.98px) {
+            .product {
+                min-width: 100%;
+            }
+            .row > [class*='col-'] {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .search-sidebar {
+                padding: 10px;
+            }
+        }
+        /* Fix for filter sidebar scroll on small screens */
+        #aside {
+            overflow: visible;
+        }
+    </style>
+
     </head>
 	<body>
 		<!-- HEADER -->
@@ -213,185 +309,107 @@
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-					<!-- ASIDE -->
+					<!-- ASIDE (Filters Sidebar) -->
 					<div id="aside" class="col-md-3">
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Categories</h3>
-							<div class="checkbox-filter">
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-1">
-									<label for="category-1">
-										<span></span>
-										Laptops
-										<small>(120)</small>
-									</label>
+						<div class="search-sidebar" style="background-color: #fff; padding: 15px; border-radius: 10px;">
+							<h4 style="margin-bottom: 15px;">Search Filters</h4>
+							<div>
+								<div class="row" style="margin-bottom: 15px;">
+									<div class="col-xs-5">
+										<button onclick="search1()" class="btn btn-danger btn-block">Search</button>
+									</div>
+									<div class="col-xs-3">
+										<button onclick="reset()" class="btn btn-default btn-block">Reset</button>
+									</div>
+									<div class="form-group col-xs-4">
+										<select name="sort_by" id="sort_by" class="form-control" style="cursor:pointer;">
+											<option value="">Sort by</option>
+											<option value="price_asc">Price: Low to High</option>
+											<option value="price_desc">Price: High to Low</option>
+											<option value="rating_desc">Rating: High to Low</option>
+											<option value="rating_asc">Rating: Low to High</option>
+										</select>
+									</div>
 								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-2">
-									<label for="category-2">
-										<span></span>
-										Smartphones
-										<small>(740)</small>
-									</label>
+								<div class="form-group">
+									<label for="name">Product Name</label>
+									<input type="text" name="name" id="name" class="form-control">
 								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-3">
-									<label for="category-3">
-										<span></span>
-										Cameras
-										<small>(1450)</small>
-									</label>
+								<div class="form-group">
+									<label for="category_id">Category</label>
+									<select name="category_id" id="category_id" class="form-control">
+										<option value="">-- Select --</option>
+										<option value="4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb">Electronics (4)</option>
+										<option value="a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24">Peripherals (0)</option>
+										<option value="d32721e7-21b6-4b80-878b-a9939ea93e44">Accessories (4)</option>
+									</select>
 								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-4">
-									<label for="category-4">
-										<span></span>
-										Accessories
-										<small>(578)</small>
-									</label>
+								<div class="form-group">
+									<label for="brand_id">Brand</label>
+									<select name="brand_id" id="brand_id" class="form-control">
+										<option value="">-- Select --</option>
+										<option value="05e8302a-d454-4e73-bf6c-22991f6bd793">Intel (3)</option>
+										<option value="c60b7b1a-3e60-4b5c-80e6-ffffc401c0da">Nvidia (0)</option>
+										<option value="3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd">Corsair (0)</option>
+										<option value="da284414-e355-485e-bf83-3d0ac9d57ff0">Seagate (3)</option>
+										<option value="50a02b77-83e0-4b67-85c6-7f68c2e1a321">AMD (1)</option>
+										<option value="1c8476fc-09f6-45b4-a30e-27a1c00bcb2d">Samsung (1)</option>
+										<option value="d48fe9c2-c9f1-4899-9d38-bc4c2e8df35d">G.Skill (0)</option>
+										<option value="5cd95e9f-d55a-4a7e-b110-402d5a6a2100">ASRock (0)</option>
+									</select>
 								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-5">
-									<label for="category-5">
-										<span></span>
-										Laptops
-										<small>(120)</small>
-									</label>
+								<div class="form-group">
+									<label for="product_type_id">Product Type</label>
+									<select name="product_type_id" id="product_type_id" class="form-control">
+										<option value="">-- Select --</option>
+										<option value="c65d108e-1ce1-4d79-9012-a7a605d08604">CPU (2)</option>
+										<option value="95d38a76-1e78-46bc-a2f5-aaef69cf8e7f">GPU (3)</option>
+										<option value="86a9078b-30d3-4a1d-82d8-ee18e7a74857">RAM (0)</option>
+										<option value="42cfaa86-c9c9-4c31-b009-06ebc8866d7b">Storage (3)</option>
+									</select>
 								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-6">
-									<label for="category-6">
-										<span></span>
-										Smartphones
-										<small>(740)</small>
-									</label>
+								<div class="form-group">
+									<label for="price_min">Min Price</label>
+									<input type="number" name="price_min" id="price_min" class="form-control">
 								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Price</h3>
-							<div class="price-filter">
-								<div id="price-slider"></div>
-								<div class="input-number price-min">
-									<input id="price-min" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
+								<div class="form-group">
+									<label for="price_max">Max Price</label>
+									<input type="number" name="price_max" id="price_max" class="form-control">
 								</div>
-								<span>-</span>
-								<div class="input-number price-max">
-									<input id="price-max" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
-							<div class="checkbox-filter">
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-1">
-									<label for="brand-1">
-										<span></span>
-										SAMSUNG
-										<small>(578)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-2">
-									<label for="brand-2">
-										<span></span>
-										LG
-										<small>(125)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-3">
-									<label for="brand-3">
-										<span></span>
-										SONY
-										<small>(755)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-4">
-									<label for="brand-4">
-										<span></span>
-										SAMSUNG
-										<small>(578)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-5">
-									<label for="brand-5">
-										<span></span>
-										LG
-										<small>(125)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-6">
-									<label for="brand-6">
-										<span></span>
-										SONY
-										<small>(755)</small>
-									</label>
+								<div class="form-group">
+									<label>Minimum Rating</label>
+									<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;">
+										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
+											<input type="checkbox" name="min_rating[]" value="5">
+											<span class="min-rating-label">★★★★★ & Up *</span>
+										</label>
+										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
+											<input type="checkbox" name="min_rating[]" value="4">
+											<span class="min-rating-label">★★★★☆ & Up *</span>
+										</label>
+										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
+											<input type="checkbox" name="min_rating[]" value="3">
+											<span class="min-rating-label">★★★☆☆ & Up *</span>
+										</label>
+										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
+											<input type="checkbox" name="min_rating[]" value="2">
+											<span class="min-rating-label">★★☆☆☆ & Up *</span>
+										</label>
+										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
+											<input type="checkbox" name="min_rating[]" value="1">
+											<span class="min-rating-label">★☆☆☆☆ & Up *</span>
+										</label>
+										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
+											<input type="checkbox" name="min_rating[]" value="0">
+											<span class="min-rating-label">Any Rating *</span>
+										</label>
+									</div>
 								</div>
 							</div>
 						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product01.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
+						<!-- You may keep the original aside widgets below or remove as needed -->
 					</div>
-					<!-- /ASIDE -->
+					<!-- /ASIDE (Filters Sidebar) -->
 
 					<!-- STORE -->
 					<div id="store" class="col-md-9">
@@ -847,6 +865,323 @@
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
+		<script>
+// Static data for the whole page
+var staticData = {
+    "brands": [
+        {"count": 2, "brand_id": "b1", "brandname": "Intel"},
+        {"count": 1, "brand_id": "b2", "brandname": "Nvidia"},
+        {"count": 2, "brand_id": "b3", "brandname": "Corsair"},
+        {"count": 1, "brand_id": "b4", "brandname": "Samsung"}
+    ],
+    "vendors": [
+        {"count": 2, "vendor_id": "v1", "vendorname": "Tech Supplies Ltd."},
+        {"count": 2, "vendor_id": "v2", "vendorname": "Gadget World"}
+    ],
+    "products": [
+        {
+          "brandid": "b1",
+          "vendorid": "v1",
+          "brandname": "Intel",
+          "productid": "p1",
+          "categoryid": "c1",
+          "finalprice": 299.99,
+          "salesprice": 349.99,
+          "vendorname": "Tech Supplies Ltd.",
+          "description": "10th Gen Core i5 CPU",
+          "productname": "Intel Core i5-10400F",
+          "categoryname": "Processors",
+          "discountprice": 50.00,
+          "producttypeid": "t1",
+          "purchaseprice": 250.00,
+          "productpriceid": "pp1",
+          "warrantymonths": 36,
+          "producttypename": "CPU"
+        },
+        {
+          "brandid": "b2",
+          "vendorid": "v2",
+          "brandname": "Nvidia",
+          "productid": "p2",
+          "categoryid": "c2",
+          "finalprice": 499.99,
+          "salesprice": 599.99,
+          "vendorname": "Gadget World",
+          "description": "RTX 3060 12GB GPU",
+          "productname": "Nvidia GeForce RTX 3060",
+          "categoryname": "Graphics Cards",
+          "discountprice": 100.00,
+          "producttypeid": "t2",
+          "purchaseprice": 400.00,
+          "productpriceid": "pp2",
+          "warrantymonths": 24,
+          "producttypename": "GPU"
+        },
+        {
+          "brandid": "b3",
+          "vendorid": "v1",
+          "brandname": "Corsair",
+          "productid": "p3",
+          "categoryid": "c3",
+          "finalprice": 89.99,
+          "salesprice": 99.99,
+          "vendorname": "Tech Supplies Ltd.",
+          "description": "16GB DDR4 RAM",
+          "productname": "Corsair Vengeance LPX 16GB",
+          "categoryname": "Memory",
+          "discountprice": 10.00,
+          "producttypeid": "t3",
+          "purchaseprice": 80.00,
+          "productpriceid": "pp3",
+          "warrantymonths": 60,
+          "producttypename": "RAM"
+        },
+        {
+          "brandid": "b4",
+          "vendorid": "v2",
+          "brandname": "Samsung",
+          "productid": "p4",
+          "categoryid": "c4",
+          "finalprice": 129.99,
+          "salesprice": 149.99,
+          "vendorname": "Gadget World",
+          "description": "1TB NVMe SSD",
+          "productname": "Samsung 970 EVO Plus 1TB",
+          "categoryname": "Storage",
+          "discountprice": 20.00,
+          "producttypeid": "t4",
+          "purchaseprice": 110.00,
+          "productpriceid": "pp4",
+          "warrantymonths": 60,
+          "producttypename": "SSD"
+        },
+        {
+          "brandid": "b3",
+          "vendorid": "v2",
+          "brandname": "Corsair",
+          "productid": "p5",
+          "categoryid": "c3",
+          "finalprice": 59.99,
+          "salesprice": 69.99,
+          "vendorname": "Gadget World",
+          "description": "650W Power Supply",
+          "productname": "Corsair CX650M PSU",
+          "categoryname": "Power Supplies",
+          "discountprice": 10.00,
+          "producttypeid": "t5",
+          "purchaseprice": 50.00,
+          "productpriceid": "pp5",
+          "warrantymonths": 36,
+          "producttypename": "PSU"
+        }
+    ],
+    "categories": [
+        {"count": 1, "category_id": "c1", "categoryname": "Processors"},
+        {"count": 1, "category_id": "c2", "categoryname": "Graphics Cards"},
+        {"count": 2, "category_id": "c3", "categoryname": "Memory"},
+        {"count": 1, "category_id": "c4", "categoryname": "Storage"},
+        {"count": 1, "category_id": "c5", "categoryname": "Power Supplies"}
+    ],
+    "productTypes": [
+        {"count": 1, "product_type_id": "t1", "producttypename": "CPU"},
+        {"count": 1, "product_type_id": "t2", "producttypename": "GPU"},
+        {"count": 2, "product_type_id": "t3", "producttypename": "RAM"},
+        {"count": 1, "product_type_id": "t4", "producttypename": "SSD"},
+        {"count": 1, "product_type_id": "t5", "producttypename": "PSU"}
+    ]
+};
 
+function renderProducts(products) {
+	products = products.product || [];
+    const row = document.querySelector('#store .row');
+    if (!row) return;
+    row.innerHTML = '';
+    if (!products || products.length === 0) {
+        row.innerHTML = '<div class="col-12"><p>No products found.</p></div>';
+        return;
+    }
+    // Use 9 product images, cycle or randomize
+    const availableImages = [1,2,3,4,5,6,7,8,9]; // Only use images that exist
+    products.forEach((product, idx) => {
+        // Pick a random image for each card
+        const imgNum = availableImages[Math.floor(Math.random() * availableImages.length)];
+        const imgSrc = `./img/product0${imgNum}.png`;
+        row.innerHTML += `
+        <div class="col-md-4 col-xs-6">
+            <div class="product">
+                <div class="product-img">
+                    <img src="${imgSrc}" alt="${product.productname || ''}" onerror=\"this.onerror=null;this.src='./img/product01.png';\">
+                    <div class="product-label">
+                        <span class="new">NEW</span>
+                    </div>
+                </div>
+                <div class="product-body">
+                    <p class="product-category">${product.categoryname || ''}</p>
+                    <h3 class="product-name"><a href="#">${product.productname || ''}</a></h3>
+                    <p class="product-description" style="min-height:40px;font-size:13px;color:#666;margin-bottom:8px;">${product.description || ''}</p>
+                    <h4 class="product-price">${product.finalprice != null ? '$' + product.finalprice.toFixed(2) : ''}</h4>
+                    <div class="product-rating"></div>
+                    <div class="product-btns">
+                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                    </div>
+                </div>
+                <div class="add-to-cart">
+                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </div>
+            </div>
+        </div>`;
+    });
+}
+
+
+function updateLeftPanel(data) {
+    // Update categories dropdown
+    const categorySelect = document.getElementById('category_id');
+    if (categorySelect) {
+        categorySelect.innerHTML = '<option value="">-- Select --</option>' +
+            data.categories.map(cat => `<option value="${cat.category_id}">${cat.categoryname} (${cat.count})</option>`).join('');
+    }
+    // Update brands dropdown
+    const brandSelect = document.getElementById('brand_id');
+    if (brandSelect) {
+        brandSelect.innerHTML = '<option value="">-- Select --</option>' +
+            data.brands.map(brand => `<option value="${brand.brand_id}">${brand.brandname} (${brand.count})</option>`).join('');
+    }
+    // Update product types dropdown
+    const typeSelect = document.getElementById('product_type_id');
+    if (typeSelect) {
+        typeSelect.innerHTML = '<option value="">-- Select --</option>' +
+            data.productTypes.map(type => `<option value="${type.product_type_id}">${type.producttypename} (${type.count})</option>`).join('');
+    }
+    // Update aside category checkboxes
+    const asideCategory = document.querySelector('.aside .checkbox-filter');
+    if (asideCategory) {
+        asideCategory.innerHTML = data.categories.map((cat, i) => `
+            <div class="input-checkbox">
+                <input type="checkbox" id="category-${i+1}" value="${cat.category_id}">
+                <label for="category-${i+1}">
+                    <span></span>
+                    ${cat.categoryname}
+                    <small>(${cat.count})</small>
+                </label>
+            </div>
+        `).join('');
+    }
+    // Update aside brand checkboxes
+    const asideBrand = document.querySelectorAll('.aside .checkbox-filter')[1];
+    if (asideBrand) {
+        asideBrand.innerHTML = data.brands.map((brand, i) => `
+            <div class="input-checkbox">
+                <input type="checkbox" id="brand-${i+1}" value="${brand.brand_id}">
+                <label for="brand-${i+1}">
+                    <span></span>
+                    ${brand.brandname}
+                    <small>(${brand.count})</small>
+                </label>
+            </div>
+        `).join('');
+    }
+}
+
+function filterProducts(products, filters) {
+    return products.filter(product => {
+        if (filters.name && !product.productname.toLowerCase().includes(filters.name.toLowerCase())) return false;
+        if (filters.category_ids && filters.category_ids.length > 0 && !filters.category_ids.includes(product.categoryid)) return false;
+        if (filters.brand_ids && filters.brand_ids.length > 0 && !filters.brand_ids.includes(product.brandid)) return false;
+        if (filters.product_type_ids && filters.product_type_ids.length > 0 && !filters.product_type_ids.includes(product.producttypeid)) return false;
+        if (filters.price_min && product.finalprice < parseFloat(filters.price_min)) return false;
+        if (filters.price_max && product.finalprice > parseFloat(filters.price_max)) return false;
+        return true;
+    });
+}
+
+function getSelectedAsideCategoryIds() {
+    // The first .aside .checkbox-filter is for categories
+    const asideCategory = document.querySelectorAll('.aside .checkbox-filter')[0];
+    if (!asideCategory) return [];
+    return Array.from(asideCategory.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+}
+function getSelectedAsideBrandIds() {
+    // The second .aside .checkbox-filter is for brands
+    const asideBrand = document.querySelectorAll('.aside .checkbox-filter')[1];
+    if (!asideBrand) return [];
+    return Array.from(asideBrand.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
+}
+
+function attachFilterListeners() {
+    // Dropdowns
+    ['category_id', 'brand_id', 'product_type_id', 'price_min', 'price_max', 'name'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', search1);
+    });
+    // Aside checkboxes
+    const asideCategory = document.querySelectorAll('.aside .checkbox-filter')[0];
+    if (asideCategory) {
+        asideCategory.addEventListener('change', search1);
+    }
+    const asideBrand = document.querySelectorAll('.aside .checkbox-filter')[1];
+    if (asideBrand) {
+        asideBrand.addEventListener('change', search1);
+    }
+}
+
+function getMinRating() {
+    // Get the highest checked min_rating value (e.g., 5, 4, 3, ...)
+    const checked = Array.from(document.querySelectorAll('input[name="min_rating[]"]:checked')).map(cb => parseInt(cb.value));
+    return checked.length > 0 ? Math.max(...checked) : null;
+}
+
+function search1() {
+    // Collect filter values from UI
+    const name = document.getElementById('name').value.trim();
+    // Dropdowns
+    const category_id = document.getElementById('category_id').value;
+    const brand_id = document.getElementById('brand_id').value;
+    const product_type_id = document.getElementById('product_type_id').value;
+    const price_min = document.getElementById('price_min').value;
+    const price_max = document.getElementById('price_max').value;
+    // Aside checkboxes (use new helpers)
+    const aside_category_ids = getSelectedAsideCategoryIds();
+    const aside_brand_ids = getSelectedAsideBrandIds();
+    // Merge dropdown and aside selections
+    let category_ids = [];
+    if (category_id) category_ids.push(category_id);
+    category_ids = category_ids.concat(aside_category_ids);
+    let brand_ids = [];
+    if (brand_id) brand_ids.push(brand_id);
+    brand_ids = brand_ids.concat(aside_brand_ids);
+    // Prepare filters object
+    const filters = {
+        name,
+        category_ids: [...new Set(category_ids)],
+        brand_ids: [...new Set(brand_ids)],
+        product_type_ids: product_type_id ? [product_type_id] : [],
+        price_min,
+        price_max,
+        min_rating: getMinRating()
+    };
+    // Filter and render
+    const filteredProducts = filterProducts(staticData.products, filters);
+    renderProducts({ product: filteredProducts });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateLeftPanel(staticData);
+    attachFilterListeners();
+    search1();
+    // Attach event listener to search button
+    var searchBtn = document.querySelector('.btn.btn-danger.btn-block');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            search1();
+        });
+    }
+});
+		</script>
 	</body>
+</html>
+
 </html>
