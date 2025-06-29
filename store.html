@@ -33,7 +33,9 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataSource.js"></script>
+        
     <style>
         /* GLOBAL: Prevent horizontal overflow and box-sizing fix */
         html, body {
@@ -95,19 +97,32 @@
         }
         /* Responsive adjustments for filter sidebar and store */
         @media (max-width: 991.98px) {
-            #aside.col-md-3 {
-                width: 100%;
-                max-width: 100%;
-                margin-bottom: 20px;
-                float: none;
-                display: block;
-                overflow: hidden;
+            body {
+                padding-top: 0;
+                padding-bottom: 0;
             }
-            #store.col-md-9 {
+            
+            header, footer {
+                position: static;
+            }
+            
+            #aside {
+                position: static;
+                top: auto;
+                left: auto;
                 width: 100%;
-                max-width: 100%;
-                float: none;
-                display: block;
+                max-height: none;
+                overflow-y: visible;
+                margin-bottom: 20px;
+            }
+            
+            #store {
+                position: static;
+                top: auto;
+                left: auto;
+                width: 100%;
+                max-height: none;
+                overflow-y: visible;
             }
             .search-sidebar {
                 margin-bottom: 20px;
@@ -158,6 +173,559 @@
         .search-sidebar [class*='col-'] {
             padding: 0 8px;
         }
+        
+        /* Fixed header and footer */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Remove any gaps in header elements */
+        #top-header, #header, #navigation {
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Ensure navigation sits right below header */
+        #navigation {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 2000;
+            background: #fff;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Position footer children properly */
+        footer .section {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            overflow: visible;
+            background: transparent;
+        }
+        
+        footer .container {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            overflow: visible;
+            background: transparent;
+        }
+        
+        footer .row {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            overflow: visible;
+            background: transparent;
+        }
+        
+        /* Adjust body to account for fixed header and footer */
+        body {
+            padding-top: 120px; /* Reduced from 200px to eliminate gap */
+            padding-bottom: 0; /* Removed since footer is gone */
+        }
+        
+        /* Ensure main content area is visible */
+        .section:not(footer .section) {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            overflow: visible;
+            background: transparent;
+            z-index: 1;
+        }
+        
+        /* Fixed sidebar approach */
+        #aside {
+            position: fixed;
+             /* Adjust based on your header height */
+            left: 15px;
+            width: calc(25% - 30px); /* 25% width minus margins */
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            z-index: 1000;
+            background: transparent;
+        }
+
+        #store {
+            position: fixed;
+            /* Adjust based on your header height */
+            left: calc(25% + 30px); /* Position to the right of the sidebar */
+            width: calc(75% - 45px); /* Remaining width minus margins */
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+            z-index: 1000;
+            background: transparent;
+        }
+        
+        .search-sidebar {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px !important;
+            margin-bottom: 20px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 991.98px) {
+            #aside {
+                position: static;
+                top: auto;
+                left: auto;
+                width: 100%;
+                max-height: none;
+                overflow-y: visible;
+                margin-bottom: 20px;
+            }
+            
+            #store {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+        /* Product tile styling */
+        .product {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+            min-height: 450px; /* Ensure minimum height for add-to-cart button */
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .product-img {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .product:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-body {
+            padding: 20px;
+            position: relative;
+            padding-bottom: 70px; /* Make room for add-to-cart button */
+        }
+        
+        .product-category {
+            color: #999;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .product-name a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .product-name a:hover {
+            color: #D10024;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #D10024;
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #D10024;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            transform: translateY(0); /* Always visible */
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .add-to-cart:hover {
+            background: #b3001f;
+        }
+        
+        .add-to-cart-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        .add-to-cart-btn:hover {
+            color: #fff;
+        }
+        
+        /* Product grid spacing */
+        .row {
+            margin: 0 -15px;
+        }
+        
+        [class*='col-'] {
+            padding: 0 15px;
+        }
+        
+        /* Store area padding */
+        #store {
+            padding: 20px;
+        }
+        
+        /* Product buttons (wishlist, compare, quick view) */
+        .product-btns {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product:hover .product-btns {
+            opacity: 1;
+        }
+        
+        .product-btns button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-btns button:hover {
+            background: #D10024;
+            color: #fff;
+        }
+        
+        /* Product label */
+        .product-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+        
+        .product-label .new {
+            background: #D10024;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        /* Quick View Modal Styling */
+        .modal-lg {
+            max-width: 900px;
+        }
+        
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 12px 12px 0 0;
+            padding: 20px 25px;
+        }
+        
+        .modal-title {
+            color: #333;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .product-details-modal .product-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .product-details-modal .product-category {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .product-details-modal .product-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #D10024;
+            margin-bottom: 20px;
+        }
+        
+        .product-details-modal .product-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .product-specs {
+            margin-bottom: 25px;
+        }
+        
+        .product-specs h5 {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .product-specs .table {
+            margin-bottom: 0;
+        }
+        
+        .product-specs .table td {
+            padding: 8px 12px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        
+        .product-specs .table td:first-child {
+            font-weight: 600;
+            color: #555;
+            width: 40%;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .product-actions .btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 20px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .product-actions .btn-primary {
+            background: #D10024;
+            border-color: #D10024;
+        }
+        
+        .product-actions .btn-primary:hover {
+            background: #b3001f;
+            border-color: #b3001f;
+            transform: translateY(-2px);
+        }
+        
+        .product-actions .btn-outline-primary {
+            color: #D10024;
+            border-color: #D10024;
+        }
+        
+        .product-actions .btn-outline-primary:hover {
+            background: #D10024;
+            border-color: #D10024;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive modal */
+        @media (max-width: 767.98px) {
+            .modal-lg {
+                max-width: 95%;
+                margin: 10px auto;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .product-details-modal .product-name {
+                font-size: 20px;
+            }
+            
+            .product-details-modal .product-price {
+                font-size: 24px;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .product-actions .btn {
+                min-width: auto;
+            }
+        }
+        /* Product rating styling */
+        .product-rating {
+            margin-bottom: 10px;
+        }
+        
+        .product-rating i {
+            color: #ffc107;
+            font-size: 14px;
+            margin-right: 2px;
+        }
+        
+        .product-rating i.fa-star {
+            color: #ffc107;
+        }
+        
+        .product-rating i.fa-star-half-o {
+            color: #ffc107;
+        }
+        
+        .product-rating i.fa-star-o {
+            color: #ddd;
+        }
+        
+        /* Modal rating styling */
+        .product-details-modal .product-rating {
+            margin-bottom: 15px;
+        }
+        
+        .product-details-modal .product-rating i {
+            font-size: 16px;
+            margin-right: 3px;
+        }
+        
+        /* Custom Alert Box */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            padding: 15px 20px;
+            z-index: 9999;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            border-left: 4px solid #D10024;
+        }
+        
+        .custom-alert.show {
+            transform: translateX(0);
+        }
+        
+        .custom-alert.success {
+            border-left-color: #28a745;
+        }
+        
+        .custom-alert.error {
+            border-left-color: #dc3545;
+        }
+        
+        .custom-alert.info {
+            border-left-color: #17a2b8;
+        }
+        
+        .custom-alert .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .custom-alert .alert-icon {
+            font-size: 18px;
+            color: #D10024;
+        }
+        
+        .custom-alert.success .alert-icon {
+            color: #28a745;
+        }
+        
+        .custom-alert.error .alert-icon {
+            color: #dc3545;
+        }
+        
+        .custom-alert.info .alert-icon {
+            color: #17a2b8;
+        }
+        
+        .custom-alert .alert-message {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
     </style>
 
     </head>
@@ -190,7 +758,10 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="index.html" class="logo">
-									<span>PC-Shop</span>
+									<span style="
+										font-size: xxx-large;
+										color: #D10024;
+									">PC-Shop</span>
 								</a>
 							</div>
 						</div>
@@ -199,14 +770,12 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+								<form id="storeHeaderSearchForm" onsubmit="performStoreSearch(event)">
+									<select class="input-select" name="search-category" id="store-search-category" title="Select category">
+										<option value="">All Categories</option>
 									</select>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+									<input class="input" id="store-header-name" placeholder="Search here" name="search-term">
+									<button type="submit" class="search-btn">Search</button>
 								</form>
 							</div>
 						</div>
@@ -217,20 +786,20 @@
 							<div class="header-ctn">
 								<!-- Wishlist -->
 								<div>
-									<a href="#">
+									<a href="wishlist-page.html">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
-										<div class="qty">2</div>
+										<div class="qty" id="wishlist-count">0</div>
 									</a>
 								</div>
 								<!-- /Wishlist -->
 
 								<!-- Cart -->
 								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<a class="dropdown-toggle" data-toggle="dropdown" onclick="handleCartClick(event)">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
-										<div class="qty">3</div>
+										<div class="qty" id="cart-count">0</div>
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
@@ -240,9 +809,9 @@
 												</div>
 												<div class="product-body">
 													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+													<h4 class="product-price"><span class="qty">1x</span>৳980.00</h4>
 												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
+												<button class="delete" title="Remove from cart"><i class="fa fa-close"></i></button>
 											</div>
 
 											<div class="product-widget">
@@ -251,14 +820,14 @@
 												</div>
 												<div class="product-body">
 													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+													<h4 class="product-price"><span class="qty">3x</span>৳980.00</h4>
 												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
+												<button class="delete" title="Remove from cart"><i class="fa fa-close"></i></button>
 											</div>
 										</div>
 										<div class="cart-summary">
 											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
+											<h5>SUBTOTAL: ৳2940.00</h5>
 										</div>
 										<div class="cart-btns">
 											<a href="#">View Cart</a>
@@ -288,6 +857,14 @@
 		</header>
 		<!-- /HEADER -->
 
+		<!-- Custom Alert Box -->
+		<div id="customAlert" class="custom-alert" style="display: none;">
+			<div class="alert-content">
+				<i class="alert-icon fa fa-info-circle"></i>
+				<span class="alert-message">Message here</span>
+			</div>
+		</div>
+
 		<!-- NAVIGATION -->
 		<nav id="navigation">
 			<!-- container -->
@@ -312,26 +889,7 @@
 		</nav>
 		<!-- /NAVIGATION -->
 
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">All Categories</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li class="active">Headphones (227,490 Results)</li>
-						</ul>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /BREADCRUMB -->
+
 
 		<!-- SECTION -->
 		<div class="section">
@@ -340,27 +898,28 @@
 				<!-- row -->
 				<div class="row">
 					<!-- ASIDE (Filters Sidebar) -->
-					<div id="aside" class="col-md-3">
+					<div id="aside">
 						<div class="search-sidebar" style="background-color: #fff; padding: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">Search Filters</h4>
 							<div>
-								<div class="row" style="margin-bottom: 15px;">
-									<div class="col-xs-5">
+								<div class="row d-flex justify-content-between" style="margin-bottom: 15px;">
+									<div class="col-xs-5 col-md-5">
 										<button onclick="search1()" class="btn btn-danger btn-block">Search</button>
 									</div>
-									<div class="col-xs-3">
+									<div class="col-xs-5 col-md-5 pull-right">
 										<button onclick="reset()" class="btn btn-default btn-block">Reset</button>
 									</div>
-									<div class="form-group col-xs-4">
-										<select name="sort_by" id="sort_by" class="form-control" style="cursor:pointer;">
-											<option value="">Sort by</option>
-											<option value="price_asc">Price: Low to High</option>
-											<option value="price_desc">Price: High to Low</option>
-											<option value="rating_desc">Rating: High to Low</option>
-											<option value="rating_asc">Rating: Low to High</option>
-										</select>
-									</div>
+									
 								</div>
+                                <div class="form-group col-xs-12 col-md-12">
+                                    <select name="sort_by" id="sort_by" class="form-control" style="cursor:pointer;" title="Sort products">
+                                        <option value="">Sort by</option>
+                                        <option value="price_asc">Price: Low to High</option>
+                                        <option value="price_desc">Price: High to Low</option>
+                                        <option value="rating_desc">Rating: High to Low</option>
+                                        <option value="rating_asc">Rating: Low to High</option>
+                                    </select>
+                                </div>
 								<div class="form-group">
 									<label for="name">Product Name</label>
 									<input type="text" name="name" id="name" class="form-control">
@@ -368,34 +927,16 @@
 								<div class="form-group">
 									<label for="category_id">Category</label>
 									<select name="category_id" id="category_id" class="form-control">
-										<option value="">-- Select --</option>
-										<option value="4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb">Electronics (4)</option>
-										<option value="a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24">Peripherals (0)</option>
-										<option value="d32721e7-21b6-4b80-878b-a9939ea93e44">Accessories (4)</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="brand_id">Brand</label>
 									<select name="brand_id" id="brand_id" class="form-control">
-										<option value="">-- Select --</option>
-										<option value="05e8302a-d454-4e73-bf6c-22991f6bd793">Intel (3)</option>
-										<option value="c60b7b1a-3e60-4b5c-80e6-ffffc401c0da">Nvidia (0)</option>
-										<option value="3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd">Corsair (0)</option>
-										<option value="da284414-e355-485e-bf83-3d0ac9d57ff0">Seagate (3)</option>
-										<option value="50a02b77-83e0-4b67-85c6-7f68c2e1a321">AMD (1)</option>
-										<option value="1c8476fc-09f6-45b4-a30e-27a1c00bcb2d">Samsung (1)</option>
-										<option value="d48fe9c2-c9f1-4899-9d38-bc4c2e8df35d">G.Skill (0)</option>
-										<option value="5cd95e9f-d55a-4a7e-b110-402d5a6a2100">ASRock (0)</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="product_type_id">Product Type</label>
 									<select name="product_type_id" id="product_type_id" class="form-control">
-										<option value="">-- Select --</option>
-										<option value="c65d108e-1ce1-4d79-9012-a7a605d08604">CPU (2)</option>
-										<option value="95d38a76-1e78-46bc-a2f5-aaef69cf8e7f">GPU (3)</option>
-										<option value="86a9078b-30d3-4a1d-82d8-ee18e7a74857">RAM (0)</option>
-										<option value="42cfaa86-c9c9-4c31-b009-06ebc8866d7b">Storage (3)</option>
 									</select>
 								</div>
 								<div class="form-group">
@@ -442,9 +983,9 @@
 					<!-- /ASIDE (Filters Sidebar) -->
 
 					<!-- STORE -->
-					<div id="store" class="col-md-9">
+					<div id="store">
 						<!-- store top filter -->
-						<div class="store-filter clearfix">
+						<div class="store-filter clearfix hidden">
 							<div class="store-sort">
 								<label>
 									Sort By:
@@ -496,491 +1037,446 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- NEWSLETTER -->
-		<div id="newsletter" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
-							<ul class="newsletter-follow">
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li>
-							</ul>
+		<!-- Quick View Modal -->
+		<div id="quickViewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="quickViewModalLabel">Product Details</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="product-img-modal">
+									<img id="modalProductImg" src="" alt="Product Image" style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px;">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="product-details-modal">
+									<h3 id="modalProductName" class="product-name"></h3>
+									<p id="modalProductCategory" class="product-category"></p>
+									<div id="modalProductRating" class="product-rating" style="margin-bottom: 15px;"></div>
+									<h4 id="modalProductPrice" class="product-price"></h4>
+									<p id="modalProductDescription" class="product-description"></p>
+									
+									<div class="product-specs">
+										<h5>Product Specifications</h5>
+										<table class="table table-striped">
+											<tbody>
+												<tr>
+													<td><strong>Brand:</strong></td>
+													<td id="modalProductBrand"></td>
+												</tr>
+												<tr>
+													<td><strong>Product Type:</strong></td>
+													<td id="modalProductType"></td>
+												</tr>
+												<tr>
+													<td><strong>Category:</strong></td>
+													<td id="modalProductCategoryFull"></td>
+												</tr>
+												<tr>
+													<td><strong>Original Price:</strong></td>
+													<td id="modalProductOriginalPrice"></td>
+												</tr>
+												<tr>
+													<td><strong>Discounted Price:</strong></td>
+													<td id="modalProductFinalPrice"></td>
+												</tr>
+												<tr>
+													<td><strong>Saving:</strong></td>
+													<td id="modalProductDiscount"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									
+									<div class="product-actions">
+										<button class="btn btn-primary btn-lg" onclick="addToCartFromModal()">
+											<i class="fa fa-shopping-cart"></i> Add to Cart
+										</button>
+										<button class="btn btn-outline-primary btn-lg" onclick="addToWishlistFromModal()">
+											<i class="fa fa-heart-o"></i> Add to Wishlist
+										</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
 		</div>
-		<!-- /NEWSLETTER -->
+
+	
 
 		<!-- FOOTER -->
-		<footer id="footer">
-			<!-- top footer -->
-			<div class="section">
-				<!-- container -->
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">About Us</h3>
-								<p>We provide high-quality PC components for gamers, builders, and tech enthusiasts. From GPUs to cooling systems, we’re your trusted source for performance and reliability.</p>
-								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>Rajshshi, Bangladesh</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+8801706782347</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>sahidtanzid2014@gmail.com</a></li>
-								</ul>
-							</div>
-						</div>
 
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Categories</h3>
-								<ul class="footer-links">
-									<li><a href="#">Hot deals</a></li>
-									<li><a href="#">Laptops</a></li>
-									<li><a href="#">Smartphones</a></li>
-									<li><a href="#">Cameras</a></li>
-									<li><a href="#">Accessories</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="clearfix visible-xs"></div>
-
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Information</h3>
-								<ul class="footer-links">
-									<li><a href="#">About Us</a></li>
-									<li><a href="#">Contact Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-									<li><a href="#">Orders and Returns</a></li>
-									<li><a href="#">Terms & Conditions</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Service</h3>
-								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="#">View Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Track My Order</a></li>
-									<li><a href="#">Help</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<!-- /row -->
-				</div>
-				<!-- /container -->
-			</div>
-			<!-- /top footer -->
-
-			<!-- bottom footer -->
-			<div id="bottom-footer" class="section">
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<div class="col-md-12 text-center">
-							<ul class="footer-payments">
-								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-							</ul>
-							<span class="copyright">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							</span>
-						</div>
-					</div>
-						<!-- /row -->
-				</div>
-				<!-- /container -->
-			</div>
-			<!-- /bottom footer -->
-		</footer>
 		<!-- /FOOTER -->
 
 		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/slick.min.js"></script>
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
 		<script>
-// Static data for the whole page
-var staticData = {
-    brands: [
-        { brand_id: "c65d108e-1ce1-4d79-9012-a7a605d08604", brandname: "Intel" },
-        { brand_id: "95d38a76-1e78-46bc-a2f5-aaef69cf8e7f", brandname: "Nvidia" },
-        { brand_id: "86a9078b-30d3-4a1d-82d8-ee18e7a74857", brandname: "Corsair" },
-        { brand_id: "b1", brandname: "AMD" },
-        { brand_id: "b2", brandname: "Samsung" },
-        { brand_id: "b3", brandname: "Kingston" },
-        { brand_id: "b4", brandname: "ASUS" },
-        { brand_id: "b5", brandname: "Gigabyte" },
-        { brand_id: "b6", brandname: "Seagate" },
-        { brand_id: "b7", brandname: "Western Digital" }
-    ],
-    products: [
-        {
-            id: "b25900a0-a311-4d70-acc2-5411e52c6661",
-            name: "Intel Core i7-12700K",
-            brandId: "c65d108e-1ce1-4d79-9012-a7a605d08604",
-            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
-            vendorId: "05e8302a-d454-4e73-bf6c-22991f6bd793",
-            typeId: "7a9026b9-4ee2-4636-862a-1a4ccbe896a8",
-            description: "High performance CPU for gaming and productivity.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "4afeb6ab-c744-415d-934a-e210268c300a",
-            name: "Nvidia GeForce RTX 3080",
-            brandId: "95d38a76-1e78-46bc-a2f5-aaef69cf8e7f",
-            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
-            vendorId: "c60b7b1a-3e60-4b5c-80e6-ffffc401c0da",
-            typeId: "3aea15b7-13f7-4f42-b7c1-d6eff16c678e",
-            description: "High-end GPU for gaming and content creation.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "5668908b-d66e-4b20-91a2-23f06b9c608c",
-            name: "Corsair Vengeance LPX 16GB",
-            brandId: "86a9078b-30d3-4a1d-82d8-ee18e7a74857",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd",
-            typeId: "6af8e6b3-5357-4fcc-a5a4-01b89d9d7513",
-            description: "16GB DDR4 RAM for high-speed performance.",
-            warrantyMonths: 12,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-            name: "Samsung 970 EVO Plus 1TB",
-            brandId: "b1c2d3e4-f5a6-7890-bcde-fa1234567890",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "d1e2f3a4-b5c6-7890-cdef-ab1234567890",
-            typeId: "8b9c0d1e-2f3a-4b5c-8d9e-0f1a2b3c4d5e",
-            description: "Fast NVMe SSD for quick data access.",
-            warrantyMonths: 60,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "b2c3d4e5-f6a7-8901-bcde-fa2345678901",
-            name: "ASUS ROG Strix Z690-E",
-            brandId: "c2d3e4f5-a6b7-8901-cdef-ab2345678901",
-            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
-            vendorId: "e2f3a4b5-c6d7-8901-defa-bc2345678901",
-            typeId: "9c0d1e2f-3a4b-5c6d-8e9f-0a1b2c3d4e5f",
-            description: "High-end motherboard for Intel CPUs.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "c3d4e5f6-a7b8-9012-cdef-ab3456789012",
-            name: "Cooler Master Hyper 212",
-            brandId: "d3e4f5a6-b7c8-9012-defa-bc3456789012",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "f3a4b5c6-d7e8-9012-efab-cd3456789012",
-            typeId: "0d1e2f3a-4b5c-6d7e-8f9a-1b2c3d4e5f6a",
-            description: "Popular air cooler for CPUs.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "d4e5f6a7-b8c9-0123-defa-bc4567890123",
-            name: "EVGA SuperNOVA 750 G5",
-            brandId: "e4f5a6b7-c8d9-0123-efab-cd4567890123",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "a4b5c6d7-e8f9-0123-fabc-de4567890123",
-            typeId: "1e2f3a4b-5c6d-7e8f-9a0b-2c3d4e5f6a7b",
-            description: "Reliable 750W power supply.",
-            warrantyMonths: 120,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "e5f6a7b8-c9d0-1234-efab-cd5678901234",
-            name: "NZXT H510 Mid Tower",
-            brandId: "f5a6b7c8-d9e0-1234-fabc-de5678901234",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "b5c6d7e8-f9a0-1234-abcd-ef5678901234",
-            typeId: "2f3a4b5c-6d7e-8f9a-0b1c-3d4e5f6a7b8c",
-            description: "Minimalist PC case with tempered glass.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "f6a7b8c9-d0e1-2345-fabc-de8901234567",
-            name: "Logitech G502 HERO",
-            brandId: "a6b7c8d9-e0f1-2345-abcd-ef6789012345",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "c6d7e8f9-a0b1-2345-bcde-fa6789012345",
-            typeId: "3a4b5c6d-7e8f-9a0b-1c2d-4e5f6a7b8c9d",
-            description: "High-precision gaming mouse.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "a7b8c9d0-e1f2-3456-abcd-ef7890123456",
-            name: "Dell UltraSharp U2720Q",
-            brandId: "b7c8d9e0-f1a2-3456-bcde-fa7890123456",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "d7e8f9a0-b1c2-3456-cdef-ab7890123456",
-            typeId: "4b5c6d7e-8f9a-0b1c-2d3e-5f6a7b8c9d0e",
-            description: "27-inch 4K monitor for professionals.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "b8c9d0e1-f2a3-4567-bcde-fa8901234567",
-            name: "Razer BlackWidow V3",
-            brandId: "c8d9e0f1-a2b3-4567-cdef-ab8901234567",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "e8f9a0b1-c2d3-4567-defa-bc8901234567",
-            typeId: "5c6d7e8f-9a0b-1c2d-3e4f-6a7b8c9d0e1f",
-            description: "Mechanical gaming keyboard.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "c9d0e1f2-a3b4-5678-cdef-ab9012345678",
-            name: "Seagate Barracuda 2TB",
-            brandId: "d9e0f1a2-b3c4-5678-defa-bc9012345678",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "f9a0b1c2-d3e4-5678-efab-cd9012345678",
-            typeId: "6d7e8f9a-0b1c-2d3e-4f5a-7b8c9d0e1f2a",
-            description: "Reliable 2TB HDD for storage.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "d0e1f2a3-b4c5-6789-defa-bc0123456789",
-            name: "MSI Optix MAG272CQR",
-            brandId: "e0f1a2b3-c4d5-6789-efab-cd0123456789",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "a0b1c2d3-e4f5-6789-fabc-de0123456789",
-            typeId: "7e8f9a0b-1c2d-3e4f-5a6b-8c9d0e1f2a3b",
-            description: "27-inch curved gaming monitor.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "e1f2a3b4-c5d6-7890-efab-cd1234567890",
-            name: "Kingston A400 480GB SSD",
-            brandId: "f1a2b3c4-d5e6-7890-fabc-de1234567890",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "b1c2d3e4-f5a6-7890-cdef-ab1234567890",
-            typeId: "8f9a0b1c-2d3e-4f5a-6b7c-9d0e1f2a3b4c",
-            description: "Affordable SSD for fast boot times.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "f2a3b4c5-d6e7-8901-fabc-de2345678901",
-            name: "Gigabyte B550M DS3H",
-            brandId: "a2b3c4d5-e6f7-8901-abcd-ef2345678901",
-            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
-            vendorId: "c2d3e4f5-a6b7-8901-cdef-ab2345678901",
-            typeId: "9a0b1c2d-3e4f-5a6b-7c8d-0e1f2a3b4c5d",
-            description: "Micro ATX motherboard for AMD CPUs.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "a3b4c5d6-e7f8-9012-abcd-ef3456789012",
-            name: "AMD Ryzen 7 5800X",
-            brandId: "b3c4d5e6-f7a8-9012-bcde-fa3456789012",
-            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
-            vendorId: "d3e4f5a6-b7c8-9012-defa-bc3456789012",
-            typeId: "0b1c2d3e-4f5a-6b7c-8d9e-1f2a3b4c5d6e",
-            description: "8-core CPU for gaming and productivity.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "b4c5d6e7-f8a9-0123-bcde-fa4567890123",
-            name: "HyperX Cloud II Headset",
-            brandId: "c4d5e6f7-a8b9-0123-cdef-ab4567890123",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "e4f5a6b7-c8d9-0123-efab-cd4567890123",
-            typeId: "1c2d3e4f-5a6b-7c8d-9e0f-2a3b4c5d6e7f",
-            description: "Comfortable gaming headset with surround sound.",
-            warrantyMonths: 24,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "c5d6e7f8-a9b0-1234-cdef-ab5678901234",
-            name: "ASRock Phantom Gaming D",
-            brandId: "d5e6f7a8-b9c0-1234-defa-bc5678901234",
-            categoryId: "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb",
-            vendorId: "f5a6b7c8-d9e0-1234-fabc-de5678901234",
-            typeId: "2d3e4f5a-6b7c-8d9e-0f1a-3b4c5d6e7f8a",
-            description: "ATX motherboard for Intel CPUs.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "d6e7f8a9-b0c1-2345-defa-bc6789012345",
-            name: "ADATA XPG SX8200 Pro 512GB",
-            brandId: "e6f7a8b9-c0d1-2345-efab-cd6789012345",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "a6b7c8d9-e0f1-2345-abcd-ef6789012345",
-            typeId: "3e4f5a6b-7c8d-9e0f-1a2b-4c5d6e7f8a9b",
-            description: "High-speed NVMe SSD for gaming.",
-            warrantyMonths: 60,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "e7f8a9b0-c1d2-3456-efab-cd7890123456",
-            name: "SteelSeries QcK Mousepad",
-            brandId: "f7a8b9c0-d1e2-3456-fabc-de7890123456",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "b7c8d9e0-f1a2-3456-bcde-fa7890123456",
-            typeId: "4f5a6b7c-8d9e-0f1a-2b3c-5d6e7f8a9b0c",
-            description: "Large mousepad for smooth movement.",
-            warrantyMonths: 12,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        },
-        {
-            id: "f8a9b0c1-d2e3-4567-fabc-de8901234567",
-            name: "BenQ ZOWIE XL2546K",
-            brandId: "a8b9c0d1-e2f3-4567-abcd-ef8901234567",
-            categoryId: "a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24",
-            vendorId: "c8d9e0f1-a2b3-4567-cdef-ab8901234567",
-            typeId: "5a6b7c8d-9e0f-1a2b-3c4d-6e7f8a9b0c1d",
-            description: "240Hz gaming monitor for esports.",
-            warrantyMonths: 36,
-            isDeleted: false,
-            createdAt: "2025-05-07T09:06:38.391+0600",
-            createdBy: "unknown",
-            updatedAt: "2025-05-07T09:06:38.391+0600",
-            updatedBy: "unknown"
-        }
-    ]
+// Use the global dataSource from dataSource.js
+// The global dataSource already has the correct structure with 25 products
+
+// Global variable to store current product data
+let currentProductData = null;
+
+// Storage keys
+const STORAGE_KEYS = {
+    WISHLIST: 'pc_shop_wishlist',
+    CART: 'pc_shop_cart'
 };
 
-// Map new product keys to legacy keys for compatibility
-staticData.products = staticData.products.map(p => ({
-    ...p,
-    productname: p.name,
-    brandid: p.brandId,
-    categoryid: p.categoryId,
-    vendorid: p.vendorId,
-    producttypeid: p.typeId,
-    // Optionally add dummy values for price/rating if needed for UI
-    finalprice: p.finalprice !== undefined ? p.finalprice : Math.floor(Math.random()*1000)+100,
-    rating: p.rating !== undefined ? p.rating : Math.floor(Math.random()*5)+1
-}));
+// Custom Alert Function
+function showCustomAlert(message, type = 'info') {
+    const alertBox = document.getElementById('customAlert');
+    const alertIcon = alertBox.querySelector('.alert-icon');
+    const alertMessage = alertBox.querySelector('.alert-message');
+    
+    // Set message
+    alertMessage.textContent = message;
+    
+    // Set type and icon
+    alertBox.className = `custom-alert ${type}`;
+    
+    switch(type) {
+        case 'success':
+            alertIcon.className = 'alert-icon fa fa-check-circle';
+            break;
+        case 'error':
+            alertIcon.className = 'alert-icon fa fa-times-circle';
+            break;
+        case 'info':
+        default:
+            alertIcon.className = 'alert-icon fa fa-info-circle';
+            break;
+    }
+    
+    // Show alert
+    alertBox.style.display = 'block';
+    setTimeout(() => {
+        alertBox.classList.add('show');
+    }, 100);
+    
+    // Auto hide after 2 seconds
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 300);
+    }, 2000);
+}
+
+// ========================================
+// WISHLIST FUNCTIONALITY
+// ========================================
+
+// Get wishlist from localStorage
+function getWishlist() {
+    const wishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+    return wishlist ? JSON.parse(wishlist) : [];
+}
+
+// Save wishlist to localStorage
+function saveWishlist(wishlist) {
+    localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
+    updateWishlistCount();
+}
+
+// Add product to wishlist
+function addToWishlist(productId) {
+    const product = dataSource.products.find(p => p.productid === productId);
+    if (!product) {
+        console.error('Product not found:', productId);
+        showCustomAlert('Product not found!', 'error');
+        return false;
+    }
+
+    const wishlist = getWishlist();
+    if (!wishlist.includes(productId)) {
+        wishlist.push(productId);
+        saveWishlist(wishlist);
+        showCustomAlert(`Added ${product.productname} to wishlist!`, 'success');
+        return true;
+    } else {
+        showCustomAlert('Product is already in your wishlist!', 'info');
+        return false;
+    }
+}
+
+// Update wishlist count in header
+function updateWishlistCount() {
+    const wishlist = getWishlist();
+    const countElement = document.getElementById('wishlist-count');
+    if (countElement) {
+        countElement.textContent = wishlist.length;
+    }
+}
+
+// ========================================
+// CART FUNCTIONALITY
+// ========================================
+
+// Get cart from localStorage
+function getCart() {
+    const cart = localStorage.getItem(STORAGE_KEYS.CART);
+    return cart ? JSON.parse(cart) : [];
+}
+
+// Save cart to localStorage
+function saveCart(cart) {
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+    updateCartCount();
+}
+
+// Add product to cart
+function addToCart(productId, quantity = 1) {
+    const product = dataSource.products.find(p => p.productid === productId);
+    if (!product) {
+        console.error('Product not found:', productId);
+        showCustomAlert('Product not found!', 'error');
+        return false;
+    }
+
+    const cart = getCart();
+    const existingItem = cart.find(item => item.productId === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({
+            productId: productId,
+            quantity: quantity,
+            addedAt: new Date().toISOString()
+        });
+    }
+    
+    saveCart(cart);
+    showCustomAlert(`Added ${product.productname} to cart!`, 'success');
+    return true;
+}
+
+// Update cart count in header
+function updateCartCount() {
+    const cart = getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const countElement = document.getElementById('cart-count');
+    if (countElement) {
+        countElement.textContent = totalItems;
+    }
+}
+
+// Handle cart click - redirect to checkout if cart has items
+function handleCartClick(event) {
+    const cart = getCart();
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    if (totalItems > 0) {
+        // Prevent dropdown from opening
+        event.preventDefault();
+        event.stopPropagation();
+        
+        // Redirect to checkout page
+        window.location.href = 'checkout.html';
+    }
+    // If cart is empty, let the dropdown open normally
+}
+
+// ========================================
+// QUICK VIEW FUNCTIONALITY
+// ========================================
+
+// Generate product image based on type
+function getProductImage(productType) {
+    switch (productType) {
+        case "CPU": return "cpu.png";
+        case "GPU": return "gpu.png";
+        case "RAM": return "ram.png";
+        case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
+        default: return "default.png";
+    }
+}
+
+// Generate star rating HTML
+function generateStarRating(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    let starsHTML = '';
+    
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fa fa-star"></i>';
+    }
+    
+    // Half star
+    if (hasHalfStar) {
+        starsHTML += '<i class="fa fa-star-half-o"></i>';
+    }
+    
+    // Empty stars
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="fa fa-star-o"></i>';
+    }
+    
+    return starsHTML;
+}
+
+// Open quick view modal
+function openQuickView(productId) {
+    const product = dataSource.products.find(p => p.productid === productId);
+    if (!product) {
+        console.error('Product not found:', productId);
+        alert('Product not found!');
+        return;
+    }
+    
+    currentProductData = product;
+    
+    // Determine image based on product type
+    let img = getProductImage(product.producttypename);
+    
+    // Populate modal with product data
+    document.getElementById('modalProductImg').src = `./img/${img}`;
+    document.getElementById('modalProductName').textContent = product.productname || '';
+    document.getElementById('modalProductCategory').textContent = product.categoryname || '';
+    document.getElementById('modalProductPrice').textContent = product.finalprice != null ? '৳' + product.finalprice.toFixed(2) : '';
+    document.getElementById('modalProductDescription').textContent = product.description || '';
+    document.getElementById('modalProductBrand').textContent = product.brandname || 'N/A';
+    document.getElementById('modalProductType').textContent = product.producttypename || 'N/A';
+    document.getElementById('modalProductCategoryFull').textContent = product.categoryname || 'N/A';
+    document.getElementById('modalProductOriginalPrice').textContent = product.salesprice != null ? '৳' + product.salesprice.toFixed(2) : 'N/A';
+    document.getElementById('modalProductFinalPrice').textContent = product.finalprice != null ? '৳' + product.finalprice.toFixed(2) : 'N/A';
+    document.getElementById('modalProductDiscount').textContent = product.discountprice ? '৳' + product.discountprice.toFixed(2) : 'N/A';
+    
+    // Populate rating stars
+    const rating = product.rating || 0;
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    let starsHTML = '';
+    
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fa fa-star"></i>';
+    }
+    
+    // Half star
+    if (hasHalfStar) {
+        starsHTML += '<i class="fa fa-star-half-o"></i>';
+    }
+    
+    // Empty stars
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="fa fa-star-o"></i>';
+    }
+    
+    starsHTML += `<span style="margin-left: 5px; font-size: 14px; color: #666;">(${rating.toFixed(1)})</span>`;
+    
+    document.getElementById('modalProductRating').innerHTML = starsHTML;
+    
+    // Show the modal
+    $('#quickViewModal').modal('show');
+}
+
+// Add to cart from modal
+function addToCartFromModal() {
+    if (currentProductData) {
+        addToCart(currentProductData.productid);
+        $('#quickViewModal').modal('hide');
+    }
+}
+
+// Add to wishlist from modal
+function addToWishlistFromModal() {
+    if (currentProductData) {
+        addToWishlist(currentProductData.productid);
+        $('#quickViewModal').modal('hide');
+    }
+}
+
+// Add to compare (placeholder function)
+function addToCompare(productId) {
+    const product = dataSource.products.find(p => p.productid === productId);
+    if (product) {
+        showCustomAlert(`Added ${product.productname} to compare list!`, 'success');
+        console.log('Added to compare:', product);
+        return true;
+    }
+    showCustomAlert('Product not found!', 'error');
+    return false;
+}
+
+// ========================================
+// SEARCH AND FILTER FUNCTIONALITY
+// ========================================
+
+// Function to get URL parameters
+function getUrlParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+        search: urlParams.get('search') || '',
+        category: urlParams.get('category') || ''
+    };
+}
+
+// Function to populate store header categories from dataSource
+function populateStoreHeaderCategories() {
+    const categorySelect = document.getElementById('store-search-category');
+    if (categorySelect && dataSource.categories) {
+        dataSource.categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.category_id;
+            option.textContent = category.categoryname;
+            categorySelect.appendChild(option);
+        });
+    }
+}
+
+// Function to perform search from store header
+function performStoreSearch(event) {
+    event.preventDefault();
+    
+    const searchTerm = document.getElementById('store-header-name').value.trim();
+    const selectedCategory = document.getElementById('store-search-category').value;
+    
+    // Update the sidebar filters
+    if (searchTerm) {
+        document.getElementById('name').value = searchTerm;
+    }
+    
+    if (selectedCategory) {
+        document.getElementById('category_id').value = selectedCategory;
+    }
+    
+    // Perform the search
+    search1();
+}
+
+// Function to apply URL parameters to filters
+function applyUrlParametersToFilters() {
+    const params = getUrlParameters();
+    
+    if (params.search) {
+        document.getElementById('name').value = params.search;
+        document.getElementById('store-header-name').value = params.search;
+    }
+    
+    if (params.category) {
+        document.getElementById('category_id').value = params.category;
+        document.getElementById('store-search-category').value = params.category;
+    }
+}
 
 function renderProducts(products) {
 	products = products.product || [];
@@ -994,38 +1490,61 @@ function renderProducts(products) {
     // Use 9 product images, cycle or randomize
     const availableImages = [1,2,3,4,5,6,7,8,9]; // Only use images that exist
     products.forEach((product, idx) => {
+        // console.log(product);
+        let img = getProductImage(product.producttypename);
         // Pick a random image for each card
-        const imgNum = availableImages[Math.floor(Math.random() * availableImages.length)];
-        const imgSrc = `./img/product0${imgNum}.png`;
+        // const imgNum = availableImages[Math.floor(Math.random() * availableImages.length)];
+        // const imgSrc = `./img/product0${imgNum}.png`;
         row.innerHTML += `
-        <div class="col-md-4 col-xs-6">
+        <div class="col-md-4 col-xs-6" style="padding-bottom: 25px;">
             <div class="product">
                 <div class="product-img">
-                    <img src="${imgSrc}" alt="${product.productname || ''}" onerror=\"this.onerror=null;this.src='./img/product01.png';\">
+                  	<img style="width: 260px; height: 200px; object-fit: cover; border-radius: 8px;" src="./img/${img}" alt="">
                     <div class="product-label">
-                        <span class="new">NEW</span>
+                        ${(() => {
+                            // Show "NEW" only if product was added today (using product_created_on)
+                            if (product.product_created_on) {
+                                const addedDate = new Date(product.product_created_on);
+                                const today = new Date();
+                                return (addedDate.getFullYear() === today.getFullYear() &&
+                                        addedDate.getMonth() === today.getMonth() &&
+                                        addedDate.getDate() === today.getDate())
+                                    ? '<span class="new">NEW</span>' : '';
+                            }
+                            return '';
+                        })()}
                     </div>
                 </div>
                 <div class="product-body">
                     <p class="product-category">${product.categoryname || ''}</p>
                     <h3 class="product-name"><a href="#">${product.productname || ''}</a></h3>
                     <p class="product-description" style="min-height:40px;font-size:13px;color:#666;margin-bottom:8px;">${product.description || ''}</p>
-                    <h4 class="product-price">${product.finalprice != null ? '$' + product.finalprice.toFixed(2) : ''}</h4>
-                    <div class="product-rating"></div>
+                    <h4 class="product-price">${product.finalprice != null ? '৳' + product.finalprice.toFixed(2) : ''}</h4>
+                    <div class="product-rating">
+                        ${generateStarRating(product.rating || 0)}
+                        <span style="margin-left: 5px; font-size: 12px; color: #666;">(${product.rating ? product.rating.toFixed(1) : '0.0'})</span>
+                    </div>
                     <div class="product-btns">
-                        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                        <button class="add-to-wishlist" onclick="addToWishlist('${product.productid}')" title="Add to wishlist">
+                            <i class="fa fa-heart-o"></i>
+                        </button>
+                        <button class="add-to-compare" onclick="addToCompare('${product.productid}')" title="Add to compare">
+                            <i class="fa fa-exchange"></i>
+                        </button>
+                        <button class="quick-view" onclick="openQuickView('${product.productid}')" title="Quick view">
+                            <i class="fa fa-eye"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="add-to-cart">
-                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                    <button class="add-to-cart-btn" onclick="addToCart('${product.productid}')">
+                        <i class="fa fa-shopping-cart"></i> add to cart
+                    </button>
                 </div>
             </div>
         </div>`;
     });
 }
-
 
 function updateLeftPanel(data) {
     // Defensive: fallback to empty arrays if undefined
@@ -1081,8 +1600,22 @@ function updateLeftPanel(data) {
 }
 
 function filterProducts(products, filters) {
+    console.log('filterProducts');
+    console.log(filters);
     return products.filter(product => {
-        if (filters.name && !product.productname.toLowerCase().includes(filters.name.toLowerCase())) return false;
+        // Enhanced name search: match against productname, producttypename, categoryname, brandname, description
+        if (filters.name) {
+            const search = filters.name.toLowerCase();
+            const fieldsToSearch = [
+                product.productname,
+                product.producttypename,
+                product.categoryname,
+                product.brandname,
+                product.description
+            ];
+            const found = fieldsToSearch.some(field => field && field.toLowerCase().includes(search));
+            if (!found) return false;
+        }
         if (filters.category_ids && filters.category_ids.length > 0 && !filters.category_ids.includes(product.categoryid)) return false;
         if (filters.brand_ids && filters.brand_ids.length > 0 && !filters.brand_ids.includes(product.brandid)) return false;
         if (filters.product_type_ids && filters.product_type_ids.length > 0 && !filters.product_type_ids.includes(product.producttypeid)) return false;
@@ -1128,8 +1661,39 @@ function getMinRating() {
     return checked.length > 0 ? Math.max(...checked) : null;
 }
 
+function reset() {
+    // Clear all form inputs
+    document.getElementById('name').value = '';
+    document.getElementById('category_id').value = '';
+    document.getElementById('brand_id').value = '';
+    document.getElementById('product_type_id').value = '';
+    document.getElementById('price_min').value = '';
+    document.getElementById('price_max').value = '';
+    document.getElementById('store-header-name').value = '';
+    
+    // Clear all rating checkboxes
+    document.querySelectorAll('input[name="min_rating[]"]').forEach(cb => cb.checked = false);
+    
+    // Clear aside checkboxes if they exist
+    const asideCategory = document.querySelectorAll('.aside .checkbox-filter')[0];
+    if (asideCategory) {
+        asideCategory.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    }
+    const asideBrand = document.querySelectorAll('.aside .checkbox-filter')[1];
+    if (asideBrand) {
+        asideBrand.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    }
+    
+    // Show all products
+    search1();
+}
+
 function search1() {
     // Collect filter values from UI
+    var name1  = document.getElementById('store-header-name').value.trim();
+    if(name1 != null && name1 != ""){
+        $('#name').val(name1);
+    }
     const name = document.getElementById('name').value.trim();
     // Dropdowns
     const category_id = document.getElementById('category_id').value;
@@ -1157,16 +1721,30 @@ function search1() {
         price_max,
         min_rating: getMinRating()
     };
+    // console.log('search1');
+    // console.log(dataSource);
     // Filter and render
-    const filteredProducts = filterProducts(staticData.products, filters);
+    const filteredProducts = filterProducts(dataSource.products, filters);
     renderProducts({ product: filteredProducts });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    updateLeftPanel(staticData);
+    updateLeftPanel(dataSource);
     attachFilterListeners();
+    
+    // Populate store header categories
+    populateStoreHeaderCategories();
+    
+    // Apply URL parameters to filters
+    applyUrlParametersToFilters();
+    
+    // Update wishlist count
+    updateWishlistCount();
+    
+    // Update cart count
+    updateCartCount();
 
-    console.log("Products available:", staticData.products.length);
+    console.log("Products available:", dataSource.products.length);
     console.log("Running search1 on page load...");
     search1(); // <-- This should now work
 
@@ -1175,6 +1753,14 @@ document.addEventListener('DOMContentLoaded', function () {
         searchBtn.addEventListener('click', function (e) {
             e.preventDefault();
             search1();
+        });
+    }
+    
+    const resetBtn = document.querySelector('.btn.btn-default.btn-block');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            reset();
         });
     }
 });

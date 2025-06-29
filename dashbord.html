@@ -355,7 +355,10 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar col-md-3 col-lg-2 d-md-block">
-        <div class="brand">PC-Shop</div>
+        <div class="brand" style="
+            font-size: xxx-large;
+            color: #D10024;
+        ">PC-Shop</div>
         <ul class="nav flex-column">
             <!-- Sidebar Navigation Items -->
             <li class="nav-item"><a href="#dashboard" class="nav-link active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
@@ -414,7 +417,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="stats-info">
-                                <h5>2,845</h5>
+                                <h5 id="total-users">0</h5>
                                 <span>Total Users</span>
                             </div>
                         </div>
@@ -425,7 +428,7 @@
                                 <i class="fas fa-shopping-bag"></i>
                             </div>
                             <div class="stats-info">
-                                <h5>14,721</h5>
+                                <h5 id="total-products">0</h5>
                                 <span>Total Products</span>
                             </div>
                         </div>
@@ -436,7 +439,7 @@
                                 <i class="fas fa-money-bill-wave"></i>
                             </div>
                             <div class="stats-info">
-                                <h5>$89,245</h5>
+                                <h5 id="total-revenue">৳0</h5>
                                 <span>Total Revenue</span>
                             </div>
                         </div>
@@ -447,7 +450,7 @@
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
                             <div class="stats-info">
-                                <h5>1,354</h5>
+                                <h5 id="total-orders">0</h5>
                                 <span>New Orders</span>
                             </div>
                         </div>
@@ -466,7 +469,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="recent-orders-table">
                                         <thead>
                                             <tr>
                                                 <th>Order ID</th>
@@ -478,46 +481,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>#ORD-7841</td>
-                                                <td>John Doe</td>
-                                                <td>Dell XPS 13</td>
-                                                <td>$1,299</td>
-                                                <td><span class="badge bg-success badge-status">Completed</span></td>
-                                                <td>10 May, 2025</td>
-                                            </tr>
-                                            <tr>
-                                                <td>#ORD-7840</td>
-                                                <td>Jane Smith</td>
-                                                <td>Canon EOS R5</td>
-                                                <td>$3,899</td>
-                                                <td><span class="badge bg-warning badge-status">Processing</span></td>
-                                                <td>09 May, 2025</td>
-                                            </tr>
-                                            <tr>
-                                                <td>#ORD-7839</td>
-                                                <td>Robert Johnson</td>
-                                                <td>iPhone 15 Pro</td>
-                                                <td>$1,099</td>
-                                                <td><span class="badge bg-info badge-status">Shipped</span></td>
-                                                <td>09 May, 2025</td>
-                                            </tr>
-                                            <tr>
-                                                <td>#ORD-7838</td>
-                                                <td>Emily Davis</td>
-                                                <td>Logitech MX Master 3</td>
-                                                <td>$99</td>
-                                                <td><span class="badge bg-success badge-status">Completed</span></td>
-                                                <td>08 May, 2025</td>
-                                            </tr>
-                                            <tr>
-                                                <td>#ORD-7837</td>
-                                                <td>Michael Wilson</td>
-                                                <td>MacBook Pro 16"</td>
-                                                <td>$2,499</td>
-                                                <td><span class="badge bg-danger badge-status">Cancelled</span></td>
-                                                <td>07 May, 2025</td>
-                                            </tr>
+                                            <!-- Recent orders will be loaded here dynamically -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -530,42 +494,8 @@
                                 Top Selling Products
                             </div>
                             <div class="card-body p-0">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="mb-0">Dell XPS 13</h6>
-                                            <small class="text-muted">Laptops</small>
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">284 sold</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="mb-0">iPhone 15 Pro</h6>
-                                            <small class="text-muted">Smartphones</small>
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">251 sold</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="mb-0">Canon EOS R5</h6>
-                                            <small class="text-muted">Cameras</small>
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">197 sold</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="mb-0">Logitech MX Master 3</h6>
-                                            <small class="text-muted">Accessories</small>
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">184 sold</span>
-                                    </li>
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <h6 class="mb-0">MacBook Pro 16"</h6>
-                                            <small class="text-muted">Laptops</small>
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">153 sold</span>
-                                    </li>
+                                <ul class="list-group list-group-flush" id="top-selling-products">
+                                    <!-- Top selling products will be loaded here dynamically -->
                                 </ul>
                             </div>
                         </div>
@@ -833,62 +763,142 @@
         </div>
     </div>
 
- 
-
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script>
-            function updateFinalPrice() {
-        const salesPrice = parseFloat($('#productSalesPrice').val()) || 0;
-        const discountPrice = parseFloat($('#productDiscountPrice').val()) || 0;
-        const finalPrice = Math.max(salesPrice - discountPrice, 0); // Ensure it doesn't go negative
-        $('#productFinalPrice').val(finalPrice.toFixed(2));
-    }
-
-    $('#productSalesPrice, #productDiscountPrice').on('input', updateFinalPrice);
-        $('#addProductForm').on('submit', function (e) {
-            e.preventDefault();
-
-            const data = {
-                name: $('#productName').val().trim(),
-                description: $('#productDescription').val().trim() || "",
-                warrantyMonths: parseInt($('#productWarranty').val(), 10) || 0,
-                productTypeId: $('#productType').val(),
-                categoryId: $('#productCategory').val(),
-                brandId: $('#productBrand').val(),
-                vendorId: $('#productVendor').val(),
-                purchasePrice: parseFloat($('#productPurchasePrice').val()) || 0,
-                salesPrice: parseFloat($('#productSalesPrice').val()) || 0,
-                discountPrice: parseFloat($('#productDiscountPrice').val()) || 0,
-                finalPrice: parseFloat($('#productFinalPrice').val()) || 0,
-                priceEffectiveFrom: new Date().toISOString(),
-                priceEffectiveTo: new Date().toISOString()
-            };
-
-            // Basic validation
-            if (!data.name || !data.categoryId || !data.brandId || !data.vendorId || !data.productTypeId) {
-                alert('Please fill out all required fields.');
-                return;
-            }
-
-            $.ajax({
-                url: 'https://localhost:7111/api/product',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    alert('Product added successfully!');
-                    $('#addProductForm')[0].reset();
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                    console.error('Status:', status);
-                    console.error('Response:', xhr.responseText);
-                    alert('Failed to add product.');
+    <script src="js/dataSource.js"></script>
+    <script>
+        // Dashboard functionality
+        $(document).ready(function() {
+            // Load dashboard data from dataSource
+            loadDashboardData();
+            
+            // Navigation functionality
+            $('.nav-link').on('click', function(e) {
+                e.preventDefault();
+                const page = $(this).data('page');
+                if (page) {
+                    showPage(page);
                 }
             });
+            
+            function showPage(pageName) {
+                $('.page').hide();
+                $('.nav-link').removeClass('active');
+                $(`[data-page="${pageName}"]`).addClass('active');
+                $(`#${pageName}-page`).show();
+            }
         });
-    </script> -->
+        
+        function loadDashboardData() {
+            // Calculate statistics from dataSource
+            const totalUsers = users.length;
+            const totalProducts = dataSource.products.length;
+            const totalRevenue = calculateTotalRevenue();
+            const totalOrders = orders.length;
+            
+            // Update dashboard stats
+            $('#total-users').text(totalUsers);
+            $('#total-products').text(totalProducts.toLocaleString());
+            $('#total-revenue').text('৳' + totalRevenue.toLocaleString());
+            $('#total-orders').text(totalOrders);
+            
+            // Load recent orders
+            loadRecentOrders();
+            
+            // Load top selling products
+            loadTopSellingProducts();
+        }
+        
+        function calculateTotalRevenue() {
+            return orders.reduce((total, order) => {
+                return total + order.total;
+            }, 0);
+        }
+        
+        function loadRecentOrders() {
+            const recentOrders = orders.slice(-5).reverse(); // Get last 5 orders
+            const tbody = $('#recent-orders-table tbody');
+            tbody.empty();
+            
+            recentOrders.forEach(order => {
+                const orderItems = order.items.map(item => {
+                    const product = dataSource.products.find(p => p.productid === item.productId);
+                    return product ? product.productname : 'Unknown Product';
+                }).join(', ');
+                
+                const user = users.find(u => u.id === order.userId);
+                const userName = user ? user.email : 'Unknown User';
+                
+                const statusClass = getStatusClass(order.status);
+                const statusText = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+                
+                const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+                
+                tbody.append(`
+                    <tr>
+                        <td>#${order.orderId}</td>
+                        <td>${userName}</td>
+                        <td>${orderItems}</td>
+                        <td>৳${order.total.toLocaleString()}</td>
+                        <td><span class="badge ${statusClass} badge-status">${statusText}</span></td>
+                        <td>${orderDate}</td>
+                    </tr>
+                `);
+            });
+        }
+        
+        function loadTopSellingProducts() {
+            // Count product sales from orders
+            const productSales = {};
+            
+            orders.forEach(order => {
+                order.items.forEach(item => {
+                    if (productSales[item.productId]) {
+                        productSales[item.productId] += item.quantity;
+                    } else {
+                        productSales[item.productId] = item.quantity;
+                    }
+                });
+            });
+            
+            // Sort by sales count and get top 5
+            const topProducts = Object.entries(productSales)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5);
+            
+            const topProductsList = $('#top-selling-products');
+            topProductsList.empty();
+            
+            topProducts.forEach(([productId, salesCount]) => {
+                const product = dataSource.products.find(p => p.productid === productId);
+                if (product) {
+                    topProductsList.append(`
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">${product.productname}</h6>
+                                <small class="text-muted">${product.categoryname}</small>
+                            </div>
+                            <span class="badge bg-primary rounded-pill">${salesCount} sold</span>
+                        </li>
+                    `);
+                }
+            });
+        }
+        
+        function getStatusClass(status) {
+            switch(status) {
+                case 'delivered': return 'bg-success';
+                case 'pending': return 'bg-warning';
+                case 'cancelled': return 'bg-danger';
+                case 'shipped': return 'bg-info';
+                default: return 'bg-secondary';
+            }
+        }
+    </script>
 </body>
 
 </html>

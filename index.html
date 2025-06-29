@@ -90,6 +90,90 @@
 			font-size: 0.8em;
 			color: #777;
 		}
+
+		/* Product rating styling */
+		.product-rating {
+			margin-bottom: 10px;
+		}
+		
+		.product-rating i {
+			color: #ffc107;
+			font-size: 14px;
+			margin-right: 2px;
+		}
+		
+		.product-rating i.fa-star {
+			color: #ffc107;
+		}
+		
+		.product-rating i.fa-star-half-o {
+			color: #ffc107;
+		}
+		
+		.product-rating i.fa-star-o {
+			color: #ddd;
+		}
+		
+		/* Custom Alert Box */
+		.custom-alert {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			background: #fff;
+			border-radius: 8px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+			padding: 15px 20px;
+			z-index: 9999;
+			transform: translateX(400px);
+			transition: transform 0.3s ease;
+			max-width: 300px;
+			border-left: 4px solid #D10024;
+		}
+		
+		.custom-alert.show {
+			transform: translateX(0);
+		}
+		
+		.custom-alert.success {
+			border-left-color: #28a745;
+		}
+		
+		.custom-alert.error {
+			border-left-color: #dc3545;
+		}
+		
+		.custom-alert.info {
+			border-left-color: #17a2b8;
+		}
+		
+		.custom-alert .alert-content {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		
+		.custom-alert .alert-icon {
+			font-size: 18px;
+			color: #D10024;
+		}
+		
+		.custom-alert.success .alert-icon {
+			color: #28a745;
+		}
+		
+		.custom-alert.error .alert-icon {
+			color: #dc3545;
+		}
+		
+		.custom-alert.info .alert-icon {
+			color: #17a2b8;
+		}
+		
+		.custom-alert .alert-message {
+			font-size: 14px;
+			color: #333;
+			font-weight: 500;
+		}
 	</style>
 
 
@@ -118,6 +202,8 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+<script src="js/jquery.min.js"></script>
+<script src="js/dataSource.js"></script>
 
 </head>
 
@@ -161,15 +247,13 @@
 
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
-						<div class="header-search" onclick="window.location.href='search-page.html'">
-							<form>
-								<select class="input-select" name="search-category" id="search-category">
-									<option value="0">All Categories</option>
-									<option value="1">Category 01</option>
-									<option value="1">Category 02</option>
+						<div class="header-search">
+							<form id="headerSearchForm" onsubmit="performSearch(event)">
+								<select class="input-select" name="search-category" id="search-category" title="Select category">
+									<option value="">All Categories</option>
 								</select>
-								<input class="input" placeholder="Search here">
-								<button onclick="window.location.href='search-page.html'" class="search-btn">Search</button>
+								<input class="input" id="header-search-input" placeholder="Search here" name="search-term">
+								<button type="submit" class="search-btn">Search</button>
 							</form>
 						</div>
 					</div>
@@ -180,20 +264,20 @@
 						<div class="header-ctn">
 							<!-- Wishlist -->
 							<div>
-								<a href="#">
+								<a href="wishlist-page.html">
 									<i class="fa fa-heart-o"></i>
 									<span>Your Wishlist</span>
-									<div class="qty">2</div>
+									<div class="qty" id="wishlist-count">0</div>
 								</a>
 							</div>
 							<!-- /Wishlist -->
 
 							<!-- Cart -->
 							<div class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+								<a class="dropdown-toggle" data-toggle="dropdown" onclick="handleCartClick(event)">
 									<i class="fa fa-shopping-cart"></i>
 									<span>Your Cart</span>
-									<div class="qty">3</div>
+									<div class="qty" id="cart-count">0</div>
 								</a>
 								<div class="cart-dropdown">
 									<div class="cart-list">
@@ -202,11 +286,10 @@
 												<img src="./img/product01.png" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-name"><a href="product.html">product name goes
-														here</a></h3>
-												<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+												<h3 class="product-name"><a href="product.html">product name goes here</a></h3>
+												<h4 class="product-price"><span class="qty">1x</span>৳980.00</h4>
 											</div>
-											<button class="delete"><i class="fa fa-close"></i></button>
+											<button class="delete" title="Remove from cart"><i class="fa fa-close"></i></button>
 										</div>
 
 										<div class="product-widget">
@@ -214,16 +297,15 @@
 												<img src="./img/product02.png" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-name"><a href="product.html">product name goes
-														here</a></h3>
-												<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
+												<h3 class="product-name"><a href="product.html">product name goes here</a></h3>
+												<h4 class="product-price"><span class="qty">3x</span>৳980.00</h4>
 											</div>
-											<button class="delete"><i class="fa fa-close"></i></button>
+											<button class="delete" title="Remove from cart"><i class="fa fa-close"></i></button>
 										</div>
 									</div>
 									<div class="cart-summary">
 										<small>3 Item(s) selected</small>
-										<h5>SUBTOTAL: $2940.00</h5>
+										<h5>SUBTOTAL: ৳2940.00</h5>
 									</div>
 									<div class="cart-btns">
 										<a href="#">View Cart</a>
@@ -252,6 +334,14 @@
 		<!-- /MAIN HEADER -->
 	</header>
 	<!-- /HEADER -->
+
+	<!-- Custom Alert Box -->
+	<div id="customAlert" class="custom-alert" style="display: none;">
+		<div class="alert-content">
+			<i class="alert-icon fa fa-info-circle"></i>
+			<span class="alert-message">Message here</span>
+		</div>
+	</div>
 
 	<!-- NAVIGATION -->
 	<nav id="navigation">
@@ -481,7 +571,7 @@
 						<div class="footer">
 							<h3 class="footer-title">About Us</h3>
 							<p>We provide high-quality PC components for gamers, builders, and tech enthusiasts. From
-								GPUs to cooling systems, we’re your trusted source for performance and reliability.</p>
+								GPUs to cooling systems, we're your trusted source for performance and reliability.</p>
 							<ul class="footer-links">
 								<li><a href="#"><i class="fa fa-map-marker"></i>Rajshshi, Bangladesh</a></li>
 								<li><a href="#"><i class="fa fa-phone"></i>+8801706782347</a></li>
@@ -568,44 +658,316 @@
 	<!-- /FOOTER -->
 
 	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/slick.min.js"></script>
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
-	<script src="js/main.js"></script>
 	<script src="js/function.js"></script>
+	<script src="js/main.js"></script>
 
 
 	<script>
-		var all_products;
+		// Custom Alert Function
+		function showCustomAlert(message, type = 'info') {
+			const alertBox = document.getElementById('customAlert');
+			const alertIcon = alertBox.querySelector('.alert-icon');
+			const alertMessage = alertBox.querySelector('.alert-message');
+			
+			// Set message
+			alertMessage.textContent = message;
+			
+			// Set type and icon
+			alertBox.className = `custom-alert ${type}`;
+			
+			switch(type) {
+				case 'success':
+					alertIcon.className = 'alert-icon fa fa-check-circle';
+					break;
+				case 'error':
+					alertIcon.className = 'alert-icon fa fa-times-circle';
+					break;
+				case 'info':
+				default:
+					alertIcon.className = 'alert-icon fa fa-info-circle';
+					break;
+			}
+			
+			// Show alert
+			alertBox.style.display = 'block';
+			setTimeout(() => {
+				alertBox.classList.add('show');
+			}, 100);
+			
+			// Auto hide after 2 seconds
+			setTimeout(() => {
+				alertBox.classList.remove('show');
+				setTimeout(() => {
+					alertBox.style.display = 'none';
+				}, 300);
+			}, 2000);
+		}
+
+		// ========================================
+		// WISHLIST FUNCTIONALITY
+		// ========================================
+
+		// Get wishlist from localStorage
+		function getWishlist() {
+			const wishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+			return wishlist ? JSON.parse(wishlist) : [];
+		}
+
+		// Save wishlist to localStorage
+		function saveWishlist(wishlist) {
+			localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
+			updateWishlistCount();
+		}
+
+		// Function to add product to wishlist
+		function addToWishlist(productId) {
+			const product = all_products.find(p => p.productid === productId);
+			if (!product) {
+				console.error('Product not found:', productId);
+				showCustomAlert('Product not found!', 'error');
+				return false;
+			}
+
+			const wishlist = getWishlist();
+			if (!wishlist.includes(productId)) {
+				wishlist.push(productId);
+				saveWishlist(wishlist);
+				showCustomAlert(`Added ${product.productname} to wishlist!`, 'success');
+				return true;
+			} else {
+				showCustomAlert('Product is already in your wishlist!', 'info');
+				return false;
+			}
+		}
+
+		// Update wishlist count in header
+		function updateWishlistCount() {
+			const wishlist = getWishlist();
+			const countElement = document.getElementById('wishlist-count');
+			if (countElement) {
+				countElement.textContent = wishlist.length;
+			}
+		}
+
+		// ========================================
+		// CART FUNCTIONALITY
+		// ========================================
+
+		// Get cart from localStorage
+		function getCart() {
+			const cart = localStorage.getItem(STORAGE_KEYS.CART);
+			return cart ? JSON.parse(cart) : [];
+		}
+
+		// Save cart to localStorage
+		function saveCart(cart) {
+			localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+			updateCartCount();
+		}
+
+		// Function to add product to cart
+		function addToCart(productId) {
+			const product = all_products.find(p => p.productid === productId);
+			if (!product) {
+				console.error('Product not found:', productId);
+				showCustomAlert('Product not found!', 'error');
+				return false;
+			}
+
+			const cart = getCart();
+			const existingItem = cart.find(item => item.productId === productId);
+			
+			if (existingItem) {
+				existingItem.quantity += 1;
+			} else {
+				cart.push({
+					productId: productId,
+					quantity: 1,
+					addedAt: new Date().toISOString()
+				});
+			}
+			
+			saveCart(cart);
+			showCustomAlert(`Added ${product.productname} to cart!`, 'success');
+			return true;
+		}
+
+		// Update cart count in header
+		function updateCartCount() {
+			const cart = getCart();
+			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			const countElement = document.getElementById('cart-count');
+			if (countElement) {
+				countElement.textContent = totalItems;
+			}
+		}
+
+		// Handle cart click - redirect to checkout if cart has items
+		function handleCartClick(event) {
+			const cart = getCart();
+			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			
+			if (totalItems > 0) {
+				// Prevent dropdown from opening
+				event.preventDefault();
+				event.stopPropagation();
+				
+				// Redirect to checkout page
+				window.location.href = 'checkout.html';
+			}
+			// If cart is empty, let the dropdown open normally
+		}
+
+		// ========================================
+		// QUICK VIEW FUNCTIONALITY
+		// ========================================
+
+		// Generate product image based on type
+		function getProductImage(productType) {
+			switch (productType) {
+				case "CPU": return "cpu.png";
+				case "GPU": return "gpu.png";
+				case "RAM": return "ram.png";
+				case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
+				default: return "default.png";
+			}
+		}
+
+		// Generate star rating HTML
+		function generateStarRating(rating) {
+			const fullStars = Math.floor(rating);
+			const hasHalfStar = rating % 1 >= 0.5;
+			const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+			
+			let starsHTML = '';
+			
+			// Full stars
+			for (let i = 0; i < fullStars; i++) {
+				starsHTML += '<i class="fa fa-star"></i>';
+			}
+			
+			// Half star
+			if (hasHalfStar) {
+				starsHTML += '<i class="fa fa-star-half-o"></i>';
+			}
+			
+			// Empty stars
+			for (let i = 0; i < emptyStars; i++) {
+				starsHTML += '<i class="fa fa-star-o"></i>';
+			}
+			
+			return starsHTML;
+		}
+
+		// Function to open quick view
+		function openQuickView(productId) {
+			const product = all_products.find(p => p.productid === productId);
+			if (!product) {
+				console.error('Product not found:', productId);
+				showCustomAlert('Product not found!', 'error');
+				return;
+			}
+			
+			showCustomAlert(`Quick view for ${product.productname} - Price: ৳${product.finalprice}`, 'info');
+		}
+
+		// Function to add to compare
+		function addToCompare(productId) {
+			const product = all_products.find(p => p.productid === productId);
+			if (product) {
+				showCustomAlert(`Added ${product.productname} to compare list!`, 'success');
+				console.log('Added to compare:', product);
+				return true;
+			}
+			showCustomAlert('Product not found!', 'error');
+			return false;
+		}
+
 		$(document).ready(function () {
 
 			//render_products('');
 
-			$.ajax({
-				url: 'https://localhost:7111/api/product',  // or /api/products if that's your correct endpoint
-				type: 'GET',
-				success: function (products) {
-					// Assuming products is an array of objects
-					let html = '';
-					console.log(products)
-					all_products = products;
-					render_products(products);
-					render_top_products(products);
+			// $.ajax({
+			// 	url: 'https://localhost:7111/api/product',  // or /api/products if that's your correct endpoint
+			// 	type: 'GET',
+			// 	success: function (products) {
+			// 		// Assuming products is an array of objects
+			// 		let html = '';
+			// 		console.log(products)
+			// 		all_products = products;
+			// 		render_products(products);
+			// 		render_top_products(products);
 
-					// $('#productsTableBody').html(html);
-				},
-				error: function (xhr, status, error) {
-					console.error('Error fetching products:', xhr.responseText);
-					alert('Failed to load products.');
-				}
-			});
+			// 		// $('#productsTableBody').html(html);
+			// 	},
+			// 	error: function (xhr, status, error) {
+			// 		console.error('Error fetching products:', xhr.responseText);
+			// 		alert('Failed to load products.');
+			// 	}
+			// });
 
+
+			let html = '';
+					// console.log(dataSource.products)
+					// all_products = dataSource.products;
+					render_products(dataSource.products);
+					// render_top_products(dataSource.products);
+
+			// Populate header search categories
+			populateHeaderCategories();
+
+			// Update wishlist count
+			updateWishlistCount();
+			
+			// Update cart count
+			updateCartCount();
 
 		});
 
+		// Function to populate header search categories from dataSource
+		function populateHeaderCategories() {
+			const categorySelect = document.getElementById('search-category');
+			if (categorySelect && dataSource.categories) {
+				dataSource.categories.forEach(category => {
+					const option = document.createElement('option');
+					option.value = category.category_id;
+					option.textContent = category.categoryname;
+					categorySelect.appendChild(option);
+				});
+			}
+		}
 
+		// Function to perform search and redirect to store page
+		function performSearch(event) {
+			event.preventDefault();
+			
+			const searchTerm = document.getElementById('header-search-input').value.trim();
+			const selectedCategory = document.getElementById('search-category').value;
+			
+			// Build URL with search parameters
+			let url = 'store.html';
+			const params = new URLSearchParams();
+			
+			if (searchTerm) {
+				params.append('search', searchTerm);
+			}
+			
+			if (selectedCategory) {
+				params.append('category', selectedCategory);
+			}
+			
+			// Add parameters to URL if any exist
+			if (params.toString()) {
+				url += '?' + params.toString();
+			}
+			
+			// Redirect to store page with search parameters
+			window.location.href = url;
+		}
 
 		function render_products(products) {
 			var $container = $("#productsContainer");
@@ -615,44 +977,52 @@
 				$container.slick("unslick");
 			}
 
+			const top6 = products
+						.filter(p => p.product_created_on) // remove null/undefined dates
+						.sort((a, b) => new Date(b.product_created_on) - new Date(a.product_created_on)) // newest first
+						.slice(0, 6); // top 6
+
+
 			// Clear the container
 			$container.empty();
 
 			// Add products
 			$.each(products, function (index, product) {
 
-				console.log(product)
+				console.log(product.producttypename);
+
+				let img = getProductImage(product.producttypename);
 				var productHTML = `
 					<div class="product">
 						<div class="product-img">
-							<img src="./img/product06.png" alt="">
-							<div class="product-label">
-								${product.sale ? `<span class="sale">-${10}%</span>` : ''}
+							<img style="width: 260px; height: 200px; object-fit: cover; border-radius: 8px;" src="./img/${img}" alt="">
+							<div class="product-label"><span class="sale">-${product.discountprice} ৳</span>
 								<span class="new">NEW</span>
 							</div>
 						</div>
 						<div class="product-body">
-							<p class="product-category">${product.categoryName}</p>
-							<h3 class="product-name"><a href="product.html">${product.productName}</a></h3>
-							<h4 class="product-price">${product.salesPrice ?? 1200} <del class="product-old-price">${product.salesPrice ?? 1200 + 200}</del></h4>
+							<p class="product-category">${product.producttypename}</p>
+							<h3 class="product-name"><a href="product.html">${product.productname}</a></h3>
+							<h4 class="product-price">৳${product.salesprice ?? 1200} <del class="product-old-price">৳${product.finalprice ?? 1200 + 200}</del></h4>
 							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o"></i>
+								${generateStarRating(product.rating || 0)}
+								<span style="margin-left: 5px; font-size: 12px; color: #666;">(${product.rating ? product.rating.toFixed(1) : '0.0'})</span>
 							</div>
 							<div class="product-btns">
-								<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-								<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-								<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+								<button class="add-to-wishlist" onclick="addToWishlist('${product.productid}')" title="Add to wishlist">
+									<i class="fa fa-heart-o"></i>
+								</button>
+								<button class="quick-view" onclick="openQuickView('${product.productid}')" title="Quick view">
+									<i class="fa fa-eye"></i>
+								</button>
 							</div>
 						</div>
 						<div class="add-to-cart">
-							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+							<button class="add-to-cart-btn" onclick="addToCart('${product.productid}')">
+								<i class="fa fa-shopping-cart"></i> add to cart
+							</button>
 						</div>
-					</div>
-				`;
+					</div>`;
 				$container.append(productHTML);
 			});
 
@@ -846,6 +1216,8 @@
 				]
 			});
 		}
+
+		// Note: updateWishlistCount function is now centralized in main.js
 	</script>
 
 
