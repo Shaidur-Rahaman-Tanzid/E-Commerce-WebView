@@ -596,14 +596,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search users...">
-                                    <button class="btn btn-outline-secondary" type="button">
+                                    <input type="text" class="form-control" id="userSearchInput" placeholder="Search users...">
+                                    <button class="btn btn-outline-secondary" type="button" id="userSearchBtn">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -617,103 +616,14 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
-                                        </td>
-                                        <td>John Doe</td>
-                                        <td>john.doe@example.com</td>
-                                        <td>Customer</td>
-                                        <td><span class="badge bg-success badge-status">Active</span></td>
-                                        <td>01 Feb, 2025</td>
-                                        <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
-                                        </td>
-                                        <td>Jane Smith</td>
-                                        <td>jane.smith@example.com</td>
-                                        <td>Admin</td>
-                                        <td><span class="badge bg-success badge-status">Active</span></td>
-                                        <td>15 Jan, 2025</td>
-                                        <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
-                                        </td>
-                                        <td>Robert Johnson</td>
-                                        <td>robert.johnson@example.com</td>
-                                        <td>Vendor</td>
-                                        <td><span class="badge bg-warning badge-status">Inactive</span></td>
-                                        <td>23 Mar, 2025</td>
-                                        <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
-                                        </td>
-                                        <td>Emily Davis</td>
-                                        <td>emily.davis@example.com</td>
-                                        <td>Customer</td>
-                                        <td><span class="badge bg-danger badge-status">Suspended</span></td>
-                                        <td>07 Apr, 2025</td>
-                                        <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="/api/placeholder/40/40" alt="User" class="user-avatar">
-                                        </td>
-                                        <td>Michael Wilson</td>
-                                        <td>michael.wilson@example.com</td>
-                                        <td>Customer</td>
-                                        <td><span class="badge bg-success badge-status">Active</span></td>
-                                        <td>19 Apr, 2025</td>
-                                        <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
+                                <tbody id="userTableBody">
+                                    <!-- Dynamic user rows here -->
                                 </tbody>
                             </table>
                         </div>
-                        
                         <nav>
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
+                            <ul class="pagination justify-content-end" id="userPagination">
+                                <!-- Pagination if needed -->
                             </ul>
                         </nav>
                     </div>
@@ -875,7 +785,7 @@
     </div>
 
     <!-- Add User Modal -->
-    <!-- <div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -883,11 +793,93 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Form fields for adding user would go here
+                    <form id="addUserForm">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="userName" placeholder="Enter user name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="userEmail" placeholder="Enter user email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userRole" class="form-label">Role</label>
+                            <select class="form-select" id="userRole" required>
+                                <option value="">Select role</option>
+                                <option value="admin">Admin</option>
+                                <option value="customer">Customer</option>
+                                <option value="vendor">Vendor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userStatus" class="form-label">Status</label>
+                            <select class="form-select" id="userStatus" required>
+                                <option value="">Select status</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="suspended">Suspended</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="addUserForm" class="btn btn-primary">Add User</button>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
+
+    <!-- View User Modal -->
+    <div class="modal fade" id="viewUserModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">View User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="viewUserModalBody">
+            <!-- User details here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="editUserForm">
+            <div class="modal-body" id="editUserModalBody">
+              <!-- Edit form here -->
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Delete User Modal -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="deleteUserModalBody">
+            <!-- Delete confirmation here -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="confirmDeleteUserBtn">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -1149,6 +1141,206 @@
                         alert('Failed to add product. Error: ' + error);
                     }
                 });
+            });
+
+            // User Management Logic
+            let allUsers = [];
+            let filteredUsers = [];
+            let currentEditUserId = null;
+            let currentDeleteUserId = null;
+
+            function normalizeUser(u) {
+              return {
+                id: u.id,
+                name: u.userName || u.name || '',
+                email: u.email,
+                role: (u.role === 'admin' || u.role === 'customer' || u.role === 'vendor') ? u.role : (u.role === 'user' ? 'customer' : u.role),
+                status: u.status || 'active',
+                registrationDate: (u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : (u.registrationDate || ''))
+              };
+            }
+
+            function renderUserTable(users) {
+              const tbody = $('#userTableBody');
+              tbody.empty();
+              if (!users.length) {
+                tbody.append('<tr><td colspan="7" class="text-center text-muted">No users found.</td></tr>');
+                return;
+              }
+              users.forEach(user => {
+                const statusClass = user.status === 'active' ? 'bg-success' : (user.status === 'inactive' ? 'bg-warning' : 'bg-danger');
+                tbody.append(`
+                  <tr>
+                    <td><img src="img/default.png" alt="User" class="user-avatar"></td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
+                    <td><span class="badge ${statusClass} badge-status">${user.status.charAt(0).toUpperCase() + user.status.slice(1)}</span></td>
+                    <td>${user.registrationDate || ''}</td>
+                    <td class="user-action">
+                      <a href="#" class="text-info me-2 view-user-btn" data-user-id="${user.id}" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                      <a href="#" class="text-primary me-2 edit-user-btn" data-user-id="${user.id}" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                      <a href="#" class="text-danger delete-user-btn" data-user-id="${user.id}" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                    </td>
+                  </tr>
+                `);
+              });
+            }
+
+            function filterAndRenderUsers() {
+              const role = $('#filterRole').val();
+              const status = $('#filterStatus').val();
+              const search = $('#userSearchInput').val().toLowerCase();
+              filteredUsers = allUsers.filter(user => {
+                const matchesRole = !role || user.role === role;
+                const matchesStatus = !status || user.status === status;
+                const matchesSearch = !search || user.name.toLowerCase().includes(search) || user.email.toLowerCase().includes(search);
+                return matchesRole && matchesStatus && matchesSearch;
+              });
+              renderUserTable(filteredUsers);
+            }
+
+            function showViewUserModal(userId) {
+              const user = allUsers.find(u => u.id === userId);
+              if (!user) return;
+              $('#viewUserModalBody').html(`
+                <div class="user-detail">
+                  <img src="img/default.png" class="user-avatar me-3" alt="User">
+                  <div>
+                    <h5>${user.name}</h5>
+                    <p class="mb-1"><strong>Email:</strong> ${user.email}</p>
+                    <p class="mb-1"><strong>Role:</strong> ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}</p>
+                    <p class="mb-1"><strong>Status:</strong> ${user.status.charAt(0).toUpperCase() + user.status.slice(1)}</p>
+                    <p class="mb-1"><strong>Registration Date:</strong> ${user.registrationDate || ''}</p>
+                  </div>
+                </div>
+              `);
+            }
+
+            function showEditUserModal(userId) {
+              const user = allUsers.find(u => u.id === userId);
+              if (!user) return;
+              currentEditUserId = userId;
+              $('#editUserModalBody').html(`
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" name="name" value="${user.name}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" name="email" value="${user.email}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Role</label>
+                  <select class="form-select" name="role" required>
+                    <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+                    <option value="customer" ${user.role === 'customer' ? 'selected' : ''}>Customer</option>
+                    <option value="vendor" ${user.role === 'vendor' ? 'selected' : ''}>Vendor</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-select" name="status" required>
+                    <option value="active" ${user.status === 'active' ? 'selected' : ''}>Active</option>
+                    <option value="inactive" ${user.status === 'inactive' ? 'selected' : ''}>Inactive</option>
+                    <option value="suspended" ${user.status === 'suspended' ? 'selected' : ''}>Suspended</option>
+                  </select>
+                </div>
+              `);
+            }
+
+            function showDeleteUserModal(userId) {
+              const user = allUsers.find(u => u.id === userId);
+              if (!user) return;
+              currentDeleteUserId = userId;
+              $('#deleteUserModalBody').html(`<p>Are you sure you want to delete <strong>${user.name}</strong>?</p>`);
+            }
+
+            function setupUserManagement() {
+              // Use global users array if available, else fallback to dataSource.users
+              let rawUsers = (typeof users !== 'undefined' && Array.isArray(users) && users.length) ? users : (typeof dataSource !== 'undefined' && Array.isArray(dataSource.users) ? dataSource.users : []);
+              allUsers = rawUsers.map(normalizeUser);
+              filteredUsers = allUsers;
+              renderUserTable(allUsers);
+
+              // Filter/search events
+              $('#filterRole, #filterStatus').off('change').on('change', filterAndRenderUsers);
+              $('#userSearchInput').off('input').on('input', filterAndRenderUsers);
+              $('#userSearchBtn').off('click').on('click', filterAndRenderUsers);
+
+              // View user
+              $(document).off('click', '.view-user-btn').on('click', '.view-user-btn', function() {
+                const userId = $(this).data('user-id');
+                showViewUserModal(userId);
+              });
+              // Edit user
+              $(document).off('click', '.edit-user-btn').on('click', '.edit-user-btn', function() {
+                const userId = $(this).data('user-id');
+                showEditUserModal(userId);
+              });
+              // Delete user
+              $(document).off('click', '.delete-user-btn').on('click', '.delete-user-btn', function() {
+                const userId = $(this).data('user-id');
+                showDeleteUserModal(userId);
+              });
+              // Save edit
+              $('#editUserForm').off('submit').on('submit', function(e) {
+                e.preventDefault();
+                const form = $(this);
+                const user = allUsers.find(u => u.id === currentEditUserId);
+                if (user) {
+                  user.name = form.find('[name="name"]').val();
+                  user.email = form.find('[name="email"]').val();
+                  user.role = form.find('[name="role"]').val();
+                  user.status = form.find('[name="status"]').val();
+                  filterAndRenderUsers();
+                  $('#editUserModal').modal('hide');
+                }
+              });
+              // Confirm delete
+              $('#confirmDeleteUserBtn').off('click').on('click', function() {
+                allUsers = allUsers.filter(u => u.id !== currentDeleteUserId);
+                filterAndRenderUsers();
+                $('#deleteUserModal').modal('hide');
+              });
+            }
+
+            // Navigation: initialize user management when users page is shown
+            $('.nav-link').click(function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all nav links
+                $('.nav-link').removeClass('active');
+                
+                // Add active class to clicked nav link
+                $(this).addClass('active');
+                
+                // Hide all pages
+                $('.page').hide();
+                
+                // Get target page
+                const targetPage = $(this).data('page');
+                
+                if (targetPage) {
+                    // Show target page
+                    $('#' + targetPage + '-page').show();
+                    
+                    // Update URL hash
+                    window.location.hash = targetPage;
+                    
+                    // If products page is shown, initialize product management
+                    if (targetPage === 'products') {
+                        setTimeout(initializeProductManagement, 100);
+                    }
+                    // If users page is shown, setup user management
+                    else if (targetPage === 'users') {
+                        setTimeout(setupUserManagement, 100);
+                    }
+                } else {
+                    // Show dashboard by default
+                    $('#dashboard-page').show();
+                    window.location.hash = '';
+                }
             });
         });
     </script>
