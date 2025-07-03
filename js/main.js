@@ -1,6 +1,11 @@
 (function($) {
 	"use strict"
 
+	console.log('from main.js');
+	console.log(dataSource);
+	console.log(users);
+	console.log(orders);
+
 	// Mobile Nav toggle
 	$('.menu-toggle > a').on('click', function (e) {
 		e.preventDefault();
@@ -64,14 +69,14 @@
 	/////////////////////////////////////////
 
 	// Product Main img Slick
-	$('#product-main-img').slick({
-    infinite: true,
-    speed: 300,
-    dots: false,
-    arrows: true,
-    fade: true,
-    asNavFor: '#product-imgs',
-  });
+// 	$('#product-main-img').slick({
+//     infinite: true,
+//     speed: 300,
+//     dots: false,
+//     arrows: true,
+//     fade: true,
+//     asNavFor: '#product-imgs',
+//   });
 
 	// Product imgs Slick
   $('#product-imgs').slick({

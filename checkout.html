@@ -678,12 +678,6 @@
 				}, 2000);
 			}
 
-			// Storage keys
-			const STORAGE_KEYS = {
-				WISHLIST: 'pc_shop_wishlist',
-				CART: 'pc_shop_cart'
-			};
-
 			// Global variables
 			let cartItems = [];
 			let selectedPayment = '';
@@ -692,19 +686,31 @@
 			// CART FUNCTIONALITY
 			// ========================================
 
-			// Get cart from localStorage
-			function getCart() {
-				const cart = localStorage.getItem(STORAGE_KEYS.CART);
-				return cart ? JSON.parse(cart) : [];
+			// Get wishlist from current user
+			function getWishlist() {
+				const user = getCurrentUser();
+				return user && Array.isArray(user.wishlist) ? user.wishlist : [];
 			}
-
-			// Save cart to localStorage
+			function updateWishlistCount() {
+				const wishlist = getWishlist();
+				const countElement = document.getElementById('wishlist-count');
+				if (countElement) {
+					countElement.textContent = wishlist.length;
+				}
+			}
+			// CART FUNCTIONALITY
+			function getCart() {
+				const user = getCurrentUser();
+				return user && Array.isArray(user.cartItems) ? user.cartItems : [];
+			}
 			function saveCart(cart) {
-				localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+				const user = getCurrentUser();
+				if (user) {
+					user.cartItems = cart;
+					setCurrentUser(user);
+				}
 				updateCartCount();
 			}
-
-			// Update cart count in header
 			function updateCartCount() {
 				const cart = getCart();
 				const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -713,69 +719,24 @@
 					countElement.textContent = totalItems;
 				}
 			}
-
-			// Handle cart click - refresh page if cart has items (since we're already on checkout)
 			function handleCartClick(event) {
 				const cart = getCart();
 				const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-				
 				if (totalItems > 0) {
 					// Prevent dropdown from opening
 					event.preventDefault();
 					event.stopPropagation();
-					
-					// Refresh the page to update cart display
+					// Refresh the page to update cart display (since we're already on checkout)
 					window.location.reload();
 				}
 				// If cart is empty, let the dropdown open normally
 			}
-
-			// Update wishlist count in header
-			function updateWishlistCount() {
-				const wishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
-				const wishlistArray = wishlist ? JSON.parse(wishlist) : [];
-				const countElement = document.getElementById('wishlist-count');
-				if (countElement) {
-					countElement.textContent = wishlistArray.length;
-				}
-			}
-
-			// Generate product image based on type
-			function getProductImage(productType) {
-				switch (productType) {
-					case "CPU": return "cpu.png";
-					case "GPU": return "gpu.png";
-					case "RAM": return "ram.png";
-					case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
-					default: return "default.png";
-				}
-			}
-
-			// Update quantity
-			function updateQuantity(productId, newQuantity) {
-				if (newQuantity <= 0) {
-					removeFromCart(productId);
-					return;
-				}
-
-				const cart = getCart();
-				const item = cart.find(item => item.productId === productId);
-				if (item) {
-					item.quantity = newQuantity;
-					saveCart(cart);
-					loadCheckoutCart();
-				}
-			}
-
-			// Remove item from cart
 			function removeFromCart(productId) {
 				const cart = getCart();
 				const updatedCart = cart.filter(item => item.productId !== productId);
 				saveCart(updatedCart);
 				loadCheckoutCart();
 			}
-
-			// Load checkout cart items
 			function loadCheckoutCart() {
 				const cart = getCart();
 				const container = document.getElementById('checkout-cart-items');
@@ -913,7 +874,7 @@
 				localStorage.setItem('pc_shop_orders', JSON.stringify(orders));
 
 				// Clear cart
-				localStorage.removeItem(STORAGE_KEYS.CART);
+				localStorage.removeItem('pc_shop_cart');
 
 				// Show success message
 				showCustomAlert(`Order placed successfully! Order ID: ${order.id}\n\nPayment Instructions:\nPlease send ৳${order.total.toFixed(2)} to the ${selectedPayment.toUpperCase()} number provided.`, 'success');
@@ -982,6 +943,37 @@
 				
 				// Redirect to store page with search parameters
 				window.location.href = url;
+			}
+
+			function updateAuthLink() {
+				const userId = getCurrentUserId();
+				const authLink = document.getElementById('auth-link');
+				if (!authLink) return;
+				if (userId) {
+					authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
+					authLink.href = '#';
+					authLink.onclick = function(e) {
+						e.preventDefault();
+						removeCurrentUserId();
+						window.location.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+					};
+				} else {
+					authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
+					authLink.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+					authLink.onclick = null;
+				}
+			}
+			document.addEventListener('DOMContentLoaded', updateAuthLink);
+
+			// Add this helper for product images
+			function getProductImage(productType) {
+				switch (productType) {
+					case "CPU": return "cpu.png";
+					case "GPU": return "gpu.png";
+					case "RAM": return "ram.png";
+					case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
+					default: return "default.png";
+				}
 			}
 		</script>
 

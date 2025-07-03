@@ -722,7 +722,9 @@ var users = [
         totalOrders: 0,
         totalSpent: 0,
         wishlistItems: 0,
-        reviewsGiven: 0
+        reviewsGiven: 0,
+        wishlist: [], // Array of product IDs
+        cartItems: [] // Array of { productId, quantity, addedAt }
     },
     {
         id: 2,
@@ -736,7 +738,9 @@ var users = [
         totalOrders: 12,
         totalSpent: 45000,
         wishlistItems: 8,
-        reviewsGiven: 5
+        reviewsGiven: 5,
+        wishlist: [],
+        cartItems: []
     },
     {
         id: 3,
@@ -750,7 +754,9 @@ var users = [
         totalOrders: 8,
         totalSpent: 32000,
         wishlistItems: 12,
-        reviewsGiven: 3
+        reviewsGiven: 3,
+        wishlist: [],
+        cartItems: []
     },
     {
         id: 4,
@@ -764,7 +770,9 @@ var users = [
         totalOrders: 15,
         totalSpent: 68000,
         wishlistItems: 5,
-        reviewsGiven: 8
+        reviewsGiven: 8,
+        wishlist: [],
+        cartItems: []
     },
     {
         id: 5,
@@ -778,7 +786,9 @@ var users = [
         totalOrders: 6,
         totalSpent: 28500,
         wishlistItems: 15,
-        reviewsGiven: 2
+        reviewsGiven: 2,
+        wishlist: [],
+        cartItems: []
     }
 ];
 
@@ -969,6 +979,58 @@ var orders = [
         ]
     }
 ];
+
+const STORAGE_KEYS = {
+    USERS: 'pc_shop__users',
+    ALL_PRODUCTS: 'pc_shop__all_products',
+    ORDERS: 'pc_shop__orders',
+    CURRENT_USER: 'pc_shop__current_user'   
+};
+
+// Helper functions for current user id
+function setCurrentUserId(id) {
+    localStorage.setItem(STORAGE_KEYS.CURRENT_USER, id);
+}
+function getCurrentUserId() {
+    return localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+}
+function removeCurrentUserId() {
+    localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+}
+
+// Utility functions for user management
+function getUsersFromStorage() {
+    const usersStr = localStorage.getItem(STORAGE_KEYS.USERS);
+    if (usersStr) {
+        try {
+            return JSON.parse(usersStr);
+        } catch (e) {
+            return users;
+        }
+    }
+    return users;
+}
+function saveUsersToStorage(usersArr) {
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(usersArr));
+}
+function getCurrentUser() {
+    const userKey = getCurrentUserId();
+    if (!userKey) return null;
+    const usersArr = getUsersFromStorage();
+    // userKey can be id or email
+    let user = usersArr.find(u => u.id == userKey || u.email == userKey);
+    return user || null;
+}
+function setCurrentUser(user) {
+    // Update the user in users array and save
+    let usersArr = getUsersFromStorage();
+    const idx = usersArr.findIndex(u => u.id == user.id);
+    if (idx !== -1) {
+        usersArr[idx] = user;
+        saveUsersToStorage(usersArr);
+    }
+    setCurrentUserId(user.id);
+}
 
 
 
