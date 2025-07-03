@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>My Profile - PC-Shop</title>
+    <title>Order History - PC-Shop</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -201,7 +201,8 @@
                 <div class="col-md-12">
                     <ul class="breadcrumb-tree">
                         <li><a href="index.html">Home</a></li>
-                        <li class="active">My Profile</li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li class="active">Order History</li>
                     </ul>
                 </div>
             </div>
@@ -225,12 +226,12 @@
                             <h3 class="aside-title">My Account</h3>
                             <div class="checkbox-filter">
                                 <div class="input-checkbox">
-                                    <a href="profile.html" class="profile-nav-link active">
+                                    <a href="profile.html" class="profile-nav-link">
                                         <i class="fa fa-user"></i> Profile Information
                                     </a>
                                 </div>
                                 <div class="input-checkbox">
-                                    <a href="order-history.html" class="profile-nav-link">
+                                    <a href="order-history.html" class="profile-nav-link active">
                                         <i class="fa fa-shopping-bag"></i> Order History
                                     </a>
                                 </div>
@@ -265,198 +266,116 @@
                 </div>
                 <!-- /Profile Sidebar -->
 
-                <!-- Profile Content -->
+                <!-- Order History Content -->
                 <div class="col-md-9">
+                    <!-- Order History Header -->
                     <div class="order">
                         <div class="order-header">
                             <div class="order-col">
                                 <div>
-                                    <h3>My Profile</h3>
-                                    <p>Manage your account information and preferences</p>
+                                    <h3>Order History</h3>
+                                    <p>View and track all your orders</p>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <!-- Profile Information -->
-                        <div class="order-body">
-                            <div class="row">
-                                <!-- Profile Details -->
-                                <div class="col-md-12">
-                                    <div class="profile-details">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="profile-field">
-                                                    <label><i class="fa fa-user"></i> Full Name</label>
-                                                    <div class="profile-value" id="userName">Loading...</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="profile-field">
-                                                    <label><i class="fa fa-envelope"></i> Email Address</label>
-                                                    <div class="profile-value" id="userEmail">Loading...</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="profile-field">
-                                                    <label><i class="fa fa-phone"></i> Phone Number</label>
-                                                    <div class="profile-value" id="userPhone">Loading...</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="profile-field">
-                                                    <label><i class="fa fa-calendar"></i> Member Since</label>
-                                                    <div class="profile-value" id="userCreatedAt">Loading...</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="profile-field">
-                                                    <label><i class="fa fa-map-marker"></i> Address</label>
-                                                    <div class="profile-value" id="userAddress">Not provided</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Action Buttons -->
-                        <div class="order-footer">
                             <div class="order-col">
-                                <div class="order-payment">
-                                    <button class="primary-btn order-submit" onclick="editProfile()">
-                                        <i class="fa fa-edit"></i> Edit Profile
-                                    </button>
-                                    <button class="primary-btn" onclick="changePassword()" style="background-color: #6c757d; margin-left: 10px;">
-                                        <i class="fa fa-lock"></i> Change Password
-                                    </button>
+                                <div class="order-filter">
+                                    <select class="input-select" id="orderFilter">
+                                        <option value="all">All Orders</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="processing">Processing</option>
+                                        <option value="shipped">Shipped</option>
+                                        <option value="delivered">Delivered</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Account Statistics -->
-                        <div class="order-header" style="margin-top: 30px;">
-                            <div class="order-col">
-                                <div>
-                                    <h3>Account Statistics</h3>
-                                    <p>Your activity overview</p>
-                                </div>
-                            </div>
-                        </div>
-                        
+
+                        <!-- Order Summary Stats -->
                         <div class="order-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="stat-card">
+                                    <div class="order-stat-card">
                                         <div class="stat-icon">
                                             <i class="fa fa-shopping-cart"></i>
                                         </div>
                                         <div class="stat-info">
-                                            <h4 id="totalOrders">0</h4>
+                                            <h4 id="totalOrdersCount">12</h4>
                                             <p>Total Orders</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="stat-card">
+                                    <div class="order-stat-card">
+                                        <div class="stat-icon">
+                                            <i class="fa fa-truck"></i>
+                                        </div>
+                                        <div class="stat-info">
+                                            <h4 id="deliveredOrdersCount">8</h4>
+                                            <p>Delivered</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="order-stat-card">
+                                        <div class="stat-icon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <div class="stat-info">
+                                            <h4 id="pendingOrdersCount">3</h4>
+                                            <p>Pending</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="order-stat-card">
                                         <div class="stat-icon">
                                             <i class="fa fa-dollar"></i>
                                         </div>
                                         <div class="stat-info">
-                                            <h4 id="totalSpent">৳0</h4>
+                                            <h4 id="totalSpentAmount">৳45,000</h4>
                                             <p>Total Spent</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stat-card">
-                                        <div class="stat-icon">
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                        <div class="stat-info">
-                                            <h4 id="wishlistItems">0</h4>
-                                            <p>Wishlist Items</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="stat-card">
-                                        <div class="stat-icon">
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="stat-info">
-                                            <h4 id="reviewsGiven">0</h4>
-                                            <p>Reviews Given</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Orders List -->
+                        <div class="order-header" style="margin-top: 20px;">
+                            <div class="order-col">
+                                <div>
+                                    <h4>Recent Orders</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-body" id="ordersContainer">
+                            <!-- Orders will be dynamically loaded here -->
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="order-footer">
+                            <div class="order-col">
+                                <div class="order-pagination">
+                                    <ul class="store-pagination">
+                                        <li class="active">1</li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- /Profile Content -->
+                <!-- /Order History Content -->
             </div>
             <!-- /row -->
         </div>
         <!-- /container -->
     </div>
     <!-- /SECTION -->
-
-    <!-- Change Password Modal -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="changePasswordModalLabel">
-                        <i class="fa fa-lock"></i> Change Password
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <form id="changePasswordForm">
-                        <div class="form-group">
-                            <label for="currentPassword">
-                                <i class="fa fa-key"></i> Current Password
-                            </label>
-                            <input type="password" class="form-control" id="currentPassword" placeholder="Enter your current password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="newPassword">
-                                <i class="fa fa-lock"></i> New Password
-                            </label>
-                            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
-                            <small class="help-block">Password must be at least 6 characters long</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword">
-                                <i class="fa fa-lock"></i> Confirm New Password
-                            </label>
-                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
-                        </div>
-                        <div class="alert alert-danger" id="passwordError" style="display: none;"></div>
-                        <div class="alert alert-success" id="passwordSuccess" style="display: none;"></div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        <i class="fa fa-times"></i> Cancel
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="submitPasswordChange()">
-                        <i class="fa fa-save"></i> Change Password
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Change Password Modal -->
 
     <!-- NEWSLETTER -->
     <div id="newsletter" class="section">
@@ -595,7 +514,6 @@
     <script src="js/nouislider.min.js"></script>
     <script src="js/jquery.zoom.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/dataSource.js"></script>
 
     <style>
         /* Profile page custom styles */
@@ -618,31 +536,7 @@
             width: 20px;
         }
         
-        .profile-details {
-            padding: 20px 0;
-        }
-        .profile-field {
-            margin-bottom: 20px;
-        }
-        .profile-field label {
-            display: block;
-            font-weight: 600;
-            color: #2B2D42;
-            margin-bottom: 5px;
-        }
-        .profile-field label i {
-            margin-right: 8px;
-            color: #D10024;
-        }
-        .profile-value {
-            padding: 8px 12px;
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-            color: #495057;
-        }
-        
-        .stat-card {
+        .order-stat-card {
             background: white;
             border: 1px solid #e9ecef;
             border-radius: 8px;
@@ -651,7 +545,7 @@
             margin-bottom: 20px;
             transition: transform 0.2s ease;
         }
-        .stat-card:hover {
+        .order-stat-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
@@ -671,248 +565,374 @@
             color: #6c757d;
         }
         
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 10px;
-            border-radius: 4px;
-            margin-top: 15px;
-            display: none;
+        .order-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
         }
         
-        /* Change Password Modal Styles */
-        .modal-header {
-            background-color: #D10024;
-            color: white;
+        .order-item-header {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .order-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .order-info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .order-info-label {
+            font-size: 0.8em;
+            color: #6c757d;
+            margin-bottom: 2px;
+        }
+        
+        .order-info-value {
+            font-weight: 600;
+            color: #2B2D42;
+        }
+        
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-shipped {
+            background-color: #cce7ff;
+            color: #004085;
+        }
+        
+        .status-processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-pending {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-cancelled {
+            background-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .order-item-body {
+            padding: 20px;
+        }
+        
+        .order-product {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .order-product:last-child {
             border-bottom: none;
         }
         
-        .modal-header .close {
-            color: white;
-            opacity: 0.8;
+        .order-product-img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 4px;
+            overflow: hidden;
         }
         
-        .modal-header .close:hover {
-            opacity: 1;
+        .order-product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
-        .modal-title i {
-            margin-right: 10px;
+        .order-product-details {
+            flex: 1;
         }
         
-        .modal-body .form-group label {
+        .order-product-name {
             font-weight: 600;
             color: #2B2D42;
-            margin-bottom: 8px;
+            margin: 0 0 5px 0;
         }
         
-        .modal-body .form-group label i {
-            margin-right: 8px;
-            color: #D10024;
-            width: 15px;
-        }
-        
-        .modal-body .form-control {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 10px 12px;
-            font-size: 14px;
-        }
-        
-        .modal-body .form-control:focus {
-            border-color: #D10024;
-            box-shadow: 0 0 0 0.2rem rgba(209, 0, 36, 0.25);
-        }
-        
-        .modal-body .help-block {
+        .order-product-specs {
+            font-size: 0.85em;
             color: #6c757d;
-            font-size: 12px;
-            margin-top: 5px;
         }
         
-        .modal-footer .btn {
-            padding: 8px 20px;
-            border-radius: 4px;
+        .order-product-price {
+            text-align: right;
+        }
+        
+        .order-product-quantity {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .order-product-amount {
             font-weight: 600;
+            color: #D10024;
         }
         
-        .modal-footer .btn-primary {
-            background-color: #D10024;
-            border-color: #D10024;
+        .order-item-footer {
+            background-color: #f8f9fa;
+            padding: 15px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
         }
         
-        .modal-footer .btn-primary:hover {
-            background-color: #b8001e;
-            border-color: #b8001e;
+        .order-actions {
+            display: flex;
+            gap: 10px;
         }
         
-        .modal-footer .btn i {
-            margin-right: 5px;
+        .order-total {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #2B2D42;
+        }
+        
+        .order-filter {
+            margin-bottom: 0;
         }
         
         @media (max-width: 768px) {
-            .profile-details {
-                padding: 15px 0;
+            .order-info {
+                gap: 20px;
             }
-            .stat-card {
-                margin-bottom: 15px;
+            
+            .order-item-header,
+            .order-item-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .order-product {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            
+            .order-product-img {
+                margin-bottom: 10px;
+            }
+            
+            .order-product-price {
+                text-align: left;
+                margin-top: 10px;
             }
         }
     </style>
 
     <script>
-        const storage_key = 'pc_shop_users';
         $(document).ready(function() {
-            try{
-            users = JSON.parse(localStorage.getItem(storage_key)) || [];
-           
-            }catch(e){
-                users = localStorage.getItem(storage_key) || [];
-            }
-             // Load user profile data from dataSource
-            loadProfileData();
-            
-            // Set current user authentication status
+            loadOrderHistory();
             updateAuthStatus();
-           
+            
+            // Filter orders
+            $('#orderFilter').change(function() {
+                const filter = $(this).val();
+                filterOrders(filter);
+            });
         });
 
-        function loadProfileData() {
-            // Get current user from localStorage or default to user with email sahidtanzid2014@gmail.com
-            let currentUserEmail = localStorage.getItem('currentUserEmail') || 'sahidtanzid2014@gmail.com';
-            
-            // Find user in the users array from dataSource.js
-            const currentUser = users.find(user => user.email === currentUserEmail);
-            
-            if (currentUser) {
-                // Update profile information
-                $('#userName').text(currentUser.userName || 'N/A');
-                $('#userEmail').text(currentUser.email || 'N/A');
-                $('#userPhone').text(currentUser.phone || 'N/A');
-                $('#userAddress').text(currentUser.address || 'Not provided');
-                $('#userCreatedAt').text(new Date(currentUser.createdAt).toLocaleDateString() || 'N/A');
+        // Demo order data
+        const demoOrders = [
+            {
+                id: "ORD-2024-001",
+                date: "2024-06-25",
+                status: "delivered",
+                total: 15500,
+                items: [
+                    {
+                        name: "NVIDIA RTX 4070 Graphics Card",
+                        image: "img/gpu.png",
+                        specs: "12GB GDDR6X, Ray Tracing",
+                        quantity: 1,
+                        price: 12000
+                    },
+                    {
+                        name: "Corsair 16GB DDR5 RAM",
+                        image: "img/ram.png",
+                        specs: "5600MHz, RGB",
+                        quantity: 1,
+                        price: 3500
+                    }
+                ]
+            },
+            {
+                id: "ORD-2024-002",
+                date: "2024-06-20",
+                status: "shipped",
+                total: 8500,
+                items: [
+                    {
+                        name: "Intel Core i7-13700K",
+                        image: "img/cpu.png",
+                        specs: "3.4GHz, 16 cores",
+                        quantity: 1,
+                        price: 8500
+                    }
+                ]
+            },
+            {
+                id: "ORD-2024-003",
+                date: "2024-06-15",
+                status: "processing",
+                total: 21000,
+                items: [
+                    {
+                        name: "Samsung 1TB NVMe SSD",
+                        image: "img/ssd.png",
+                        specs: "980 PRO, PCIe 4.0",
+                        quantity: 2,
+                        price: 10500
+                    }
+                ]
+            }
+        ];
 
-                // Update statistics
-                $('#totalOrders').text(currentUser.totalOrders || 0);
-                $('#totalSpent').text('৳' + (currentUser.totalSpent || 0).toLocaleString());
-                $('#wishlistItems').text(currentUser.wishlistItems || 0);
-                $('#reviewsGiven').text(currentUser.reviewsGiven || 0);
+        function loadOrderHistory() {
+            const container = $('#ordersContainer');
+            container.empty();
+
+            demoOrders.forEach(order => {
+                const orderHtml = createOrderCard(order);
+                container.append(orderHtml);
+            });
+        }
+
+        function createOrderCard(order) {
+            const statusClass = `status-${order.status}`;
+            const statusText = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+            
+            let itemsHtml = '';
+            order.items.forEach(item => {
+                itemsHtml += `
+                    <div class="order-product">
+                        <div class="order-product-img">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="order-product-details">
+                            <h5 class="order-product-name">${item.name}</h5>
+                            <p class="order-product-specs">${item.specs}</p>
+                        </div>
+                        <div class="order-product-price">
+                            <div class="order-product-quantity">Qty: ${item.quantity}</div>
+                            <div class="order-product-amount">৳${item.price.toLocaleString()}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return `
+                <div class="order-item" data-status="${order.status}">
+                    <div class="order-item-header">
+                        <div class="order-info">
+                            <div class="order-info-item">
+                                <span class="order-info-label">ORDER ID</span>
+                                <span class="order-info-value">${order.id}</span>
+                            </div>
+                            <div class="order-info-item">
+                                <span class="order-info-label">ORDER DATE</span>
+                                <span class="order-info-value">${new Date(order.date).toLocaleDateString()}</span>
+                            </div>
+                            <div class="order-info-item">
+                                <span class="order-info-label">TOTAL</span>
+                                <span class="order-info-value">৳${order.total.toLocaleString()}</span>
+                            </div>
+                        </div>
+                        <span class="order-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="order-item-body">
+                        ${itemsHtml}
+                    </div>
+                    <div class="order-item-footer">
+                        <div class="order-actions">
+                            <button class="btn btn-default btn-sm" onclick="viewOrderDetails('${order.id}')">
+                                <i class="fa fa-eye"></i> View Details
+                            </button>
+                            ${order.status === 'delivered' ? 
+                                '<button class="btn btn-primary btn-sm" onclick="reorder(\'' + order.id + '\')"><i class="fa fa-refresh"></i> Reorder</button>' : ''}
+                            ${order.status === 'shipped' ? 
+                                '<button class="btn btn-info btn-sm" onclick="trackOrder(\'' + order.id + '\')"><i class="fa fa-truck"></i> Track Order</button>' : ''}
+                        </div>
+                        <div class="order-total">
+                            Total: ৳${order.total.toLocaleString()}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterOrders(status) {
+            const orders = $('.order-item');
+            
+            if (status === 'all') {
+                orders.show();
             } else {
-                // Fallback data if user not found
-                $('#userName').text('Guest User');
-                $('#userEmail').text('Not logged in');
-                $('#userPhone').text('N/A');
-                $('#userAddress').text('Not provided');
-                $('#userCreatedAt').text('N/A');
-                
-                $('#totalOrders').text('0');
-                $('#totalSpent').text('৳0');
-                $('#wishlistItems').text('0');
-                $('#reviewsGiven').text('0');
+                orders.hide();
+                $(`.order-item[data-status="${status}"]`).show();
             }
         }
 
+        function viewOrderDetails(orderId) {
+            alert(`View details for order: ${orderId}`);
+            // In real app: window.location.href = `order-details.html?id=${orderId}`;
+        }
+
+        function trackOrder(orderId) {
+            alert(`Track order: ${orderId}`);
+            // In real app: window.location.href = `track-order.html?id=${orderId}`;
+        }
+
+        function reorder(orderId) {
+            alert(`Reorder items from: ${orderId}`);
+            // In real app: add items to cart and redirect to checkout
+        }
+
         function updateAuthStatus() {
-            // Check if user is logged in (demo purposes)
             const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
             
             if (isLoggedIn) {
                 $('#auth-link').html('<i class="fa fa-user-o"></i> Logout').attr('href', '#').attr('onclick', 'logout()');
             } else {
                 $('#auth-link').html('<i class="fa fa-user-o"></i> Login').attr('href', 'login.html').removeAttr('onclick');
-                // Redirect to login if not logged in (uncomment if needed)
-                // window.location.href = 'login.html';
             }
-        }
-
-        function editProfile() {
-            alert('Edit Profile functionality would redirect to edit form page');
-            // window.location.href = 'edit-profile.html';
-        }
-
-        function changePassword() {
-            // Show the change password modal
-            $('#changePasswordModal').modal('show');
-            
-            // Clear previous form data and messages
-            $('#changePasswordForm')[0].reset();
-            $('#passwordError').hide();
-            $('#passwordSuccess').hide();
-        }
-
-        function submitPasswordChange() {
-            const currentPassword = $('#currentPassword').val();
-            const newPassword = $('#newPassword').val();
-            const confirmPassword = $('#confirmPassword').val();
-            
-            // Hide previous messages
-            $('#passwordError').hide();
-            $('#passwordSuccess').hide();
-            
-            // Validation
-            if (!currentPassword || !newPassword || !confirmPassword) {
-                showPasswordError('All fields are required.');
-                return;
-            }
-            
-            if (newPassword.length < 6) {
-                showPasswordError('New password must be at least 6 characters long.');
-                return;
-            }
-            
-            if (newPassword !== confirmPassword) {
-                showPasswordError('New password and confirmation do not match.');
-                return;
-            }
-            // var user_list = localStorage.getItem(storage_key);
-            // Get current user
-            let currentUserEmail = localStorage.getItem('currentUserEmail') || 'sahidtanzid2014@gmail.com';
-            const currentUser = users.find(user => user.email === currentUserEmail);
-            
-            if (!currentUser) {
-                showPasswordError('User not found. Please log in again.');
-                return;
-            }
-            
-            // Check current password
-            if (currentUser.password !== currentPassword) {
-                showPasswordError('Current password is incorrect.');
-                return;
-            }
-            
-            // Update password in dataSource
-            currentUser.password = newPassword;
-            localStorage.setItem(storage_key, users);
-            // Show success message
-            showPasswordSuccess('Password changed successfully!');
-            
-            // Clear form and close modal after 2 seconds
-            setTimeout(() => {
-                $('#changePasswordModal').modal('hide');
-                $('#changePasswordForm')[0].reset();
-            }, 2000);
-        }
-
-        function showPasswordError(message) {
-            $('#passwordError').text(message).show();
-        }
-
-        function showPasswordSuccess(message) {
-            $('#passwordSuccess').text(message).show();
         }
 
         function logout() {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('currentUser');
-            localStorage.removeItem('currentUserEmail');
             alert('You have been logged out successfully');
             window.location.href = 'login.html';
-        }
-
-        // Function to set current user (can be called from login page)
-        function setCurrentUser(email) {
-            localStorage.setItem('currentUserEmail', email);
-            localStorage.setItem('isLoggedIn', 'true');
         }
     </script>
 

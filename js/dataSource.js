@@ -714,19 +714,71 @@ var users = [
         id: 1,
         email: "admin@example.com",
         password: "admin123", // In production, passwords should be hashed!
-        role: "admin"
+        role: "admin",
+        userName: "System Administrator",
+        phone: "+8801706782347",
+        address: "123 Admin Street, Rajshahi",
+        createdAt: "2023-01-15T10:00:00Z",
+        totalOrders: 0,
+        totalSpent: 0,
+        wishlistItems: 0,
+        reviewsGiven: 0
     },
     {
         id: 2,
-        email: "user1@example.com",
+        email: "sahidtanzid2014@gmail.com",
         password: "user123",
-        role: "user"
+        role: "user",
+        userName: "Sahid Tanzid",
+        phone: "+8801706782347",
+        address: "456 Main Street, Rajshahi",
+        createdAt: "2023-03-20T08:30:00Z",
+        totalOrders: 12,
+        totalSpent: 45000,
+        wishlistItems: 8,
+        reviewsGiven: 5
     },
     {
         id: 3,
         email: "user2@example.com",
         password: "user456",
-        role: "user"
+        role: "user",
+        userName: "John Smith",
+        phone: "+8801987654321",
+        address: "789 Tech Avenue, Dhaka",
+        createdAt: "2023-05-10T16:45:00Z",
+        totalOrders: 8,
+        totalSpent: 32000,
+        wishlistItems: 12,
+        reviewsGiven: 3
+    },
+    {
+        id: 4,
+        email: "user3@example.com",
+        password: "user789",
+        role: "user",
+        userName: "Maria Garcia",
+        phone: "+8801555666777",
+        address: "321 Computer Lane, Chittagong",
+        createdAt: "2023-07-25T12:15:00Z",
+        totalOrders: 15,
+        totalSpent: 68000,
+        wishlistItems: 5,
+        reviewsGiven: 8
+    },
+    {
+        id: 5,
+        email: "user4@example.com",
+        password: "user101",
+        role: "user",
+        userName: "Ahmed Hassan",
+        phone: "+8801444333222",
+        address: "654 Gaming Plaza, Sylhet",
+        createdAt: "2023-09-12T14:20:00Z",
+        totalOrders: 6,
+        totalSpent: 28500,
+        wishlistItems: 15,
+        reviewsGiven: 2
     }
 ];
 
