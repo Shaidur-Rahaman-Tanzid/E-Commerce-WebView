@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,114 +12,86 @@
             --dark-color: #1c1c25;
             --light-color: #f8f9fa;
         }
-
+        
         body {
             background-color: #f5f5f5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
         }
-
-        /* Sidebar Styles */
+        
         .sidebar {
             background-color: var(--dark-color);
             color: white;
-            min-height: 100vh;
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        .sidebar-sticky {
-            position: sticky;
-            top: 0;
-            height: calc(100vh - 48px);
+            height: 100vh;
+            position: fixed;
             padding-top: 20px;
-            overflow-x: hidden;
-            overflow-y: auto;
         }
-
+        
         .sidebar .nav-link {
             color: #ccc;
             padding: 12px 20px;
             margin-bottom: 5px;
             border-left: 4px solid transparent;
-            white-space: nowrap;
         }
-
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.05);
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.05);
             color: white;
             border-left: 4px solid var(--primary-color);
         }
-
+        
         .sidebar .nav-link i {
             margin-right: 10px;
             width: 20px;
             text-align: center;
         }
-
+        
         .brand {
             color: var(--primary-color);
             font-size: 24px;
             font-weight: bold;
             padding: 10px 20px;
             margin-bottom: 20px;
-            white-space: nowrap;
         }
-
-        /* Toggle button for sidebar */
-        .sidebar-toggle {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        /* Main content area */
+        
         .main-content {
+            margin-left: 250px;
             padding: 20px;
-            transition: margin-left 0.3s;
         }
-
+        
         .top-bar {
             background-color: white;
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
         }
-
+        
         .card {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 20px;
         }
-
+        
         .card-header {
             background-color: white;
             border-bottom: 1px solid #eee;
             font-weight: 600;
             padding: 15px 20px;
         }
-
+        
         .stats-card {
             background-color: white;
             border-radius: 10px;
             padding: 20px;
             display: flex;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-
+        
         .stats-icon {
             width: 60px;
             height: 60px;
@@ -131,243 +102,223 @@
             margin-right: 15px;
             font-size: 24px;
             color: white;
-            flex-shrink: 0;
         }
-
+        
         .bg-primary-soft {
             background-color: var(--primary-color);
         }
-
+        
         .bg-info-soft {
             background-color: #0dcaf0;
         }
-
+        
         .bg-success-soft {
             background-color: #198754;
         }
-
+        
         .bg-warning-soft {
             background-color: #ffc107;
         }
-
+        
         .stats-info h5 {
             margin-bottom: 5px;
             font-weight: 700;
             font-size: 22px;
         }
-
+        
         .stats-info span {
             color: #6c757d;
             font-size: 14px;
         }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
+        
         .table thead th {
             background-color: #f8f9fa;
             font-weight: 600;
             color: #495057;
         }
-
+        
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
-
+        
         .btn-primary:hover {
             background-color: #c0001d;
             border-color: #c0001d;
         }
-
+        
         .user-action a {
             padding: 5px;
             font-size: 14px;
         }
-
+        
         .badge-status {
             padding: 5px 10px;
             border-radius: 30px;
             font-weight: normal;
         }
-
+        
         .pagination {
             margin-bottom: 0;
         }
-
+        
         .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
         }
-
+        
         .avatar-col {
             width: 60px;
         }
-
+        
         .modal-header {
             background-color: var(--primary-color);
             color: white;
         }
-
+        
         .modal-header .btn-close {
             color: white;
             background: none;
             opacity: 1;
         }
-
+        
         .user-detail {
             display: flex;
             align-items: center;
         }
-
+        
         .user-detail img {
             margin-right: 10px;
         }
-
-        /* Product add page */
-        #product-add-page {
-            padding: 20px;
-            background-color: var(--light-color);
+        
+        /* Product List Styles */
+        .product-card {
+            background: white;
+            border: 1px solid #e0e0e0;
             border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.2s;
         }
 
-        #product-add-page h2 {
+        .product-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
             color: var(--primary-color);
-            margin-bottom: 30px;
+            margin-bottom: 8px;
         }
 
-        #product-add-page .form-label {
-            font-weight: 600;
-            color: var(--dark-color);
+        .product-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        #product-add-page .form-control {
+        .product-detail {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .product-detail strong {
+            color: #333;
+        }
+
+        .price-section {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+        }
+
+        .final-price {
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .sales-price {
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .discount-price {
+            color: #28a745;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .search-box input {
             border-radius: 6px;
             border: 1px solid #ced4da;
             padding: 10px 12px;
             font-size: 14px;
-            transition: border-color 0.2s;
         }
 
-        #product-add-page .form-control:focus {
+        .search-box input:focus {
             border-color: var(--primary-color);
             box-shadow: 0 0 0 0.2rem rgba(220, 10, 45, 0.25);
         }
-
-        #product-add-page .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
-            padding: 10px 20px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-
-        #product-add-page .btn-primary:hover {
-            background-color: #b50924;
-        }
-
-        #products-section {
-            width: 80%;
-            margin-left: 250px;
-            margin-right: 60px;
-        }
-
-        #addProductForm {
-            margin-right: 20px;
-            width: 80%;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 991.98px) {
-            .sidebar {
-                width: 250px;
-                position: fixed;
-                left: -250px;
-                height: 100%;
-            }
-
-            .sidebar.show {
-                left: 0;
-            }
-
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-
-            .sidebar-toggle {
-                display: block;
-                margin-bottom: 15px;
-            }
-
-            .main-content.sidebar-open {
-                margin-left: 250px;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .sidebar {
-                width: 250px;
-                position: fixed;
-            }
-
-            .main-content {
-                margin-left: 250px;
-            }
-        }
-
-        @media (max-width: 767.98px) {
-            .stats-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .stats-icon {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-
-            .table-responsive {
-                font-size: 14px;
-            }
-        }
-
-        @media (max-width: 575.98px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .top-bar .search-form {
-                width: 100%;
-            }
-
-            .user-detail {
-                margin-top: 10px;
-            }
-        }
     </style>
 </head>
-
 <body>
     <!-- Sidebar -->
     <div class="sidebar col-md-3 col-lg-2 d-md-block">
-        <div class="brand" style="
-            font-size: xxx-large;
-            color: #D10024;
-        ">PC-Shop</div>
+        <div class="brand">PC-Shop</div>
         <ul class="nav flex-column">
-            <!-- Sidebar Navigation Items -->
-            <li class="nav-item"><a href="#dashboard" class="nav-link active" data-page="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-            <li class="nav-item"><a href="#users" class="nav-link" data-page="users"><i class="fas fa-users"></i> User Management</a></li>
-            <li class="nav-item"><a href="product-add.html" class="nav-link" data-page="products"><i class="fas fa-box"></i> Products</a></li>
-            <li class="nav-item"><a href="#categories" class="nav-link" data-page="categories"><i class="fas fa-tags"></i> Categories</a></li>
-            <li class="nav-item"><a href="#orders" class="nav-link" data-page="orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
-            <li class="nav-item"><a href="#reports" class="nav-link" data-page="reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
-            <li class="nav-item mt-5"><a href="#logout" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            <li class="nav-item">
+                <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#users" class="nav-link" data-page="users">
+                    <i class="fas fa-users"></i> User Management
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#products" class="nav-link" data-page="products">
+                    <i class="fas fa-box"></i> Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#categories" class="nav-link" data-page="categories">
+                    <i class="fas fa-tags"></i> Categories
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#orders" class="nav-link" data-page="orders">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#reports" class="nav-link" data-page="reports">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings" class="nav-link" data-page="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </li>
+            <li class="nav-item mt-5">
+                <a href="#logout" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -375,13 +326,16 @@
     <div class="main-content">
         <!-- Top Bar -->
         <div class="top-bar">
-            <div><h4 class="mb-0">Admin Dashboard</h4></div>
+            <div>
+                <h4 class="mb-0">Admin Dashboard</h4>
+            </div>
             <div class="d-flex align-items-center">
-                <!-- Notifications -->
                 <div class="dropdown me-3">
                     <a href="#" class="position-relative text-dark" data-bs-toggle="dropdown">
                         <i class="fas fa-bell fa-lg"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="#">New order received</a></li>
@@ -389,7 +343,6 @@
                         <li><a class="dropdown-item" href="#">Low stock alert</a></li>
                     </ul>
                 </div>
-                <!-- User Dropdown -->
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="/api/placeholder/40/40" alt="Admin" class="rounded-circle me-2" width="32" height="32">
@@ -408,8 +361,7 @@
         <!-- Pages Content -->
         <div id="page-content">
             <!-- Dashboard Page -->
-            <div class="page" id="dashboard-page">
-                <!-- Dashboard Stats Row -->
+            <div class="page" id="dashboard-page" style="display: block;">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="stats-card mb-4">
@@ -417,7 +369,7 @@
                                 <i class="fas fa-users"></i>
                             </div>
                             <div class="stats-info">
-                                <h5 id="total-users">0</h5>
+                                <h5>2,845</h5>
                                 <span>Total Users</span>
                             </div>
                         </div>
@@ -428,7 +380,7 @@
                                 <i class="fas fa-shopping-bag"></i>
                             </div>
                             <div class="stats-info">
-                                <h5 id="total-products">0</h5>
+                                <h5>14,721</h5>
                                 <span>Total Products</span>
                             </div>
                         </div>
@@ -439,7 +391,7 @@
                                 <i class="fas fa-money-bill-wave"></i>
                             </div>
                             <div class="stats-info">
-                                <h5 id="total-revenue">৳0</h5>
+                                <h5>$89,245</h5>
                                 <span>Total Revenue</span>
                             </div>
                         </div>
@@ -450,14 +402,13 @@
                                 <i class="fas fa-shopping-cart"></i>
                             </div>
                             <div class="stats-info">
-                                <h5 id="total-orders">0</h5>
+                                <h5>1,354</h5>
                                 <span>New Orders</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recent Orders and Top Selling Products -->
                 <div class="row">
                     <div class="col-md-8">
                         <div class="card">
@@ -469,7 +420,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-hover" id="recent-orders-table">
+                                    <table class="table table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Order ID</th>
@@ -481,7 +432,46 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Recent orders will be loaded here dynamically -->
+                                            <tr>
+                                                <td>#ORD-7841</td>
+                                                <td>John Doe</td>
+                                                <td>Dell XPS 13</td>
+                                                <td>$1,299</td>
+                                                <td><span class="badge bg-success badge-status">Completed</span></td>
+                                                <td>10 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7840</td>
+                                                <td>Jane Smith</td>
+                                                <td>Canon EOS R5</td>
+                                                <td>$3,899</td>
+                                                <td><span class="badge bg-warning badge-status">Processing</span></td>
+                                                <td>09 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7839</td>
+                                                <td>Robert Johnson</td>
+                                                <td>iPhone 15 Pro</td>
+                                                <td>$1,099</td>
+                                                <td><span class="badge bg-info badge-status">Shipped</span></td>
+                                                <td>09 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7838</td>
+                                                <td>Emily Davis</td>
+                                                <td>Logitech MX Master 3</td>
+                                                <td>$99</td>
+                                                <td><span class="badge bg-success badge-status">Completed</span></td>
+                                                <td>08 May, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td>#ORD-7837</td>
+                                                <td>Michael Wilson</td>
+                                                <td>MacBook Pro 16"</td>
+                                                <td>$2,499</td>
+                                                <td><span class="badge bg-danger badge-status">Cancelled</span></td>
+                                                <td>07 May, 2025</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -494,12 +484,46 @@
                                 Top Selling Products
                             </div>
                             <div class="card-body p-0">
-                                <ul class="list-group list-group-flush" id="top-selling-products">
-                                    <!-- Top selling products will be loaded here dynamically -->
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Dell XPS 13</h6>
+                                            <small class="text-muted">Laptops</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">284 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">iPhone 15 Pro</h6>
+                                            <small class="text-muted">Smartphones</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">251 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Canon EOS R5</h6>
+                                            <small class="text-muted">Cameras</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">197 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">Logitech MX Master 3</h6>
+                                            <small class="text-muted">Accessories</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">184 sold</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h6 class="mb-0">MacBook Pro 16"</h6>
+                                            <small class="text-muted">Laptops</small>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">153 sold</span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-
+                        
                         <div class="card mt-4">
                             <div class="card-header">
                                 Recent Activities
@@ -579,7 +603,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -604,12 +628,9 @@
                                         <td><span class="badge bg-success badge-status">Active</span></td>
                                         <td>01 Feb, 2025</td>
                                         <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
-                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
-                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -622,12 +643,9 @@
                                         <td><span class="badge bg-success badge-status">Active</span></td>
                                         <td>15 Jan, 2025</td>
                                         <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
-                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
-                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -640,12 +658,9 @@
                                         <td><span class="badge bg-warning badge-status">Inactive</span></td>
                                         <td>23 Mar, 2025</td>
                                         <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
-                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
-                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -658,12 +673,9 @@
                                         <td><span class="badge bg-danger badge-status">Suspended</span></td>
                                         <td>07 Apr, 2025</td>
                                         <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
-                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
-                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -676,18 +688,15 @@
                                         <td><span class="badge bg-success badge-status">Active</span></td>
                                         <td>19 Apr, 2025</td>
                                         <td class="user-action">
-                                            <a href="#" class="text-info me-2" data-bs-toggle="modal"
-                                                data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
-                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal"
-                                                data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
-                                            <a href="#" class="text-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fas fa-eye"></i></a>
+                                            <a href="#" class="text-primary me-2" data-bs-toggle="modal" data-bs-target="#editUserModal"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-
+                        
                         <nav>
                             <ul class="pagination justify-content-end">
                                 <li class="page-item disabled">
@@ -711,17 +720,34 @@
                 </div>
             </div>
 
-            <!-- Products Management Page -->
+            <!-- Other pages would go here (products, categories, orders, etc.) -->
             <div class="page" id="products-page" style="display: none;">
                 <div class="card">
-                    <div class="card-header">Products Management</div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Products Management</span>
+                        <div>
+                            <a href="product-add.html?source=dashboard" class="btn btn-outline-primary me-2" target="_blank">
+                                <i class="fa fa-external-link-alt"></i> Full Page View
+                            </a>
+                            <button type="button" class="btn btn-primary" id="addProductBtn" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                                <i class="fa fa-plus"></i> Add New Product
+                            </button>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <p>Products management content goes here.</p>
+                        <!-- Search Box -->
+                        <div class="search-box mb-3">
+                            <input type="text" id="searchProducts" class="form-control" placeholder="Search products by name, brand, or category...">
+                        </div>
+                        
+                        <!-- Product List -->
+                        <div id="productList">
+                            <!-- Products will be dynamically loaded here -->
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Categories Management Page -->
+            
             <div class="page" id="categories-page" style="display: none;">
                 <div class="card">
                     <div class="card-header">Categories Management</div>
@@ -730,8 +756,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Orders Management Page -->
+            
             <div class="page" id="orders-page" style="display: none;">
                 <div class="card">
                     <div class="card-header">Orders Management</div>
@@ -740,8 +765,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Reports Page -->
+            
             <div class="page" id="reports-page" style="display: none;">
                 <div class="card">
                     <div class="card-header">Reports</div>
@@ -750,8 +774,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Settings Page -->
+            
             <div class="page" id="settings-page" style="display: none;">
                 <div class="card">
                     <div class="card-header">Settings</div>
@@ -763,142 +786,371 @@
         </div>
     </div>
 
+
+    <!-- Modals -->
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: var(--primary-color); color: white;">
+                    <h5 class="modal-title" id="addProductModalLabel">
+                        <i class="fa fa-plus me-2"></i>Add New Product
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="productDescription" placeholder="Enter product description"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productWarranty" class="form-label">Warranty (months)</label>
+                            <input type="number" class="form-control" id="productWarranty" placeholder="Enter warranty in months">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productCategory" class="form-label">Category</label>
+                            <select class="form-select" id="productCategory">
+                                <option value="">Select category</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productBrand" class="form-label">Brand</label>
+                            <select class="form-select" id="productBrand">
+                                <option value="">Select brand</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productVendor" class="form-label">Vendor</label>
+                            <select class="form-select" id="productVendor">
+                                <option value="">Select vendor</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productType" class="form-label">Product Type</label>
+                            <select class="form-select" id="productType">
+                                <option value="">Select type</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productPurchasePrice" class="form-label">Purchase Price ($)</label>
+                            <input type="number" step="0.01" class="form-control" id="productPurchasePrice">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productSalesPrice" class="form-label">Sales Price ($)</label>
+                            <input type="number" step="0.01" class="form-control" id="productSalesPrice">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productDiscountPrice" class="form-label">Discount Price ($)</label>
+                            <input type="number" step="0.01" class="form-control" id="productDiscountPrice">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productFinalPrice" class="form-label">Final Price ($)</label>
+                            <input type="number" step="0.01" class="form-control" id="productFinalPrice" readonly>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid #e0e0e0; padding: 15px 25px;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="addProductForm" class="btn btn-primary" style="background-color: var(--primary-color); border: none;">
+                        <i class="fa fa-save me-1"></i>Add Product
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <!-- <div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Form fields for adding user would go here
+                </div>
+            </div>
+        </div>
+    </div> -->
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/dataSource.js"></script>
+    
     <script>
-        // Dashboard functionality
-        $(document).ready(function() {
-            // Load dashboard data from dataSource
-            loadDashboardData();
+        let allProducts = [];
+
+        // Function to render product list
+        function renderProductList(products = allProducts) {
+            const productListContainer = $('#productList');
+            productListContainer.empty();
             
-            // Navigation functionality
-            $('.nav-link').on('click', function(e) {
+            if (products.length === 0) {
+                productListContainer.html('<p class="text-muted">No products found.</p>');
+                return;
+            }
+
+            products.forEach(product => {
+                const productCard = `
+                    <div class="product-card">
+                        <div class="product-name">${product.productname}</div>
+                        <div class="product-details">
+                            <div class="product-detail">
+                                <strong>Brand:</strong> ${product.brandname}
+                            </div>
+                            <div class="product-detail">
+                                <strong>Category:</strong> ${product.categoryname}
+                            </div>
+                            <div class="product-detail">
+                                <strong>Type:</strong> ${product.producttypename}
+                            </div>
+                            <div class="product-detail">
+                                <strong>Vendor:</strong> ${product.vendorname}
+                            </div>
+                            <div class="product-detail">
+                                <strong>Warranty:</strong> ${product.warrantymonths} months
+                            </div>
+                            <div class="product-detail">
+                                <strong>Rating:</strong> <span class="rating">${product.rating} ⭐</span>
+                            </div>
+                        </div>
+                        <div class="product-detail">
+                            <strong>Description:</strong> ${product.description}
+                        </div>
+                        <div class="price-section">
+                            <span class="price final-price">$${product.finalprice.toFixed(2)}</span>
+                            <span class="price sales-price">$${product.salesprice.toFixed(2)}</span>
+                            <span class="price discount-price">-$${product.discountprice.toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+                productListContainer.append(productCard);
+            });
+        }
+
+        // Search functionality
+        function setupSearch() {
+            $('#searchProducts').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                const filteredProducts = allProducts.filter(product => {
+                    return product.productname.toLowerCase().includes(searchTerm) ||
+                           product.brandname.toLowerCase().includes(searchTerm) ||
+                           product.categoryname.toLowerCase().includes(searchTerm) ||
+                           product.description.toLowerCase().includes(searchTerm);
+                });
+                renderProductList(filteredProducts);
+            });
+        }
+
+        // Reset form when modal is closed
+        function setupModalEvents() {
+            $('#addProductModal').on('hidden.bs.modal', function () {
+                $('#addProductForm')[0].reset();
+                updateFinalPrice();
+            });
+        }
+
+        // Populate form fields with data from dataSource
+        function populateFormFields() {
+            // Populate categories
+            const categorySelect = $('#productCategory');
+            categorySelect.empty().append('<option value="">Select category</option>');
+            if (typeof dataSource !== 'undefined' && dataSource.categories) {
+                dataSource.categories.forEach(category => {
+                    categorySelect.append(`<option value="${category.category_id}">${category.categoryname}</option>`);
+                });
+            }
+
+            // Populate brands
+            const brandSelect = $('#productBrand');
+            brandSelect.empty().append('<option value="">Select brand</option>');
+            if (typeof dataSource !== 'undefined' && dataSource.brands) {
+                dataSource.brands.forEach(brand => {
+                    brandSelect.append(`<option value="${brand.brand_id}">${brand.brandname}</option>`);
+                });
+            }
+
+            // Populate vendors
+            const vendorSelect = $('#productVendor');
+            vendorSelect.empty().append('<option value="">Select vendor</option>');
+            if (typeof dataSource !== 'undefined' && dataSource.vendors) {
+                dataSource.vendors.forEach(vendor => {
+                    vendorSelect.append(`<option value="${vendor.vendor_id}">${vendor.vendorname}</option>`);
+                });
+            }
+
+            // Populate product types
+            const productTypeSelect = $('#productType');
+            productTypeSelect.empty().append('<option value="">Select type</option>');
+            if (typeof dataSource !== 'undefined' && dataSource.productTypes) {
+                dataSource.productTypes.forEach(productType => {
+                    productTypeSelect.append(`<option value="${productType.product_type_id}">${productType.producttypename}</option>`);
+                });
+            }
+        }
+
+        // Auto update final price when user types in sales or discount price
+        function updateFinalPrice() {
+            const salesPrice = parseFloat($('#productSalesPrice').val()) || 0;
+            const discountPrice = parseFloat($('#productDiscountPrice').val()) || 0;
+            const finalPrice = Math.max(salesPrice - discountPrice, 0);
+            $('#productFinalPrice').val(finalPrice.toFixed(2));
+        }
+
+        // Initialize product management when products page is shown
+        function initializeProductManagement() {
+            // Store products data for searching
+            allProducts = (typeof dataSource !== 'undefined' && dataSource.products) ? dataSource.products : [];
+            
+            // Render initial product list
+            renderProductList();
+            
+            // Setup search functionality
+            setupSearch();
+            
+            // Setup modal events
+            setupModalEvents();
+            
+            // Populate form fields
+            populateFormFields();
+            
+            // Setup price calculation
+            $('#productSalesPrice, #productDiscountPrice').on('input', updateFinalPrice);
+        }
+
+        // Check URL hash to show products page if linked from product-add
+        function checkUrlHash() {
+            const hash = window.location.hash;
+            if (hash === '#products') {
+                showProductsPage();
+            }
+        }
+
+        // Function to show products page
+        function showProductsPage() {
+            // Remove active class from all nav links
+            $('.nav-link').removeClass('active');
+            
+            // Add active class to products nav link
+            $('.nav-link[data-page="products"]').addClass('active');
+            
+            // Hide all pages
+            $('.page').hide();
+            
+            // Show products page
+            $('#products-page').show();
+            
+            // Initialize product management
+            setTimeout(initializeProductManagement, 100);
+        }
+
+        // Navigation functionality
+        $(document).ready(function() {
+            // Check URL hash on page load
+            checkUrlHash();
+            
+            // Initialize navigation
+            $('.nav-link').click(function(e) {
                 e.preventDefault();
-                const page = $(this).data('page');
-                if (page) {
-                    showPage(page);
+                
+                // Remove active class from all nav links
+                $('.nav-link').removeClass('active');
+                
+                // Add active class to clicked nav link
+                $(this).addClass('active');
+                
+                // Hide all pages
+                $('.page').hide();
+                
+                // Get target page
+                const targetPage = $(this).data('page');
+                
+                if (targetPage) {
+                    // Show target page
+                    $('#' + targetPage + '-page').show();
+                    
+                    // Update URL hash
+                    window.location.hash = targetPage;
+                    
+                    // If products page is shown, initialize product management
+                    if (targetPage === 'products') {
+                        setTimeout(initializeProductManagement, 100);
+                    }
+                } else {
+                    // Show dashboard by default
+                    $('#dashboard-page').show();
+                    window.location.hash = '';
                 }
             });
-            
-            function showPage(pageName) {
-                $('.page').hide();
-                $('.nav-link').removeClass('active');
-                $(`[data-page="${pageName}"]`).addClass('active');
-                $(`#${pageName}-page`).show();
-            }
-        });
-        
-        function loadDashboardData() {
-            // Calculate statistics from dataSource
-            const totalUsers = users.length;
-            const totalProducts = dataSource.products.length;
-            const totalRevenue = calculateTotalRevenue();
-            const totalOrders = orders.length;
-            
-            // Update dashboard stats
-            $('#total-users').text(totalUsers);
-            $('#total-products').text(totalProducts.toLocaleString());
-            $('#total-revenue').text('৳' + totalRevenue.toLocaleString());
-            $('#total-orders').text(totalOrders);
-            
-            // Load recent orders
-            loadRecentOrders();
-            
-            // Load top selling products
-            loadTopSellingProducts();
-        }
-        
-        function calculateTotalRevenue() {
-            return orders.reduce((total, order) => {
-                return total + order.total;
-            }, 0);
-        }
-        
-        function loadRecentOrders() {
-            const recentOrders = orders.slice(-5).reverse(); // Get last 5 orders
-            const tbody = $('#recent-orders-table tbody');
-            tbody.empty();
-            
-            recentOrders.forEach(order => {
-                const orderItems = order.items.map(item => {
-                    const product = dataSource.products.find(p => p.productid === item.productId);
-                    return product ? product.productname : 'Unknown Product';
-                }).join(', ');
-                
-                const user = users.find(u => u.id === order.userId);
-                const userName = user ? user.email : 'Unknown User';
-                
-                const statusClass = getStatusClass(order.status);
-                const statusText = order.status.charAt(0).toUpperCase() + order.status.slice(1);
-                
-                const orderDate = new Date(order.orderDate).toLocaleDateString('en-US', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric'
-                });
-                
-                tbody.append(`
-                    <tr>
-                        <td>#${order.orderId}</td>
-                        <td>${userName}</td>
-                        <td>${orderItems}</td>
-                        <td>৳${order.total.toLocaleString()}</td>
-                        <td><span class="badge ${statusClass} badge-status">${statusText}</span></td>
-                        <td>${orderDate}</td>
-                    </tr>
-                `);
-            });
-        }
-        
-        function loadTopSellingProducts() {
-            // Count product sales from orders
-            const productSales = {};
-            
-            orders.forEach(order => {
-                order.items.forEach(item => {
-                    if (productSales[item.productId]) {
-                        productSales[item.productId] += item.quantity;
-                    } else {
-                        productSales[item.productId] = item.quantity;
+
+            // Handle form submission
+            $(document).on('submit', '#addProductForm', function (e) {
+                e.preventDefault();
+
+                const data = {
+                    name: $('#productName').val().trim(),
+                    description: $('#productDescription').val().trim() || "",
+                    warrantyMonths: parseInt($('#productWarranty').val(), 10) || 0,
+                    productTypeId: $('#productType').val(),
+                    categoryId: $('#productCategory').val(),
+                    brandId: $('#productBrand').val(),
+                    vendorId: $('#productVendor').val(),
+                    purchasePrice: parseFloat($('#productPurchasePrice').val()) || 0,
+                    salesPrice: parseFloat($('#productSalesPrice').val()) || 0,
+                    discountPrice: parseFloat($('#productDiscountPrice').val()) || 0,
+                    finalPrice: parseFloat($('#productFinalPrice').val()) || 0,
+                    priceEffectiveFrom: new Date().toISOString(),
+                    priceEffectiveTo: new Date().toISOString()
+                };
+
+                if (!data.name || !data.categoryId || !data.brandId || !data.vendorId || !data.productTypeId) {
+                    alert('Please fill out all required fields.');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'https://localhost:7111/api/product',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        alert('Product added successfully!');
+                        $('#addProductForm')[0].reset();
+                        updateFinalPrice();
+                        
+                        // If the API returns the new product, add it to the list
+                        if (response && response.productid) {
+                            allProducts.push(response);
+                            renderProductList();
+                        }
+                        
+                        // Close the modal
+                        $('#addProductModal').modal('hide');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert('Failed to add product. Error: ' + error);
                     }
                 });
             });
-            
-            // Sort by sales count and get top 5
-            const topProducts = Object.entries(productSales)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 5);
-            
-            const topProductsList = $('#top-selling-products');
-            topProductsList.empty();
-            
-            topProducts.forEach(([productId, salesCount]) => {
-                const product = dataSource.products.find(p => p.productid === productId);
-                if (product) {
-                    topProductsList.append(`
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="mb-0">${product.productname}</h6>
-                                <small class="text-muted">${product.categoryname}</small>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">${salesCount} sold</span>
-                        </li>
-                    `);
-                }
-            });
-        }
-        
-        function getStatusClass(status) {
-            switch(status) {
-                case 'delivered': return 'bg-success';
-                case 'pending': return 'bg-warning';
-                case 'cancelled': return 'bg-danger';
-                case 'shipped': return 'bg-info';
-                default: return 'bg-secondary';
-            }
-        }
+        });
     </script>
 </body>
-
 </html>
