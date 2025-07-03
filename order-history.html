@@ -514,6 +514,7 @@
     <script src="js/nouislider.min.js"></script>
     <script src="js/jquery.zoom.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/dataSource.js"></script>
 
     <style>
         /* Profile page custom styles */
@@ -754,7 +755,7 @@
     <script>
         $(document).ready(function() {
             loadOrderHistory();
-            updateAuthStatus();
+            updateAuthLink();
             
             // Filter orders
             $('#orderFilter').change(function() {
@@ -918,13 +919,22 @@
             // In real app: add items to cart and redirect to checkout
         }
 
-        function updateAuthStatus() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-            
-            if (isLoggedIn) {
-                $('#auth-link').html('<i class="fa fa-user-o"></i> Logout').attr('href', '#').attr('onclick', 'logout()');
+        function updateAuthLink() {
+            const userId = getCurrentUserId();
+            const authLink = document.getElementById('auth-link');
+            if (!authLink) return;
+            if (userId) {
+                authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
+                authLink.href = '#';
+                authLink.onclick = function(e) {
+                    e.preventDefault();
+                    removeCurrentUserId();
+                    window.location.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+                };
             } else {
-                $('#auth-link').html('<i class="fa fa-user-o"></i> Login').attr('href', 'login.html').removeAttr('onclick');
+                authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
+                authLink.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+                authLink.onclick = null;
             }
         }
 

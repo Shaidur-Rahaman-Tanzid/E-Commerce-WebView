@@ -1129,6 +1129,12 @@
 // Global variable to store current product data
 let currentProductData = null;
 
+// Storage keys
+// const STORAGE_KEYS = {
+//     WISHLIST: 'pc_shop_wishlist',
+//     CART: 'pc_shop_cart'
+// };
+
 // Custom Alert Function
 function showCustomAlert(message, type = 'info') {
     const alertBox = document.getElementById('customAlert');
@@ -1172,20 +1178,19 @@ function showCustomAlert(message, type = 'info') {
 // ========================================
 // WISHLIST FUNCTIONALITY
 // ========================================
-// Get wishlist from current user
+
+// Get wishlist from localStorage
 function getWishlist() {
-    const user = getCurrentUser();
-    return user && Array.isArray(user.wishlist) ? user.wishlist : [];
+    const wishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
+    return wishlist ? JSON.parse(wishlist) : [];
 }
-// Save wishlist to current user
+
+// Save wishlist to localStorage
 function saveWishlist(wishlist) {
-    const user = getCurrentUser();
-    if (user) {
-        user.wishlist = wishlist;
-        setCurrentUser(user);
-    }
+    localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
     updateWishlistCount();
 }
+
 // Add product to wishlist
 function addToWishlist(productId) {
     const product = dataSource.products.find(p => p.productid === productId);
@@ -1194,6 +1199,7 @@ function addToWishlist(productId) {
         showCustomAlert('Product not found!', 'error');
         return false;
     }
+
     const wishlist = getWishlist();
     if (!wishlist.includes(productId)) {
         wishlist.push(productId);
@@ -1205,6 +1211,7 @@ function addToWishlist(productId) {
         return false;
     }
 }
+
 // Update wishlist count in header
 function updateWishlistCount() {
     const wishlist = getWishlist();
@@ -1213,23 +1220,23 @@ function updateWishlistCount() {
         countElement.textContent = wishlist.length;
     }
 }
+
 // ========================================
 // CART FUNCTIONALITY
 // ========================================
-// Get cart from current user
+
+// Get cart from localStorage
 function getCart() {
-    const user = getCurrentUser();
-    return user && Array.isArray(user.cartItems) ? user.cartItems : [];
+    const cart = localStorage.getItem(STORAGE_KEYS.CART);
+    return cart ? JSON.parse(cart) : [];
 }
-// Save cart to current user
+
+// Save cart to localStorage
 function saveCart(cart) {
-    const user = getCurrentUser();
-    if (user) {
-        user.cartItems = cart;
-        setCurrentUser(user);
-    }
+    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
     updateCartCount();
 }
+
 // Add product to cart
 function addToCart(productId, quantity = 1) {
     const product = dataSource.products.find(p => p.productid === productId);
@@ -1238,8 +1245,10 @@ function addToCart(productId, quantity = 1) {
         showCustomAlert('Product not found!', 'error');
         return false;
     }
+
     const cart = getCart();
     const existingItem = cart.find(item => item.productId === productId);
+    
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
@@ -1249,10 +1258,12 @@ function addToCart(productId, quantity = 1) {
             addedAt: new Date().toISOString()
         });
     }
+    
     saveCart(cart);
     showCustomAlert(`Added ${product.productname} to cart!`, 'success');
     return true;
 }
+
 // Update cart count in header
 function updateCartCount() {
     const cart = getCart();
@@ -1262,19 +1273,23 @@ function updateCartCount() {
         countElement.textContent = totalItems;
     }
 }
+
 // Handle cart click - redirect to checkout if cart has items
 function handleCartClick(event) {
     const cart = getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
     if (totalItems > 0) {
         // Prevent dropdown from opening
         event.preventDefault();
         event.stopPropagation();
+        
         // Redirect to checkout page
         window.location.href = 'checkout.html';
     }
     // If cart is empty, let the dropdown open normally
 }
+
 // ========================================
 // QUICK VIEW FUNCTIONALITY
 // ========================================
@@ -1750,25 +1765,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-function updateAuthLink() {
-    const userId = getCurrentUserId();
-    const authLink = document.getElementById('auth-link');
-    if (!authLink) return;
-    if (userId) {
-        authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
-        authLink.href = '#';
-        authLink.onclick = function(e) {
-            e.preventDefault();
-            removeCurrentUserId();
-            window.location.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
-        };
-    } else {
-        authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
-        authLink.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
-        authLink.onclick = null;
-    }
-}
-document.addEventListener('DOMContentLoaded', updateAuthLink);
 
 		</script>
 	</body>

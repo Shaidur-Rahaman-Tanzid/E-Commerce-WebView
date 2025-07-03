@@ -914,6 +914,26 @@
             localStorage.setItem('currentUserEmail', email);
             localStorage.setItem('isLoggedIn', 'true');
         }
+
+        function updateAuthLink() {
+            const userId = getCurrentUserId();
+            const authLink = document.getElementById('auth-link');
+            if (!authLink) return;
+            if (userId) {
+                authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
+                authLink.href = '#';
+                authLink.onclick = function(e) {
+                    e.preventDefault();
+                    removeCurrentUserId();
+                    window.location.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+                };
+            } else {
+                authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
+                authLink.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
+                authLink.onclick = null;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', updateAuthLink);
     </script>
 
 </body>

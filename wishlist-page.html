@@ -254,6 +254,20 @@
             color: #ddd;
         }
         
+        .add-to-cart1{
+            position: relative;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #D10024;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 10;
+        }
         .add-to-cart {
             position: absolute;
             bottom: 0;
@@ -267,14 +281,14 @@
             transition: all 0.3s ease;
             cursor: pointer;
             z-index: 10;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            /* border-radius: 0 0 8px 8px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); */
         }
         
         .add-to-cart:hover {
             background: #b3001f;
-            transform: translateY(-2px);
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
+            /* transform: translateY(-2px);
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.2); */
         }
         
         .add-to-cart-btn {
@@ -285,8 +299,8 @@
             cursor: pointer;
             width: 100%;
             font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            /* text-transform: uppercase;
+            letter-spacing: 0.5px; */
         }
         
         .add-to-cart-btn:hover {
@@ -1263,7 +1277,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="add-to-cart" style="display:none;">
+                            <div class="add-to-cart1" style="position:relative;">
                                 <button class="add-to-cart-btn" onclick="addToCartAndRemoveFromWishlist('${product.productid}')">
                                     <i class="fa fa-shopping-cart"></i> add to cart
                                 </button>
@@ -1281,17 +1295,17 @@
             console.log('Add to cart buttons found:', addToCartButtons.length);
 
             // Show add-to-cart on hover
-            const productDivs = container.querySelectorAll('.product');
-            productDivs.forEach(div => {
-                div.addEventListener('mouseenter', function() {
-                    const atc = div.querySelector('.add-to-cart');
-                    if (atc) atc.style.display = 'block';
-                });
-                div.addEventListener('mouseleave', function() {
-                    const atc = div.querySelector('.add-to-cart');
-                    if (atc) atc.style.display = 'none';
-                });
-            });
+            // const productDivs = container.querySelectorAll('.product');
+            // productDivs.forEach(div => {
+            //     div.addEventListener('mouseenter', function() {
+            //         const atc = div.querySelector('.add-to-cart');
+            //         if (atc) atc.style.display = 'block';
+            //     });
+            //     div.addEventListener('mouseleave', function() {
+            //         const atc = div.querySelector('.add-to-cart');
+            //         if (atc) atc.style.display = 'none';
+            //     });
+            // });
         }
 
         // Initialize page when document is ready
