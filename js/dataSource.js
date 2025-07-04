@@ -848,6 +848,9 @@ var orders = [
         orderDate: "2024-06-10T14:23:00Z",
         total: 26846.00,
         status: "delivered",
+        paymentType: "bkash",
+        transactionNo: "TXN1001",
+        paymentTimestamp: "2024-06-10T14:24:00Z",
         items: [
             {
                 productId: "29a27a66-4bc2-49cf-a7fe-c96938a9cf28", // Samsung 870 EVO 1TB
@@ -867,6 +870,9 @@ var orders = [
         orderDate: "2024-06-11T09:10:00Z",
         total: 8225.00,
         status: "pending",
+        paymentType: "nagad",
+        transactionNo: "TXN1002",
+        paymentTimestamp: "2024-06-11T09:11:00Z",
         items: [
             {
                 productId: "9e28460b-a754-4cb3-82f5-5689b17f1266", // Nvidia RTX 3070
@@ -881,6 +887,9 @@ var orders = [
         orderDate: "2024-06-12T12:00:00Z",
         total: 47000.00,
         status: "cancelled",
+        paymentType: "bkash",
+        transactionNo: "TXN1003",
+        paymentTimestamp: "2024-06-12T12:01:00Z",
         items: [
             {
                 productId: "b25900a0-a311-4d70-acc2-5411e52c6661", // Intel Core i7-12700K
@@ -895,6 +904,9 @@ var orders = [
         orderDate: "2024-06-13T15:30:00Z",
         total: 9300.00,
         status: "delivered",
+        paymentType: "nagad",
+        transactionNo: "TXN1004",
+        paymentTimestamp: "2024-06-13T15:31:00Z",
         items: [
             {
                 productId: "b6cbecfd-42aa-4671-8fce-306c8e73a60a", // Seagate Barracuda 2TB
@@ -909,6 +921,9 @@ var orders = [
         orderDate: "2024-06-14T10:45:00Z",
         total: 3100.00,
         status: "pending",
+        paymentType: "bkash",
+        transactionNo: "TXN1005",
+        paymentTimestamp: "2024-06-14T10:46:00Z",
         items: [
             {
                 productId: "b6cbecfd-42aa-4671-8fce-306c8e73a60a", // Seagate Barracuda 2TB
@@ -923,6 +938,9 @@ var orders = [
         orderDate: "2024-06-15T08:20:00Z",
         total: 8421.00,
         status: "delivered",
+        paymentType: "nagad",
+        transactionNo: "TXN1006",
+        paymentTimestamp: "2024-06-15T08:21:00Z",
         items: [
             {
                 productId: "29a27a66-4bc2-49cf-a7fe-c96938a9cf28", // Samsung 870 EVO 1TB
@@ -937,6 +955,9 @@ var orders = [
         orderDate: "2024-06-16T17:00:00Z",
         total: 8225.00,
         status: "cancelled",
+        paymentType: "bkash",
+        transactionNo: "TXN1007",
+        paymentTimestamp: "2024-06-16T17:01:00Z",
         items: [
             {
                 productId: "9e28460b-a754-4cb3-82f5-5689b17f1266", // Nvidia RTX 3070
@@ -951,6 +972,9 @@ var orders = [
         orderDate: "2024-06-17T13:15:00Z",
         total: 19746.00,
         status: "pending",
+        paymentType: "nagad",
+        transactionNo: "TXN1008",
+        paymentTimestamp: "2024-06-17T13:16:00Z",
         items: [
             {
                 productId: "29a27a66-4bc2-49cf-a7fe-c96938a9cf28", // Samsung 870 EVO 1TB
@@ -975,6 +999,9 @@ var orders = [
         orderDate: "2024-06-18T11:40:00Z",
         total: 3100.00,
         status: "delivered",
+        paymentType: "bkash",
+        transactionNo: "TXN1009",
+        paymentTimestamp: "2024-06-18T11:41:00Z",
         items: [
             {
                 productId: "b6cbecfd-42aa-4671-8fce-306c8e73a60a", // Seagate Barracuda 2TB
@@ -989,6 +1016,9 @@ var orders = [
         orderDate: "2024-06-19T09:55:00Z",
         total: 8225.00,
         status: "pending",
+        paymentType: "nagad",
+        transactionNo: "TXN1010",
+        paymentTimestamp: "2024-06-19T09:56:00Z",
         items: [
             {
                 productId: "9e28460b-a754-4cb3-82f5-5689b17f1266", // Nvidia RTX 3070
@@ -1003,6 +1033,9 @@ var orders = [
         orderDate: "2024-06-20T16:10:00Z",
         total: 8421.00,
         status: "delivered",
+        paymentType: "bkash",
+        transactionNo: "TXN1011",
+        paymentTimestamp: "2024-06-20T16:11:00Z",
         items: [
             {
                 productId: "29a27a66-4bc2-49cf-a7fe-c96938a9cf28", // Samsung 870 EVO 1TB
@@ -1017,6 +1050,9 @@ var orders = [
         orderDate: "2024-06-21T14:05:00Z",
         total: 9300.00,
         status: "cancelled",
+        paymentType: "nagad",
+        transactionNo: "TXN1012",
+        paymentTimestamp: "2024-06-21T14:06:00Z",
         items: [
             {
                 productId: "b6cbecfd-42aa-4671-8fce-306c8e73a60a", // Seagate Barracuda 2TB
@@ -1057,6 +1093,15 @@ function getUsersFromStorage() {
     }
     return users;
 }
+
+function updateUser(user) {
+    let usersArr = getUsersFromStorage();
+    const idx = usersArr.findIndex(u => u.id == user.id);
+    if (idx !== -1) {
+        usersArr[idx] = user;
+        saveUsersToStorage(usersArr);
+    }
+}
 function saveUsersToStorage(usersArr) {
     localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(usersArr));
 }
@@ -1078,6 +1123,65 @@ function setCurrentUser(user) {
     }
     setCurrentUserId(user.id);
 }
+
+// Order helper functions
+
+function getOrdersFromStorage() {
+    const ordersStr = localStorage.getItem(STORAGE_KEYS.ORDERS);
+    if (ordersStr) {
+        try {
+            return JSON.parse(ordersStr);
+        } catch (e) {
+            return orders;
+        }
+    }
+    return orders;
+}
+
+function saveOrdersToStorage(ordersArr) {
+    localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(ordersArr));
+}
+
+function getOrdersByUserId(userId) {
+    const ordersArr = getOrdersFromStorage();
+    return ordersArr.filter(order => order.userId == userId);
+}
+
+function addOrder(order) {
+    let ordersArr = getOrdersFromStorage();
+    // Assign a new orderId if not present
+    if (!order.orderId) {
+        const maxId = ordersArr.length > 0 ? Math.max(...ordersArr.map(o => o.orderId || 0)) : 0;
+        order.orderId = maxId + 1;
+    }
+    ordersArr.push(order);
+    saveOrdersToStorage(ordersArr);
+    return order.orderId;
+}
+
+function getOrderById(orderId) {
+    const ordersArr = getOrdersFromStorage();
+    return ordersArr.find(order => order.orderId == orderId) || null;
+}
+
+function updateOrder(order) {
+    let ordersArr = getOrdersFromStorage();
+    const idx = ordersArr.findIndex(o => o.orderId == order.orderId);
+    if (idx !== -1) {
+        ordersArr[idx] = order;
+        saveOrdersToStorage(ordersArr);
+        return true;
+    }
+    return false;
+}
+
+function deleteOrder(orderId) {
+    let ordersArr = getOrdersFromStorage();
+    const newOrders = ordersArr.filter(order => order.orderId != orderId);
+    saveOrdersToStorage(newOrders);
+    return newOrders.length !== ordersArr.length;
+}
+
 
 
 
