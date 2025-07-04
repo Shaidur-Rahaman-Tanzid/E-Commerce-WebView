@@ -167,31 +167,6 @@
     </header>
     <!-- /HEADER -->
 
-    <!-- NAVIGATION -->
-    <nav id="navigation">
-        <!-- container -->
-        <div class="container">
-            <!-- responsive-nav -->
-            <div id="responsive-nav">
-                <!-- NAV -->
-                <ul class="main-nav nav navbar-nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="store.html">Store</a></li>
-                    <li><a href="#">Hot Deals</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">Smartphones</a></li>
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Accessories</a></li>
-                </ul>
-                <!-- /NAV -->
-            </div>
-            <!-- /responsive-nav -->
-        </div>
-        <!-- /container -->
-    </nav>
-    <!-- /NAVIGATION -->
-
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
         <!-- container -->
@@ -300,7 +275,7 @@
                                             <i class="fa fa-shopping-cart"></i>
                                         </div>
                                         <div class="stat-info">
-                                            <h4 id="totalOrdersCount">12</h4>
+                                            <h4 id="totalOrdersCount">0</h4>
                                             <p>Total Orders</p>
                                         </div>
                                     </div>
@@ -311,7 +286,7 @@
                                             <i class="fa fa-truck"></i>
                                         </div>
                                         <div class="stat-info">
-                                            <h4 id="deliveredOrdersCount">8</h4>
+                                            <h4 id="deliveredOrdersCount">0</h4>
                                             <p>Delivered</p>
                                         </div>
                                     </div>
@@ -322,7 +297,7 @@
                                             <i class="fa fa-clock-o"></i>
                                         </div>
                                         <div class="stat-info">
-                                            <h4 id="pendingOrdersCount">3</h4>
+                                            <h4 id="pendingOrdersCount">0</h4>
                                             <p>Pending</p>
                                         </div>
                                     </div>
@@ -333,12 +308,13 @@
                                             <i class="fa fa-dollar"></i>
                                         </div>
                                         <div class="stat-info">
-                                            <h4 id="totalSpentAmount">৳45,000</h4>
+                                            <h4 id="totalSpentAmount">৳0</h4>
                                             <p>Total Spent</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        
                         </div>
 
                         <!-- Orders List -->
@@ -354,19 +330,6 @@
                             <!-- Orders will be dynamically loaded here -->
                         </div>
 
-                        <!-- Pagination -->
-                        <div class="order-footer">
-                            <div class="order-col">
-                                <div class="order-pagination">
-                                    <ul class="store-pagination">
-                                        <li class="active">1</li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <!-- /Order History Content -->
@@ -376,42 +339,6 @@
         <!-- /container -->
     </div>
     <!-- /SECTION -->
-
-    <!-- NEWSLETTER -->
-    <div id="newsletter" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="newsletter">
-                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form>
-                            <input class="input" type="email" placeholder="Enter Your Email">
-                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                        </form>
-                        <ul class="newsletter-follow">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /NEWSLETTER -->
 
     <!-- FOOTER -->
     <footer id="footer">
@@ -509,12 +436,12 @@
 
     <!-- jQuery Plugins -->
     <script src="js/jquery.min.js"></script>
+    <script src="js/dataSource.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/slick.min.js"></script>
     <script src="js/nouislider.min.js"></script>
     <script src="js/jquery.zoom.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/dataSource.js"></script>
 
     <style>
         /* Profile page custom styles */
@@ -754,8 +681,17 @@
 
     <script>
         $(document).ready(function() {
-            loadOrderHistory();
-            updateAuthLink();
+            // Initialize with default user if no user is logged in
+            if (!localStorage.getItem('currentUserEmail')) {
+                localStorage.setItem('currentUserEmail', 'sahidtanzid2014@gmail.com');
+                localStorage.setItem('isLoggedIn', 'true');
+            }
+            
+            // Wait for dataSource to load
+            setTimeout(function() {
+                loadOrderHistory();
+                updateAuthLink();
+            }, 500);
             
             // Filter orders
             $('#orderFilter').change(function() {
@@ -764,94 +700,127 @@
             });
         });
 
-        // Demo order data
-        const demoOrders = [
-            {
-                id: "ORD-2024-001",
-                date: "2024-06-25",
-                status: "delivered",
-                total: 15500,
-                items: [
-                    {
-                        name: "NVIDIA RTX 4070 Graphics Card",
-                        image: "img/gpu.png",
-                        specs: "12GB GDDR6X, Ray Tracing",
-                        quantity: 1,
-                        price: 12000
-                    },
-                    {
-                        name: "Corsair 16GB DDR5 RAM",
-                        image: "img/ram.png",
-                        specs: "5600MHz, RGB",
-                        quantity: 1,
-                        price: 3500
-                    }
-                ]
-            },
-            {
-                id: "ORD-2024-002",
-                date: "2024-06-20",
-                status: "shipped",
-                total: 8500,
-                items: [
-                    {
-                        name: "Intel Core i7-13700K",
-                        image: "img/cpu.png",
-                        specs: "3.4GHz, 16 cores",
-                        quantity: 1,
-                        price: 8500
-                    }
-                ]
-            },
-            {
-                id: "ORD-2024-003",
-                date: "2024-06-15",
-                status: "processing",
-                total: 21000,
-                items: [
-                    {
-                        name: "Samsung 1TB NVMe SSD",
-                        image: "img/ssd.png",
-                        specs: "980 PRO, PCIe 4.0",
-                        quantity: 2,
-                        price: 10500
-                    }
-                ]
-            }
-        ];
-
         function loadOrderHistory() {
+            // Get current user from localStorage
+            let currentUserEmail = localStorage.getItem('currentUserEmail') || 'sahidtanzid2014@gmail.com';
+            
+            // Get users from window object
+            let users = window.users || [];
+            
+            // Find current user
+            const currentUser = users.find(user => user.email === currentUserEmail);
+            
+            console.log('Current user email:', currentUserEmail);
+            console.log('Current user found:', currentUser);
+            
+            if (!currentUser) {
+                $('#ordersContainer').html('<div class="alert alert-warning">User not found. Please log in again.</div>');
+                updateOrderStats(0, 0, 0, 0);
+                return;
+            }
+            
+            // Get orders from dataSource.js
+            const orders = window.orders || [];
+            console.log('All orders from dataSource:', orders);
+            
+            const userOrders = orders.filter(order => order.userId === currentUser.id);
+            console.log('User orders for ID', currentUser.id, ':', userOrders);
+            
+            if (userOrders.length === 0) {
+                $('#ordersContainer').html('<div class="alert alert-info">No orders found for this user.</div>');
+                updateOrderStats(0, 0, 0, 0);
+                return;
+            }
+            
+            // Sort orders by date (newest first)
+            userOrders.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+            
+            // Calculate order statistics
+            const totalOrders = userOrders.length;
+            const deliveredOrders = userOrders.filter(order => order.status === 'delivered').length;
+            const pendingOrders = userOrders.filter(order => order.status === 'pending').length;
+            const cancelledOrders = userOrders.filter(order => order.status === 'cancelled').length;
+            const totalSpent = userOrders
+                .filter(order => order.status !== 'cancelled')
+                .reduce((sum, order) => sum + order.total, 0);
+            
+            console.log('Order statistics:', {
+                total: totalOrders,
+                delivered: deliveredOrders,
+                pending: pendingOrders,
+                cancelled: cancelledOrders,
+                totalSpent: totalSpent
+            });
+            
+            updateOrderStats(totalOrders, deliveredOrders, pendingOrders, totalSpent);
+            
+            // Load orders
             const container = $('#ordersContainer');
             container.empty();
-
-            demoOrders.forEach(order => {
+            
+            userOrders.forEach(order => {
                 const orderHtml = createOrderCard(order);
                 container.append(orderHtml);
+            });
+            
+            // Show current user info
+            console.log('Loaded orders for user:', currentUser.userName, '(ID:', currentUser.id, ')');
+        }
+        
+        function updateOrderStats(total, delivered, pending, totalSpent) {
+            console.log('Updating order stats:', { total, delivered, pending, totalSpent });
+            
+            $('#totalOrdersCount').text(total);
+            $('#deliveredOrdersCount').text(delivered);
+            $('#pendingOrdersCount').text(pending);
+            $('#totalSpentAmount').text('৳' + totalSpent.toLocaleString());
+            
+            console.log('Updated DOM elements:', {
+                totalOrdersCount: $('#totalOrdersCount').text(),
+                deliveredOrdersCount: $('#deliveredOrdersCount').text(),
+                pendingOrdersCount: $('#pendingOrdersCount').text(),
+                totalSpentAmount: $('#totalSpentAmount').text()
             });
         }
 
         function createOrderCard(order) {
             const statusClass = `status-${order.status}`;
             const statusText = order.status.charAt(0).toUpperCase() + order.status.slice(1);
+            const orderDate = new Date(order.orderDate).toLocaleDateString('bn-BD', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Get product details from dataSource
+            const products = window.dataSource ? window.dataSource.products : [];
             
             let itemsHtml = '';
-            order.items.forEach(item => {
-                itemsHtml += `
-                    <div class="order-product">
-                        <div class="order-product-img">
-                            <img src="${item.image}" alt="${item.name}">
+            if (order.items && order.items.length > 0) {
+                order.items.forEach(item => {
+                    const product = products.find(p => p.productid === item.productId);
+                    const productName = product ? product.productname : 'Unknown Product';
+                    const productImage = product ? `img/${product.productname.toLowerCase().replace(/\s+/g, '')}.png` : 'img/default.png';
+                    
+                    itemsHtml += `
+                        <div class="order-product">
+                            <div class="order-product-img">
+                                <img src="${productImage}" alt="${productName}" onerror="this.src='img/default.png'">
+                            </div>
+                            <div class="order-product-details">
+                                <h5 class="order-product-name">${productName}</h5>
+                                <p class="order-product-specs">${product ? product.description : 'Product details not available'}</p>
+                            </div>
+                            <div class="order-product-price">
+                                <div class="order-product-quantity">Qty: ${item.quantity}</div>
+                                <div class="order-product-amount">৳${item.priceAtPurchase.toLocaleString()}</div>
+                            </div>
                         </div>
-                        <div class="order-product-details">
-                            <h5 class="order-product-name">${item.name}</h5>
-                            <p class="order-product-specs">${item.specs}</p>
-                        </div>
-                        <div class="order-product-price">
-                            <div class="order-product-quantity">Qty: ${item.quantity}</div>
-                            <div class="order-product-amount">৳${item.price.toLocaleString()}</div>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            } else {
+                itemsHtml = '<div class="alert alert-info">Order items not available</div>';
+            }
 
             return `
                 <div class="order-item" data-status="${order.status}">
@@ -859,15 +828,19 @@
                         <div class="order-info">
                             <div class="order-info-item">
                                 <span class="order-info-label">ORDER ID</span>
-                                <span class="order-info-value">${order.id}</span>
+                                <span class="order-info-value">#${order.orderId}</span>
                             </div>
                             <div class="order-info-item">
                                 <span class="order-info-label">ORDER DATE</span>
-                                <span class="order-info-value">${new Date(order.date).toLocaleDateString()}</span>
+                                <span class="order-info-value">${orderDate}</span>
                             </div>
                             <div class="order-info-item">
                                 <span class="order-info-label">TOTAL</span>
                                 <span class="order-info-value">৳${order.total.toLocaleString()}</span>
+                            </div>
+                            <div class="order-info-item">
+                                <span class="order-info-label">PAYMENT</span>
+                                <span class="order-info-value">${order.paymentType.toUpperCase()}</span>
                             </div>
                         </div>
                         <span class="order-status ${statusClass}">${statusText}</span>
@@ -877,13 +850,13 @@
                     </div>
                     <div class="order-item-footer">
                         <div class="order-actions">
-                            <button class="btn btn-default btn-sm" onclick="viewOrderDetails('${order.id}')">
+                            <button class="btn btn-default btn-sm" onclick="viewOrderDetails(${order.orderId})">
                                 <i class="fa fa-eye"></i> View Details
                             </button>
                             ${order.status === 'delivered' ? 
-                                '<button class="btn btn-primary btn-sm" onclick="reorder(\'' + order.id + '\')"><i class="fa fa-refresh"></i> Reorder</button>' : ''}
-                            ${order.status === 'shipped' ? 
-                                '<button class="btn btn-info btn-sm" onclick="trackOrder(\'' + order.id + '\')"><i class="fa fa-truck"></i> Track Order</button>' : ''}
+                                '<button class="btn btn-primary btn-sm" onclick="reorder(' + order.orderId + ')"><i class="fa fa-refresh"></i> Reorder</button>' : ''}
+                            ${order.status === 'pending' ? 
+                                '<button class="btn btn-info btn-sm" onclick="trackOrder(' + order.orderId + ')"><i class="fa fa-truck"></i> Track Order</button>' : ''}
                         </div>
                         <div class="order-total">
                             Total: ৳${order.total.toLocaleString()}
@@ -905,18 +878,22 @@
         }
 
         function viewOrderDetails(orderId) {
-            alert(`View details for order: ${orderId}`);
-            // In real app: window.location.href = `order-details.html?id=${orderId}`;
+            const orders = window.orders || [];
+            const order = orders.find(o => o.orderId === orderId);
+            
+            if (order) {
+                alert(`Order #${orderId} details:\nTotal: ৳${order.total}\nStatus: ${order.status}\nPayment: ${order.paymentType}\nTransaction: ${order.transactionNo}`);
+            } else {
+                alert(`Order #${orderId} not found`);
+            }
         }
 
         function trackOrder(orderId) {
-            alert(`Track order: ${orderId}`);
-            // In real app: window.location.href = `track-order.html?id=${orderId}`;
+            alert(`Track order: ${orderId}\nThis would redirect to tracking page in real application.`);
         }
 
         function reorder(orderId) {
-            alert(`Reorder items from: ${orderId}`);
-            // In real app: add items to cart and redirect to checkout
+            alert(`Reorder items from order: ${orderId}\nThis would add items to cart and redirect to checkout.`);
         }
 
         function updateAuthLink() {
@@ -941,9 +918,67 @@
         function logout() {
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('currentUser');
+            localStorage.removeItem('currentUserEmail');
             alert('You have been logged out successfully');
             window.location.href = 'login.html';
         }
+        
+        // Helper functions for user management
+        function getCurrentUserId() {
+            return localStorage.getItem('currentUserEmail');
+        }
+        
+        function removeCurrentUserId() {
+            localStorage.removeItem('currentUserEmail');
+            localStorage.removeItem('isLoggedIn');
+        }
+        
+        // Function to set current user (for testing different users)
+        function setCurrentUser(email) {
+            localStorage.setItem('currentUserEmail', email);
+            localStorage.setItem('isLoggedIn', 'true');
+            loadOrderHistory();
+            updateAuthLink();
+        }
+        
+        // Debug function to check data loading
+        function debugOrderData() {
+            console.log('=== DEBUG ORDER DATA ===');
+            console.log('Users from dataSource:', window.users);
+            console.log('Orders from dataSource:', window.orders);
+            console.log('Current user email:', localStorage.getItem('currentUserEmail'));
+            
+            let users = window.users || [];
+            const currentUser = users.find(u => u.email === localStorage.getItem('currentUserEmail'));
+            console.log('Current user from users array:', currentUser);
+            
+            if (currentUser) {
+                const orders = window.orders || [];
+                const userOrders = orders.filter(order => order.userId === currentUser.id);
+                console.log('User orders for ID', currentUser.id, ':', userOrders);
+                
+                // Calculate statistics
+                const totalOrders = userOrders.length;
+                const deliveredOrders = userOrders.filter(order => order.status === 'delivered').length;
+                const pendingOrders = userOrders.filter(order => order.status === 'pending').length;
+                const cancelledOrders = userOrders.filter(order => order.status === 'cancelled').length;
+                const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0);
+                
+                console.log('Calculated statistics:', {
+                    total: totalOrders,
+                    delivered: deliveredOrders,
+                    pending: pendingOrders,
+                    cancelled: cancelledOrders,
+                    totalSpent: totalSpent
+                });
+            }
+            console.log('=== END DEBUG ===');
+        }
+        
+        // Call debug function on page load
+        $(document).ready(function() {
+            setTimeout(debugOrderData, 2000);
+        });
     </script>
 
 </body>

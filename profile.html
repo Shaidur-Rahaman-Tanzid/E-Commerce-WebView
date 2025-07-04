@@ -167,31 +167,6 @@
     </header>
     <!-- /HEADER -->
 
-    <!-- NAVIGATION -->
-    <nav id="navigation">
-        <!-- container -->
-        <div class="container">
-            <!-- responsive-nav -->
-            <div id="responsive-nav">
-                <!-- NAV -->
-                <ul class="main-nav nav navbar-nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="store.html">Store</a></li>
-                    <li><a href="#">Hot Deals</a></li>
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Laptops</a></li>
-                    <li><a href="#">Smartphones</a></li>
-                    <li><a href="#">Cameras</a></li>
-                    <li><a href="#">Accessories</a></li>
-                </ul>
-                <!-- /NAV -->
-            </div>
-            <!-- /responsive-nav -->
-        </div>
-        <!-- /container -->
-    </nav>
-    <!-- /NAVIGATION -->
-
     <!-- BREADCRUMB -->
     <div id="breadcrumb" class="section">
         <!-- container -->
@@ -321,6 +296,7 @@
                                     <button class="primary-btn" onclick="changePassword()" style="background-color: #6c757d; margin-left: 10px;">
                                         <i class="fa fa-lock"></i> Change Password
                                     </button>
+    
                                 </div>
                             </div>
                         </div>
@@ -338,7 +314,7 @@
                         <div class="order-body">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div class="stat-card">
+                                    <div class="order-stat-card">
                                         <div class="stat-icon">
                                             <i class="fa fa-shopping-cart"></i>
                                         </div>
@@ -349,7 +325,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="stat-card">
+                                    <div class="order-stat-card">
                                         <div class="stat-icon">
                                             <i class="fa fa-dollar"></i>
                                         </div>
@@ -360,7 +336,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="stat-card">
+                                    <div class="order-stat-card">
                                         <div class="stat-icon">
                                             <i class="fa fa-heart"></i>
                                         </div>
@@ -371,7 +347,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="stat-card">
+                                    <div class="order-stat-card">
                                         <div class="stat-icon">
                                             <i class="fa fa-star"></i>
                                         </div>
@@ -383,6 +359,9 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Note: Order History section has been moved to order-history.html page -->
+                        
                     </div>
                 </div>
                 <!-- /Profile Content -->
@@ -592,7 +571,7 @@
             color: #495057;
         }
         
-        .stat-card {
+        .order-stat-card {
             background: white;
             border: 1px solid #e9ecef;
             border-radius: 8px;
@@ -601,7 +580,7 @@
             margin-bottom: 20px;
             transition: transform 0.2s ease;
         }
-        .stat-card:hover {
+        .order-stat-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
@@ -704,7 +683,7 @@
             .profile-details {
                 padding: 15px 0;
             }
-            .stat-card {
+            .order-stat-card {
                 margin-bottom: 15px;
             }
         }
@@ -776,6 +755,7 @@
                 $('#wishlistItems').text(wishlistItems);
                 $('#reviewsGiven').text(reviewsGiven);
                 
+                // Note: Order history is now handled in order-history.html page
                 console.log('Loaded profile for user:', currentUser.userName);
                 console.log('User orders:', userOrders);
             } else {
