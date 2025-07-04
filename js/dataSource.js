@@ -742,7 +742,7 @@ const dataSource = {
         }
         ,
         {
-            "count": 8,
+            "count": 2,
             "category_id": "b1e2c3d4-5678-4abc-9def-1234567890ab",
             "categoryname": "Laptops"
         }

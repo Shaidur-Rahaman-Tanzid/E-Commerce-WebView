@@ -174,6 +174,154 @@
 			color: #333;
 			font-weight: 500;
 		}
+
+		/* Quick View Modal Styling */
+		.modal-lg {
+			max-width: 900px;
+		}
+
+		.modal-content {
+			border-radius: 12px;
+			border: none;
+			box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+		}
+
+		.modal-header {
+			background: #f8f9fa;
+			border-bottom: 1px solid #dee2e6;
+			border-radius: 12px 12px 0 0;
+			padding: 20px 25px;
+		}
+
+		.modal-title {
+			color: #333;
+			font-weight: 600;
+			font-size: 18px;
+		}
+
+		.modal-body {
+			padding: 25px;
+		}
+
+		.product-details-modal .product-name {
+			font-size: 24px;
+			font-weight: 700;
+			color: #333;
+			margin-bottom: 10px;
+		}
+
+		.product-details-modal .product-category {
+			color: #666;
+			font-size: 14px;
+			text-transform: uppercase;
+			margin-bottom: 15px;
+		}
+
+		.product-details-modal .product-price {
+			font-size: 28px;
+			font-weight: 700;
+			color: #D10024;
+			margin-bottom: 20px;
+		}
+
+		.product-details-modal .product-description {
+			color: #666;
+			font-size: 14px;
+			line-height: 1.6;
+			margin-bottom: 25px;
+		}
+
+		.product-specs {
+			margin-bottom: 25px;
+		}
+
+		.product-specs h5 {
+			color: #333;
+			font-weight: 600;
+			margin-bottom: 15px;
+			font-size: 16px;
+		}
+
+		.product-specs .table {
+			margin-bottom: 0;
+		}
+
+		.product-specs .table td {
+			padding: 8px 12px;
+			border-top: 1px solid #f0f0f0;
+			font-size: 14px;
+		}
+
+		.product-specs .table td:first-child {
+			font-weight: 600;
+			color: #555;
+			width: 40%;
+		}
+
+		.product-actions {
+			display: flex;
+			gap: 15px;
+			flex-wrap: wrap;
+		}
+
+		.product-actions .btn {
+			flex: 1;
+			min-width: 150px;
+			padding: 12px 20px;
+			font-weight: 600;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+		}
+
+		.product-actions .btn-primary {
+			background: #D10024;
+			border-color: #D10024;
+		}
+
+		.product-actions .btn-primary:hover {
+			background: #b3001f;
+			border-color: #b3001f;
+			transform: translateY(-2px);
+		}
+
+		.product-actions .btn-outline-primary {
+			color: #D10024;
+			border-color: #D10024;
+		}
+
+		.product-actions .btn-outline-primary:hover {
+			background: #D10024;
+			border-color: #D10024;
+			transform: translateY(-2px);
+		}
+
+		/* Responsive modal */
+		@media (max-width: 767.98px) {
+			.modal-lg {
+				max-width: 95%;
+				margin: 10px auto;
+			}
+
+			.modal-body {
+				padding: 15px;
+			}
+
+			.product-details-modal .product-name {
+				font-size: 20px;
+			}
+
+			.product-details-modal .product-price {
+				font-size: 24px;
+			}
+
+			.product-actions {
+				flex-direction: column;
+			}
+
+			.product-actions .btn {
+				min-width: auto;
+			}
+		}
 	</style>
 
 
@@ -470,6 +618,78 @@
 
 	<!-- /SECTION -->
 
+	<!-- Quick View Modal -->
+	<div id="quickViewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="quickViewModalLabel">Product Details</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="product-img-modal">
+								<img id="modalProductImg" src="" alt="Product Image" style="width: 100%; height: 300px; object-fit: cover; border-radius: 8px;">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="product-details-modal">
+								<h3 id="modalProductName" class="product-name"></h3>
+								<p id="modalProductCategory" class="product-category"></p>
+								<div id="modalProductRating" class="product-rating" style="margin-bottom: 15px;"></div>
+								<h4 id="modalProductPrice" class="product-price"></h4>
+								<p id="modalProductDescription" class="product-description"></p>
+								
+								<div class="product-specs">
+									<h5>Product Specifications</h5>
+									<table class="table table-striped">
+										<tbody>
+											<tr>
+												<td><strong>Brand:</strong></td>
+												<td id="modalProductBrand"></td>
+											</tr>
+											<tr>
+												<td><strong>Product Type:</strong></td>
+												<td id="modalProductType"></td>
+											</tr>
+											<tr>
+												<td><strong>Category:</strong></td>
+												<td id="modalProductCategoryFull"></td>
+											</tr>
+											<tr>
+												<td><strong>Original Price:</strong></td>
+												<td id="modalProductOriginalPrice"></td>
+											</tr>
+											<tr>
+												<td><strong>Discounted Price:</strong></td>
+												<td id="modalProductFinalPrice"></td>
+											</tr>
+											<tr>
+												<td><strong>Saving:</strong></td>
+												<td id="modalProductDiscount"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								
+								<div class="product-actions">
+									<button class="btn btn-primary btn-lg" onclick="addToCartFromModal()">
+										<i class="fa fa-shopping-cart"></i> Add to Cart
+									</button>
+									<button class="btn btn-outline-primary btn-lg" onclick="addToWishlistFromModal()">
+										<i class="fa fa-heart-o"></i> Add to Wishlist
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- FOOTER -->
 	<footer id="footer">
@@ -766,31 +986,55 @@
 			}
 		}
 
-		// Generate star rating HTML
 		function generateStarRating(rating) {
-			const fullStars = Math.floor(rating);
-			const hasHalfStar = rating % 1 >= 0.5;
-			const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    // Ensure rating is between 0 and 5
+    rating = Math.max(0, Math.min(5, rating));
 
-			let starsHTML = '';
+    let fullStars = 0;
+    let hasHalfStar = false;
 
-			// Full stars
-			for (let i = 0; i < fullStars; i++) {
-				starsHTML += '<i class="fa fa-star"></i>';
-			}
+    // Determine full and half stars based on decimal
+    if (rating % 1 < 0.5) {
+        fullStars = Math.floor(rating);
+        hasHalfStar = (rating % 1) > 0;
+    } else {
+        fullStars = Math.ceil(rating);
+        hasHalfStar = false;
+    }
 
-			// Half star
-			if (hasHalfStar) {
-				starsHTML += '<i class="fa fa-star-half-o"></i>';
-			}
+    // If we have a half star, reduce fullStars by 1 to make room for the half
+    if (hasHalfStar && fullStars < 5) {
+        // leave as is
+    } else if (hasHalfStar && fullStars === 5) {
+        // If rating is 4.5, we want 4 full, 1 half, 0 empty
+        fullStars = 4;
+    }
 
-			// Empty stars
-			for (let i = 0; i < emptyStars; i++) {
-				starsHTML += '<i class="fa fa-star-o"></i>';
-			}
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-			return starsHTML;
-		}
+    let starsHTML = '';
+    const starStyle = 'style="margin-right:3px;"';
+
+    // Full stars
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += `<i class="fa fa-star" ${starStyle}></i>`;
+    }
+
+    // Half star
+    if (hasHalfStar) {
+        starsHTML += `<i class="fa fa-star-half-o" ${starStyle}></i>`;
+    }
+
+    // Empty stars
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += `<i class="fa fa-star-o" ${starStyle}></i>`;
+    }
+
+    return starsHTML;
+}
+
+		// Global variable to store current product data
+		let currentProductData = null;
 
 		// Function to open quick view
 		function openQuickView(productId) {
@@ -800,8 +1044,70 @@
 				showCustomAlert('Product not found!', 'error');
 				return;
 			}
+			
+			currentProductData = product;
+			
+			// Determine image based on product type
+			let img = getProductImage(product.producttypename, product.productname);
+			
+			// Populate modal with product data
+			document.getElementById('modalProductImg').src = `./img/${img}`;
+			document.getElementById('modalProductName').textContent = product.productname || '';
+			document.getElementById('modalProductCategory').textContent = product.categoryname || '';
+			document.getElementById('modalProductPrice').textContent = product.finalprice != null ? '৳' + product.finalprice.toFixed(2) : '';
+			document.getElementById('modalProductDescription').textContent = product.description || '';
+			document.getElementById('modalProductBrand').textContent = product.brandname || 'N/A';
+			document.getElementById('modalProductType').textContent = product.producttypename || 'N/A';
+			document.getElementById('modalProductCategoryFull').textContent = product.categoryname || 'N/A';
+			document.getElementById('modalProductOriginalPrice').textContent = product.salesprice != null ? '৳' + product.salesprice.toFixed(2) : 'N/A';
+			document.getElementById('modalProductFinalPrice').textContent = product.finalprice != null ? '৳' + product.finalprice.toFixed(2) : 'N/A';
+			document.getElementById('modalProductDiscount').textContent = product.discountprice ? '৳' + product.discountprice.toFixed(2) : 'N/A';
+			
+			// Populate rating stars
+			const rating = product.rating || 0;
+			const fullStars = Math.floor(rating);
+			const hasHalfStar = rating % 1 >= 0.5;
+			const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+			
+			let starsHTML = '';
+			
+			// Full stars
+			for (let i = 0; i < fullStars; i++) {
+				starsHTML += '<i class="fa fa-star"></i>';
+			}
+			
+			// Half star
+			if (hasHalfStar) {
+				starsHTML += '<i class="fa fa-star-half-o"></i>';
+			}
+			
+			// Empty stars
+			for (let i = 0; i < emptyStars; i++) {
+				starsHTML += '<i class="fa fa-star-o"></i>';
+			}
+			
+			starsHTML += `<span style="margin-left: 5px; font-size: 14px; color: #666;">(${rating.toFixed(1)})</span>`;
+			
+			document.getElementById('modalProductRating').innerHTML = starsHTML;
+			
+			// Show the modal
+			$('#quickViewModal').modal('show');
+		}
 
-			showCustomAlert(`Quick view for ${product.productname} - Price: ৳${product.finalprice}`, 'info');
+		// Add to cart from modal
+		function addToCartFromModal() {
+			if (currentProductData) {
+				addToCart(currentProductData.productid);
+				$('#quickViewModal').modal('hide');
+			}
+		}
+
+		// Add to wishlist from modal
+		function addToWishlistFromModal() {
+			if (currentProductData) {
+				addToWishlist(currentProductData.productid);
+				$('#quickViewModal').modal('hide');
+			}
 		}
 
 		// Function to add to compare

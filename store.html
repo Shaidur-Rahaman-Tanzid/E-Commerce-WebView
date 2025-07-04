@@ -866,29 +866,7 @@
 			</div>
 		</div>
 
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Hot Deals</a></li>
-						<li><a href="#">Categories</a></li>
-						<li><a href="#">Laptops</a></li>
-						<li><a href="#">Smartphones</a></li>
-						<li><a href="#">Cameras</a></li>
-						<li><a href="#">Accessories</a></li>
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
-		<!-- /NAVIGATION -->
+
 
 
 
@@ -948,7 +926,7 @@
 									<label for="price_max">Max Price</label>
 									<input type="number" name="price_max" id="price_max" class="form-control">
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label>Minimum Rating</label>
 									<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;">
 										<label class="checkbox" style="display: flex; align-items: center; gap: 8px;">
@@ -975,7 +953,7 @@
 											<input type="checkbox" name="min_rating[]" value="0">
 											<span class="min-rating-label">Any Rating</span>
 										</label>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -1320,27 +1298,49 @@ function getProductImage(productType, productName='') {
 
 // Generate star rating HTML
 function generateStarRating(rating) {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
+    // Ensure rating is between 0 and 5
+    rating = Math.max(0, Math.min(5, rating));
+
+    let fullStars = 0;
+    let hasHalfStar = false;
+
+    // Determine full and half stars based on decimal
+    if (rating % 1 < 0.5) {
+        fullStars = Math.floor(rating);
+        hasHalfStar = (rating % 1) > 0;
+    } else {
+        fullStars = Math.ceil(rating);
+        hasHalfStar = false;
+    }
+
+    // If we have a half star, reduce fullStars by 1 to make room for the half
+    if (hasHalfStar && fullStars < 5) {
+        // leave as is
+    } else if (hasHalfStar && fullStars === 5) {
+        // If rating is 4.5, we want 4 full, 1 half, 0 empty
+        fullStars = 4;
+    }
+
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    
+
     let starsHTML = '';
-    
+    const starStyle = 'style="margin-right:3px;"';
+
     // Full stars
     for (let i = 0; i < fullStars; i++) {
-        starsHTML += '<i class="fa fa-star"></i>';
+        starsHTML += `<i class="fa fa-star" ${starStyle}></i>`;
     }
-    
+
     // Half star
     if (hasHalfStar) {
-        starsHTML += '<i class="fa fa-star-half-o"></i>';
+        starsHTML += `<i class="fa fa-star-half-o" ${starStyle}></i>`;
     }
-    
+
     // Empty stars
     for (let i = 0; i < emptyStars; i++) {
-        starsHTML += '<i class="fa fa-star-o"></i>';
+        starsHTML += `<i class="fa fa-star-o" ${starStyle}></i>`;
     }
-    
+
     return starsHTML;
 }
 

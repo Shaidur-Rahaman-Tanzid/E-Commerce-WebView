@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updateAuthLink();
 });
 
-function updateAuthLink() {
+function updateAuthLink(id='store') {
     const userId = getCurrentUserId();
-    const authLink = document.getElementById('store-auth-link');
+    const authLink = document.getElementById(id+'-auth-link');
     // const authLink = document.getElementsByClassName('auth-link');
     if (!authLink) return;
     if (userId) {
