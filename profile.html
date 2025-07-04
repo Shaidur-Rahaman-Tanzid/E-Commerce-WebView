@@ -240,21 +240,6 @@
                                     </a>
                                 </div>
                                 <div class="input-checkbox">
-                                    <a href="#" class="profile-nav-link">
-                                        <i class="fa fa-map-marker"></i> Address Book
-                                    </a>
-                                </div>
-                                <div class="input-checkbox">
-                                    <a href="#" class="profile-nav-link">
-                                        <i class="fa fa-credit-card"></i> Payment Methods
-                                    </a>
-                                </div>
-                                <div class="input-checkbox">
-                                    <a href="#" class="profile-nav-link">
-                                        <i class="fa fa-cog"></i> Account Settings
-                                    </a>
-                                </div>
-                                <div class="input-checkbox">
                                     <a href="#" class="profile-nav-link" onclick="logout()">
                                         <i class="fa fa-sign-out"></i> Logout
                                     </a>
@@ -458,41 +443,6 @@
     </div>
     <!-- /Change Password Modal -->
 
-    <!-- NEWSLETTER -->
-    <div id="newsletter" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="newsletter">
-                        <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                        <form>
-                            <input class="input" type="email" placeholder="Enter Your Email">
-                            <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                        </form>
-                        <ul class="newsletter-follow">
-                            <li>
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /NEWSLETTER -->
 
     <!-- FOOTER -->
     <footer id="footer">
@@ -590,12 +540,12 @@
 
     <!-- jQuery Plugins -->
     <script src="js/jquery.min.js"></script>
+    <script src="js/dataSource.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/slick.min.js"></script>
     <script src="js/nouislider.min.js"></script>
     <script src="js/jquery.zoom.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/dataSource.js"></script>
 
     <style>
         /* Profile page custom styles */
@@ -762,14 +712,18 @@
 
     <script>
         const storage_key = 'pc_shop_users';
+        
         $(document).ready(function() {
-            try{
-            users = JSON.parse(localStorage.getItem(storage_key)) || [];
-           
-            }catch(e){
-                users = localStorage.getItem(storage_key) || [];
+            // Load users from dataSource.js
+            let users = window.users || [];
+            
+            // Initialize with default user if no user is logged in
+            if (!localStorage.getItem('currentUserEmail')) {
+                localStorage.setItem('currentUserEmail', 'sahidtanzid2014@gmail.com');
+                localStorage.setItem('isLoggedIn', 'true');
             }
-             // Load user profile data from dataSource
+            
+            // Load user profile data from dataSource
             loadProfileData();
             
             // Set current user authentication status
@@ -781,6 +735,9 @@
             // Get current user from localStorage or default to user with email sahidtanzid2014@gmail.com
             let currentUserEmail = localStorage.getItem('currentUserEmail') || 'sahidtanzid2014@gmail.com';
             
+            // Get users from window object
+            let users = window.users || [];
+            
             // Find user in the users array from dataSource.js
             const currentUser = users.find(user => user.email === currentUserEmail);
             
@@ -790,13 +747,37 @@
                 $('#userEmail').text(currentUser.email || 'N/A');
                 $('#userPhone').text(currentUser.phone || 'N/A');
                 $('#userAddress').text(currentUser.address || 'Not provided');
-                $('#userCreatedAt').text(new Date(currentUser.createdAt).toLocaleDateString() || 'N/A');
+                
+                // Format creation date
+                let createdAt = 'N/A';
+                if (currentUser.createdAt) {
+                    try {
+                        createdAt = new Date(currentUser.createdAt).toLocaleDateString('bn-BD', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                    } catch (e) {
+                        createdAt = 'N/A';
+                    }
+                }
+                $('#userCreatedAt').text(createdAt);
+
+                // Calculate user statistics from orders data
+                const userOrders = window.orders ? window.orders.filter(order => order.userId === currentUser.id) : [];
+                const totalOrders = userOrders.length;
+                const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0);
+                const wishlistItems = currentUser.wishlist ? currentUser.wishlist.length : 0;
+                const reviewsGiven = 0; // This would be calculated from reviews data if available
 
                 // Update statistics
-                $('#totalOrders').text(currentUser.totalOrders || 0);
-                $('#totalSpent').text('৳' + (currentUser.totalSpent || 0).toLocaleString());
-                $('#wishlistItems').text(currentUser.wishlistItems || 0);
-                $('#reviewsGiven').text(currentUser.reviewsGiven || 0);
+                $('#totalOrders').text(totalOrders);
+                $('#totalSpent').text('৳' + totalSpent.toLocaleString());
+                $('#wishlistItems').text(wishlistItems);
+                $('#reviewsGiven').text(reviewsGiven);
+                
+                console.log('Loaded profile for user:', currentUser.userName);
+                console.log('User orders:', userOrders);
             } else {
                 // Fallback data if user not found
                 $('#userName').text('Guest User');
@@ -809,6 +790,8 @@
                 $('#totalSpent').text('৳0');
                 $('#wishlistItems').text('0');
                 $('#reviewsGiven').text('0');
+                
+                console.log('No user found for email:', currentUserEmail);
             }
         }
 
@@ -867,6 +850,7 @@
             // var user_list = localStorage.getItem(storage_key);
             // Get current user
             let currentUserEmail = localStorage.getItem('currentUserEmail') || 'sahidtanzid2014@gmail.com';
+            let users = window.users || [];
             const currentUser = users.find(user => user.email === currentUserEmail);
             
             if (!currentUser) {
@@ -913,6 +897,8 @@
         function setCurrentUser(email) {
             localStorage.setItem('currentUserEmail', email);
             localStorage.setItem('isLoggedIn', 'true');
+            loadProfileData();
+            updateAuthStatus();
         }
 
         function updateAuthLink() {
@@ -933,7 +919,20 @@
                 authLink.onclick = null;
             }
         }
-        document.addEventListener('DOMContentLoaded', updateAuthLink);
+        
+        // Debug function to check data loading
+        function debugData() {
+            console.log('Users from dataSource:', window.users);
+            console.log('Orders from dataSource:', window.orders);
+            console.log('Current user email:', localStorage.getItem('currentUserEmail'));
+            let users = window.users || [];
+            console.log('Current user from users array:', users.find(u => u.email === localStorage.getItem('currentUserEmail')));
+        }
+        
+        // Call debug function on page load
+        $(document).ready(function() {
+            setTimeout(debugData, 1000);
+        });
     </script>
 
 </body>

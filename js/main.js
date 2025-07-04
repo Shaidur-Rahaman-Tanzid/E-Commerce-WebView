@@ -2,9 +2,27 @@
 	"use strict"
 
 	console.log('from main.js');
-	console.log(dataSource);
-	console.log(users);
-	console.log(orders);
+	
+	// Check if dataSource is available
+	if (typeof dataSource !== 'undefined') {
+		console.log(dataSource);
+	} else {
+		console.log('dataSource not available');
+	}
+	
+	// Check if users is available
+	if (typeof users !== 'undefined') {
+		console.log(users);
+	} else {
+		console.log('users not available');
+	}
+	
+	// Check if orders is available
+	if (typeof orders !== 'undefined') {
+		console.log(orders);
+	} else {
+		console.log('orders not available');
+	}
 
 	// Mobile Nav toggle
 	$('.menu-toggle > a').on('click', function (e) {

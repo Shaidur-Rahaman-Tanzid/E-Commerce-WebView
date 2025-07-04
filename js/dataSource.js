@@ -1063,6 +1063,11 @@ var orders = [
     }
 ];
 
+// Make users and orders globally accessible
+window.users = users;
+window.orders = orders;
+window.dataSource = dataSource;
+
 const STORAGE_KEYS = {
     USERS: 'pc_shop__users',
     ALL_PRODUCTS: 'pc_shop__all_products',
