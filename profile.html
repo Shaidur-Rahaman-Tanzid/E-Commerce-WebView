@@ -712,7 +712,10 @@
                 // Calculate user statistics from orders data
                 const userOrders = window.orders ? window.orders.filter(order => order.userId === currentUser.id) : [];
                 const totalOrders = userOrders.length;
-                const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0);
+                // Calculate total spent excluding cancelled orders (same as order-history.html)
+                const totalSpent = userOrders
+                    .filter(order => order.status !== 'cancelled')
+                    .reduce((sum, order) => sum + order.total, 0);
                 const wishlistItems = currentUser.wishlist ? currentUser.wishlist.length : 0;
                 const reviewsGiven = 0; // This would be calculated from reviews data if available
 
