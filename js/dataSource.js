@@ -47,6 +47,13 @@ const dataSource = {
             "brand_id": "5cd95e9f-d55a-4a7e-b110-402d5a6a2100",
             "brandname": "ASRock"
         }
+        ,
+        {
+            "count": 2,
+            "brand_id": "b8e1a2c3-4d5f-6789-abcd-ef0123456789",
+            "brandname": "HP"
+        }
+
     ],
     "vendors": [
         {
@@ -116,28 +123,28 @@ const dataSource = {
             "rating": 4.7
         },
         {
-            "brandid": "da284414-e355-485e-bf83-3d0ac9d57ff0",
+            "brandid": "b7e1e8c2-2c3a-4e7a-9b2d-1f2e3d4c5b6a", // Intel brand id (example)
             "vendorid": "7a9026b9-4ee2-4636-862a-1a4ccbe896a8",
-            "brandname": "Seagate",
-            "productid": "e1b3aad6-6a51-43d4-8ac7-e255d32c6e03",
-            "categoryid": "d32721e7-21b6-4b80-878b-a9939ea93e44",
-            "finalprice": 3750.00,
-            "salesprice": 3800.00,
+            "brandname": "Intel",
+            "productid": "a1b2c3d4-e5f6-7890-abcd-1234567890ef", // new unique id
+            "categoryid": "4e3ae1a8-7cdb-4736-acb0-b01ac856f4cb", // Electronics (GPU should be in Electronics)
+            "finalprice": 29999.00,
+            "salesprice": 32999.00,
             "vendorname": "Tech Supplies Ltd.",
-            "description": "ppp111",
-            "productname": "p1",
-            "categoryname": "Accessories",
-            "discountprice": 50.00,
-            "producttypeid": "95d38a76-1e78-46bc-a2f5-aaef69cf8e7f",
-            "purchaseprice": 3500.00,
-            "productpriceid": "f6e51888-e547-432a-ab57-a776df7c2247",
-            "warrantymonths": 3,
+            "description": "Intel Arc A750 8GB GDDR6 Graphics Card, PCIe 4.0, Ray Tracing, XeSS AI Upscaling.",
+            "productname": "Intel Arc A750 8GB",
+            "categoryname": "Electronics",
+            "discountprice": 3000.00,
+            "producttypeid": "95d38a76-1e78-46bc-a2f5-aaef69cf8e7f", // GPU type id (matches other GPUs)
+            "purchaseprice": 28500.00,
+            "productpriceid": "e7f8a9b0-c1d2-3456-7890-abcdef123456", // new unique id
+            "warrantymonths": 36,
             "producttypename": "GPU",
             "priceeffectiveto": "2025-12-30T00:00:00+06:00",
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
-            "product_created_on": "2025-05-17T05:18:21.819165+06:00",
-            "product_updated_on": "2025-05-17T05:18:21.819165+06:00",
-            "rating": 3.8
+            "product_created_on": "2025-06-22T10:00:00.000000+06:00",
+            "product_updated_on": "2025-06-22T10:00:00.000000+06:00",
+            "rating": 4.1
         },
         {
             "brandid": "da284414-e355-485e-bf83-3d0ac9d57ff0",
@@ -666,7 +673,56 @@ const dataSource = {
             "product_created_on": "2025-06-22T03:02:41.933521+06:00",
             "product_updated_on": "2025-06-22T03:02:41.933521+06:00",
             "rating": 4.9
-        }
+        },
+        {
+            "brandid": "b8e1a2c3-4d5f-6789-abcd-ef0123456789",
+            "vendorid": "3aea15b7-13f7-4f42-b7c1-d6eff16c678e",
+            "brandname": "HP",
+            "productid": "e1a2b3c4-d5f6-7890-abcd-ef01234567aa",
+            "categoryid": "b1e2c3d4-5678-4abc-9def-1234567890ab",
+            "finalprice": 65000.00,
+            "salesprice": 70000.00,
+            "vendorname": "Gadget World",
+            "description": "HP Pavilion 15, 11th Gen Intel Core i5, 8GB RAM, 512GB SSD",
+            "productname": "HP Pavilion 15",
+            "categoryname": "Laptops",
+            "discountprice": 5000.00,
+            "producttypeid": "b7e2f8c1-3d4a-4e2a-9c1f-2a6b7e8c9d0f",
+            "purchaseprice": 63000.00,
+            "productpriceid": "a1b2c3d4-e5f6-7890-abcd-ef01234567aa",
+            "warrantymonths": 24,
+            "producttypename": "Device",
+            "priceeffectiveto": "2025-12-30T00:00:00+06:00",
+            "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
+            "product_created_on": "2025-06-22T03:02:57.700000+06:00",
+            "product_updated_on": "2025-06-22T03:02:57.700000+06:00",
+            "rating": 4.4
+        },
+        {
+            "brandid": "b8e1a2c3-4d5f-6789-abcd-ef0123456789",
+            "vendorid": "7a9026b9-4ee2-4636-862a-1a4ccbe896a8",
+            "brandname": "HP",
+            "productid": "e1a2b3c4-d5f6-7890-abcd-ef01234567bb",
+            "categoryid": "b1e2c3d4-5678-4abc-9def-1234567890ab",
+            "finalprice": 85000.00,
+            "salesprice": 90000.00,
+            "vendorname": "Tech Supplies Ltd.",
+            "description": "HP Spectre x360, 13th Gen Intel Core i7, 16GB RAM, 1TB SSD",
+            "productname": "HP Spectre x360",
+            "categoryname": "Laptops",
+            "discountprice": 5000.00,
+            "producttypeid": "b7e2f8c1-3d4a-4e2a-9c1f-2a6b7e8c9d0f",
+            "purchaseprice": 82000.00,
+            "productpriceid": "a1b2c3d4-e5f6-7890-abcd-ef01234567bb",
+            "warrantymonths": 36,
+            "producttypename": "Device",
+            "priceeffectiveto": "2025-12-30T00:00:00+06:00",
+            "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
+            "product_created_on": "2025-06-22T03:02:57.800000+06:00",
+            "product_updated_on": "2025-06-22T03:02:57.800000+06:00",
+            "rating": 4.7
+        },
+        
     ],
     "categories": [
         {
@@ -683,6 +739,12 @@ const dataSource = {
             "count": 9,
             "category_id": "d32721e7-21b6-4b80-878b-a9939ea93e44",
             "categoryname": "Accessories"
+        }
+        ,
+        {
+            "count": 8,
+            "category_id": "b1e2c3d4-5678-4abc-9def-1234567890ab",
+            "categoryname": "Laptops"
         }
     ],
     "productTypes": [
@@ -705,6 +767,11 @@ const dataSource = {
             "count": 8,
             "product_type_id": "42cfaa86-c9c9-4c31-b009-06ebc8866d7b",
             "producttypename": "Storage"
+        },
+        {
+            "count": 2,
+            "product_type_id": "b7e2f8c1-3d4a-4e2a-9c1f-2a6b7e8c9d0f",
+            "producttypename": "Device"
         }
     ]
 };
@@ -719,10 +786,6 @@ var users = [
         phone: "+8801706782347",
         address: "123 Admin Street, Rajshahi",
         createdAt: "2023-01-15T10:00:00Z",
-        totalOrders: 0,
-        totalSpent: 0,
-        wishlistItems: 0,
-        reviewsGiven: 0,
         wishlist: [], // Array of product IDs
         cartItems: [] // Array of { productId, quantity, addedAt }
     },
@@ -735,10 +798,6 @@ var users = [
         phone: "+8801706782347",
         address: "456 Main Street, Rajshahi",
         createdAt: "2023-03-20T08:30:00Z",
-        totalOrders: 12,
-        totalSpent: 45000,
-        wishlistItems: 8,
-        reviewsGiven: 5,
         wishlist: [],
         cartItems: []
     },
@@ -751,10 +810,6 @@ var users = [
         phone: "+8801987654321",
         address: "789 Tech Avenue, Dhaka",
         createdAt: "2023-05-10T16:45:00Z",
-        totalOrders: 8,
-        totalSpent: 32000,
-        wishlistItems: 12,
-        reviewsGiven: 3,
         wishlist: [],
         cartItems: []
     },
@@ -767,10 +822,6 @@ var users = [
         phone: "+8801555666777",
         address: "321 Computer Lane, Chittagong",
         createdAt: "2023-07-25T12:15:00Z",
-        totalOrders: 15,
-        totalSpent: 68000,
-        wishlistItems: 5,
-        reviewsGiven: 8,
         wishlist: [],
         cartItems: []
     },
@@ -783,10 +834,6 @@ var users = [
         phone: "+8801444333222",
         address: "654 Gaming Plaza, Sylhet",
         createdAt: "2023-09-12T14:20:00Z",
-        totalOrders: 6,
-        totalSpent: 28500,
-        wishlistItems: 15,
-        reviewsGiven: 2,
         wishlist: [],
         cartItems: []
     }

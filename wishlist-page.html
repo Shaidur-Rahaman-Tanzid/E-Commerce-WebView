@@ -1018,15 +1018,26 @@
         }
 
         // Generate product image based on type
-        function getProductImage(productType) {
-            switch (productType) {
-                case "CPU": return "cpu.png";
-                case "GPU": return "gpu.png";
-                case "RAM": return "ram.png";
-                case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
-                default: return "default.png";
-            }
-        }
+        function getProductImage(productType, productName='') {
+			if (productType === "CPU") {
+				return "cpu.png";
+			} else if (productType === "GPU") {
+				return "gpu.png";
+			} else if (productType === "RAM") {
+				return "ram.png";
+			} else if (productType === "Device") {
+				return "shop01.png";
+			} else if (productType === "Storage") {
+				if (productName.toLowerCase().includes("ssd")) {
+					return "ssd.png";
+				} 
+				else  {
+					return "hdd.png";
+				}
+			} else {
+				return "default.png";
+			}
+		}
 
         // Generate star rating HTML
         function generateStarRating(rating) {
@@ -1066,7 +1077,7 @@
             currentProductData = product;
             
             // Determine image based on product type
-            let img = getProductImage(product.producttypename);
+            let img = getProductImage(product.producttypename, product.productname);
             
             // Populate modal with product data
             document.getElementById('modalProductImg').src = `./img/${img}`;
@@ -1235,7 +1246,7 @@
             // Generate HTML for wishlist products
             let html = '';
             wishlistProducts.forEach(product => {
-                let img = getProductImage(product.producttypename);
+                let img = getProductImage(product.producttypename, product.productname);
                 
                 html += `
                     <div class="col-md-4 col-xs-6">

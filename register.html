@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - PC-Shop</title>
-<link type="text/css" rel="stylesheet" href="/css/general.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/general.css" />
+    <!-- <script src="js/utils.js"></script> -->
+    <script src="js/dataSource.js"></script>
 </head>
 
 <div class="breadcrumb">
@@ -46,18 +48,18 @@
                 <p>Already have an account? <a href="login.html">Login Here</a></p>
             </div>
 
-                <!-- OTP Form (Initially Hidden) -->
-    <div class="auth-container" id="otp-container" style="display:none;">
-        <h2 class="auth-title">Enter OTP</h2>
-        <form id="otp-form">
-            <div class="form-group">
-                <label for="otp">OTP Code</label>
-                <input type="text" id="otp" placeholder="Enter the OTP sent to your phone">
-                <div class="error-message" id="otp-error"></div>
+            <!-- OTP Form (Initially Hidden) -->
+            <div class="auth-container" id="otp-container" style="display:none;">
+                <h2 class="auth-title">Enter OTP</h2>
+                <form id="otp-form">
+                    <div class="form-group">
+                        <label for="otp">OTP Code</label>
+                        <input type="text" id="otp" placeholder="Enter the OTP sent to your phone">
+                        <div class="error-message" id="otp-error"></div>
+                    </div>
+                    <button class="auth-btn" id="validate-otp-btn" onclick="validate_otp()">Validate OTP</button>
+                </form>
             </div>
-            <button class="auth-btn" id="validate-otp-btn" onclick="validate_otp()">Validate OTP</button>
-        </form>
-    </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -79,6 +81,14 @@
             const email = $('#email').val().trim();
             const password = $('#password').val().trim();
             const phone = $('#phone').val().trim();
+
+            var users = getUsersFromStorage();
+            if (users.find(user => user.email === email)) {
+                return showError('email-error', 'Email already exists');
+            }
+            if (users.find(user => user.phone === phone)) {
+                return showError('phone-error', 'Phone number already exists');
+            }
 
             // Validation
             if (!name) return showError('name-error', 'Name is required');
@@ -112,7 +122,7 @@
                 }
             });
         });
-        
+
         // // Handle OTP form submission
         // $('#otp-form').on('submit', function (e) {
         //     e.preventDefault();
@@ -164,7 +174,7 @@
             }
         }
 
-        
+
     });
     function validate_otp() {
         const otp = document.getElementById('otp').value;
@@ -183,8 +193,26 @@
             }),
             success: function (response) {
                 if (response.success) {
-                    alert('OTP verified successfully! You are now logged in.');
-                    window.location.href = 'login.html'; // Redirect to a dashboard or main page
+                    alert('OTP verified successfully! Procced to login');
+                    // window.location.href = 'login.html'; // Redirect to a dashboard or main page
+                    var users = getUsersFromStorage();
+                    var nextId = users.length + 1;
+                    var user = {
+                        id: nextId,
+                        email: $('#email').val(),
+                        password: $('#password').val(), // In production, passwords should be hashed!
+                        role: "user",
+                        userName: $('#name').val(),
+                        phone: $('#phone').val(),
+                        address: "",
+                        createdAt: new Date().toISOString(),
+                        wishlist: [], // Array of product IDs
+                        cartItems: [] // Array of { productId, quantity, addedAt }
+                    }
+
+                    users.push(user);
+                    saveUsersToStorage(users);
+                    window.location.href = 'login.html';
                 } else {
                     $('#otp-error').text('Invalid OTP. Please try again.').show();
                 }
@@ -196,12 +224,12 @@
     }
 
     function showError(id, message) {
-    $('#' + id).text(message).show();
-}
+        $('#' + id).text(message).show();
+    }
 
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 
 </script>
 

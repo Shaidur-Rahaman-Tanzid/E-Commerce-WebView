@@ -220,7 +220,7 @@
 				</ul>
 				<ul class="header-links pull-right">
 					<li><a href="profile.html"><i class="fa fa-user-o"></i> Profile</a></li>
-					<li><a href="login.html" id="auth-link"><i class="fa fa-user-o"></i> LogIn</a></li>
+					<li><a href="login.html" id="auth-link"><i class="fa fa-user-o auth-link"></i> LogIn</a></li>
 				</ul>
 			</div>
 		</div>
@@ -275,49 +275,12 @@
 							<!-- /Wishlist -->
 
 							<!-- Cart -->
-							<div class="dropdown">
-								<a class="dropdown-toggle" data-toggle="dropdown" onclick="handleCartClick(event)">
+							<div class="header-cart">
+								<a class="" data-toggle="" onclick="handleCartClick(event)">
 									<i class="fa fa-shopping-cart"></i>
 									<span>Your Cart</span>
 									<div class="qty" id="cart-count">0</div>
 								</a>
-								<div class="cart-dropdown">
-									<div class="cart-list">
-										<div class="product-widget">
-											<div class="product-img">
-												<img src="./img/product01.png" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-name"><a href="product.html">product name goes
-														here</a></h3>
-												<h4 class="product-price"><span class="qty">1x</span>৳980.00</h4>
-											</div>
-											<button class="delete" title="Remove from cart"><i
-													class="fa fa-close"></i></button>
-										</div>
-
-										<div class="product-widget">
-											<div class="product-img">
-												<img src="./img/product02.png" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-name"><a href="product.html">product name goes
-														here</a></h3>
-												<h4 class="product-price"><span class="qty">3x</span>৳980.00</h4>
-											</div>
-											<button class="delete" title="Remove from cart"><i
-													class="fa fa-close"></i></button>
-										</div>
-									</div>
-									<div class="cart-summary">
-										<small>3 Item(s) selected</small>
-										<h5>SUBTOTAL: ৳2940.00</h5>
-									</div>
-									<div class="cart-btns">
-										<a href="#">View Cart</a>
-										<a href="checkout.html">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-									</div>
-								</div>
 							</div>
 							<!-- /Cart -->
 
@@ -349,29 +312,7 @@
 		</div>
 	</div>
 
-	<!-- NAVIGATION -->
-	<nav id="navigation">
-		<!-- container -->
-		<div class="container">
-			<!-- responsive-nav -->
-			<div id="responsive-nav">
-				<!-- NAV -->
-				<ul class="main-nav nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">Hot Deals</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Laptops</a></li>
-					<li><a href="#">Smartphones</a></li>
-					<li><a href="#">Cameras</a></li>
-					<li><a href="#">Accessories</a></li>
-				</ul>
-				<!-- /NAV -->
-			</div>
-			<!-- /responsive-nav -->
-		</div>
-		<!-- /container -->
-	</nav>
-	<!-- /NAVIGATION -->
+
 
 	<!-- HOT DEAL SECTION -->
 	<div id="hot-deal" class="section">
@@ -409,7 +350,7 @@
 						</ul>
 						<h2 class="text-uppercase">hot deal this week</h2>
 						<p>New Collection Up to 50% OFF</p>
-						<a class="primary-btn cta-btn" href="#">Shop now</a>
+						<a class="primary-btn cta-btn" href="store.html">Shop now</a>
 					</div>
 				</div>
 			</div>
@@ -426,7 +367,7 @@
 			<!-- row -->
 			<div class="row">
 				<!-- shop -->
-				<a href="store.html">
+				<a href="store.html?category=b1e2c3d4-5678-4abc-9def-1234567890ab">
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
@@ -434,7 +375,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>Laptop<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="store.html?category=b1e2c3d4-5678-4abc-9def-1234567890ab" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -442,7 +383,7 @@
 				<!-- /shop -->
 
 				<!-- shop -->
-				<a href="store.html">
+				<a href="store.html?category=d32721e7-21b6-4b80-878b-a9939ea93e44">
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 							<div class="shop-img">
@@ -450,7 +391,7 @@
 							</div>
 							<div class="shop-body">
 								<h3>Accessories<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<a href="store.html?category=d32721e7-21b6-4b80-878b-a9939ea93e44" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -458,7 +399,7 @@
 				<!-- /shop -->
 
 				<!-- shop -->
-				<a href="store.html">
+				<a href="store.html?category=a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24">
 					<div class="col-md-4 col-xs-6">
 						<div class="shop">
 
@@ -466,8 +407,8 @@
 								<img src="./img/shop02.png" alt="">
 							</div>
 							<div class="shop-body">
-								<h3>Cameras<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+								<h3>Peripherals<br>Collection</h3>
+								<a href="store.html?category=a699d8eb-2cfe-45b1-a7e6-e6f41bb73d24" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -529,41 +470,6 @@
 
 	<!-- /SECTION -->
 
-	<!-- NEWSLETTER -->
-	<div id="newsletter" class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-12">
-					<div class="newsletter">
-						<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-						<form>
-							<input class="input" type="email" placeholder="Enter Your Email">
-							<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-						</form>
-						<ul class="newsletter-follow">
-							<li>
-								<a href="#"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-instagram"></i></a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-pinterest"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /NEWSLETTER -->
 
 	<!-- FOOTER -->
 	<footer id="footer">
@@ -702,7 +608,7 @@
 			alertBox.style.display = 'block';
 			setTimeout(() => {
 				alertBox.classList.add('show');
-			}, 100);
+			}, 300);
 
 			// Auto hide after 2 seconds
 			setTimeout(() => {
@@ -820,12 +726,16 @@
 		function handleCartClick(event) {
 			const cart = getCart();
 			const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+			event.preventDefault();
+			event.stopPropagation();
 			if (totalItems > 0) {
-				// Prevent dropdown from opening
-				event.preventDefault();
-				event.stopPropagation();
+				
 				// Redirect to checkout page
 				window.location.href = 'checkout.html';
+			}
+			else {
+				// Show custom modal saying cart is empty
+				showCustomAlert('Your cart is empty!', 'info');
 			}
 			// If cart is empty, let the dropdown open normally
 		}
@@ -835,13 +745,24 @@
 		// ========================================
 
 		// Generate product image based on type
-		function getProductImage(productType) {
-			switch (productType) {
-				case "CPU": return "cpu.png";
-				case "GPU": return "gpu.png";
-				case "RAM": return "ram.png";
-				case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
-				default: return "default.png";
+		function getProductImage(productType, productName='') {
+			if (productType === "CPU") {
+				return "cpu.png";
+			} else if (productType === "GPU") {
+				return "gpu.png";
+			} else if (productType === "RAM") {
+				return "ram.png";
+			} else if (productType === "Device") {
+				return "shop01.png";
+			} else if (productType === "Storage") {
+				if (productName.toLowerCase().includes("ssd")) {
+					return "ssd.png";
+				} 
+				else  {
+					return "hdd.png";
+				}
+			} else {
+				return "default.png";
 			}
 		}
 
@@ -1037,7 +958,7 @@
 
 				// console.log(product.producttypename);
 
-				let img = getProductImage(product.producttypename);
+				let img = getProductImage(product.producttypename, product.productname);
 				var productHTML = `
 					<div class="product">
 						<div class="product-img">
@@ -1268,6 +1189,7 @@
 		function updateAuthLink() {
 			const userId = getCurrentUserId();
 			const authLink = document.getElementById('auth-link');
+			// const authLink = document.getElementsByClassName('auth-link');
 			if (!authLink) return;
 			if (userId) {
 				authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';

@@ -769,7 +769,7 @@
 					if (product) {
 						const itemTotal = product.finalprice * item.quantity;
 						subtotal += itemTotal;
-						const img = getProductImage(product.producttypename);
+						const img = getProductImage(product.producttypename, product.productname);
 
 						html += `
 							<div class="cart-item">
@@ -835,4 +835,30 @@
 				for (let field of requiredFields) {
 					const input = document.querySelector(`input[name="${field}"]`);
 					if (!input.value.trim()) {
-						showCustomAlert(`
+							showCustomAlert(`${field} is required!`, 'error');
+						return;
+					}
+				}
+
+				// Create order object
+				const order = {
+					userId: getCurrentUserId(),
+					products: cart,
+					paymentMethod: selectedPayment,
+					totalAmount: cart.reduce((sum, item) => sum + item.finalprice * item.quantity, 0),
+					orderDate: new Date().toISOString(),
+					status: 'pending'
+				};
+
+				// Save order to database
+				saveOrder(order);
+			}
+
+			// Save order to database
+			function saveOrder(order) {
+				const user = getCurrentUser();
+				if (user) {
+					user.orders.push(order);
+					setCurrentUser(user);
+				}
+			}							

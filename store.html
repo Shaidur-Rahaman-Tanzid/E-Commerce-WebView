@@ -35,6 +35,7 @@
 		<![endif]-->
         <script src="js/jquery.min.js"></script>
         <script src="js/dataSource.js"></script>
+        <script src="js/function.js"></script>
         
     <style>
         /* GLOBAL: Prevent horizontal overflow and box-sizing fix */
@@ -741,8 +742,8 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> BDT</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="profile.html"><i class="fa fa-user-o"></i> Profile</a></li>
+						<li><a href="login.html" id="store-auth-link"><i class="fa fa-user-o auth-link"></i> LogIn</a></li>
 					</ul>
 				</div>
 			</div>
@@ -1135,6 +1136,7 @@ let currentProductData = null;
 //     CART: 'pc_shop_cart'
 // };
 
+
 // Custom Alert Function
 function showCustomAlert(message, type = 'info') {
     const alertBox = document.getElementById('customAlert');
@@ -1295,15 +1297,26 @@ function handleCartClick(event) {
 // ========================================
 
 // Generate product image based on type
-function getProductImage(productType) {
-    switch (productType) {
-        case "CPU": return "cpu.png";
-        case "GPU": return "gpu.png";
-        case "RAM": return "ram.png";
-        case "Storage": return Math.random() < 0.5 ? "ssd.png" : "hdd.png";
-        default: return "default.png";
-    }
-}
+function getProductImage(productType, productName='') {
+			if (productType === "CPU") {
+				return "cpu.png";
+			} else if (productType === "GPU") {
+				return "gpu.png";
+			} else if (productType === "RAM") {
+				return "ram.png";
+			} else if (productType === "Device") {
+				return "shop01.png";
+			} else if (productType === "Storage") {
+				if (productName.toLowerCase().includes("ssd")) {
+					return "ssd.png";
+				} 
+				else  {
+					return "hdd.png";
+				}
+			} else {
+				return "default.png";
+			}
+		}
 
 // Generate star rating HTML
 function generateStarRating(rating) {
@@ -1343,7 +1356,7 @@ function openQuickView(productId) {
     currentProductData = product;
     
     // Determine image based on product type
-    let img = getProductImage(product.producttypename);
+    let img = getProductImage(product.producttypename, product.productname);
     
     // Populate modal with product data
     document.getElementById('modalProductImg').src = `./img/${img}`;
@@ -1491,7 +1504,7 @@ function renderProducts(products) {
     const availableImages = [1,2,3,4,5,6,7,8,9]; // Only use images that exist
     products.forEach((product, idx) => {
         // console.log(product);
-        let img = getProductImage(product.producttypename);
+        let img = getProductImage(product.producttypename, product.productname);
         // Pick a random image for each card
         // const imgNum = availableImages[Math.floor(Math.random() * availableImages.length)];
         // const imgSrc = `./img/product0${imgNum}.png`;
@@ -1743,6 +1756,9 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Update cart count
     updateCartCount();
+    
+    // Update authentication link
+    updateAuthLink();
 
     console.log("Products available:", dataSource.products.length);
     console.log("Running search1 on page load...");
