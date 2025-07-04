@@ -996,7 +996,7 @@
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
+						<!-- <div class="store-filter clearfix">
 							<span class="store-qty">Showing 20-100 products</span>
 							<ul class="store-pagination">
 								<li class="active">1</li>
@@ -1005,7 +1005,7 @@
 								<li><a href="#">4</a></li>
 								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
 							</ul>
-						</div>
+						</div> -->
 						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
@@ -1159,15 +1159,19 @@ function showCustomAlert(message, type = 'info') {
 // WISHLIST FUNCTIONALITY
 // ========================================
 
-// Get wishlist from localStorage
+// Get wishlist from current user
 function getWishlist() {
-    const wishlist = localStorage.getItem(STORAGE_KEYS.WISHLIST);
-    return wishlist ? JSON.parse(wishlist) : [];
+    const user = getCurrentUser();
+    return user && Array.isArray(user.wishlist) ? user.wishlist : [];
 }
 
-// Save wishlist to localStorage
+// Save wishlist to current user
 function saveWishlist(wishlist) {
-    localStorage.setItem(STORAGE_KEYS.WISHLIST, JSON.stringify(wishlist));
+    const user = getCurrentUser();
+    if (user) {
+        user.wishlist = wishlist;
+        setCurrentUser(user);
+    }
     updateWishlistCount();
 }
 
@@ -1205,15 +1209,19 @@ function updateWishlistCount() {
 // CART FUNCTIONALITY
 // ========================================
 
-// Get cart from localStorage
+// Get cart from current user
 function getCart() {
-    const cart = localStorage.getItem(STORAGE_KEYS.CART);
-    return cart ? JSON.parse(cart) : [];
+    const user = getCurrentUser();
+    return user && Array.isArray(user.cartItems) ? user.cartItems : [];
 }
 
-// Save cart to localStorage
+// Save cart to current user
 function saveCart(cart) {
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+    const user = getCurrentUser();
+    if (user) {
+        user.cartItems = cart;
+        setCurrentUser(user);
+    }
     updateCartCount();
 }
 
@@ -1258,16 +1266,16 @@ function updateCartCount() {
 function handleCartClick(event) {
     const cart = getCart();
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    
+    event.preventDefault();
+    event.stopPropagation();
     if (totalItems > 0) {
-        // Prevent dropdown from opening
-        event.preventDefault();
-        event.stopPropagation();
-        
         // Redirect to checkout page
         window.location.href = 'checkout.html';
     }
-    // If cart is empty, let the dropdown open normally
+    else {
+        // Show custom modal saying cart is empty
+        showCustomAlert('Your cart is empty!', 'info');
+    }
 }
 
 // ========================================
@@ -1758,7 +1766,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateCartCount();
     
     // Update authentication link
-    updateAuthLink();
+    updateAuthLink('store');
 
     console.log("Products available:", dataSource.products.length);
     console.log("Running search1 on page load...");

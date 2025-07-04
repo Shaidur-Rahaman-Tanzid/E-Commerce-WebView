@@ -36,6 +36,11 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/dataSource.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/function.js"></script>
+		
+		<script>
+			// Scripts loaded successfully
+		</script>
 
 		<style>
 			/* Checkout specific styles */
@@ -274,8 +279,8 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> Rajshshi, Bangladesh</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="profile.html"><i class="fa fa-user-o"></i> Profile</a></li>
+						<li><a href="login.html" id="checkout-auth-link"><i class="fa fa-user-o auth-link"></i> LogIn</a></li>
 					</ul>
 				</div>
 			</div>
@@ -413,28 +418,19 @@
 								<h3 class="title">Shipping & Billing Address</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name" required>
+								<input class="input" type="text" id="user-name" name="name" placeholder="Name" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name" required>
+								<input class="input" type="email" id="user-email" name="email" placeholder="Email" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email" required>
+								<input class="input" type="tel" id="user-phone" name="phone" placeholder="Phone Number" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="tel" name="phone" placeholder="Phone Number" required>
+								<input class="input" type="text" id="user-address" name="address" placeholder="Address" required>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address" required>
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City" required>
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" required>
-							</div>
-							<div class="form-group">
-								<textarea class="input" name="notes" placeholder="Order Notes (Optional)" rows="3"></textarea>
+								<textarea class="input" id="user-notes" name="notes" placeholder="Order Notes (Optional)" rows="3"></textarea>
 							</div>
 						</div>
 						<!-- /Billing Details -->
@@ -499,41 +495,7 @@
 		</div>
 		<!-- /SECTION -->
 
-		<!-- NEWSLETTER -->
-		<div id="newsletter" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="newsletter">
-							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
-							<form>
-								<input class="input" type="email" placeholder="Enter Your Email">
-								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-							</form>
-							<ul class="newsletter-follow">
-								<li>
-									<a href="#"><i class="fa fa-facebook"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-twitter"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-instagram"></i></a>
-								</li>
-								<li>
-									<a href="#"><i class="fa fa-pinterest"></i></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /NEWSLETTER -->
+
 
 		<!-- FOOTER -->
 		<footer id="footer">
@@ -701,7 +663,16 @@
 			// CART FUNCTIONALITY
 			function getCart() {
 				const user = getCurrentUser();
-				return user && Array.isArray(user.cartItems) ? user.cartItems : [];
+				
+				if (!user) {
+					return [];
+				}
+				
+				if (!Array.isArray(user.cartItems)) {
+					return [];
+				}
+				
+				return user.cartItems;
 			}
 			function saveCart(cart) {
 				const user = getCurrentUser();
@@ -746,6 +717,10 @@
 				const cart = getCart();
 				const container = document.getElementById('checkout-cart-items');
 				
+				if (!container) {
+					return;
+				}
+				
 				if (cart.length === 0) {
 					container.innerHTML = `
 						<div class="empty-cart">
@@ -755,17 +730,24 @@
 							<a href="store.html" class="primary-btn">Continue Shopping</a>
 						</div>
 					`;
-					document.getElementById('place-order-btn').style.display = 'none';
+					const placeOrderBtn = document.getElementById('place-order-btn');
+					if (placeOrderBtn) {
+						placeOrderBtn.style.display = 'none';
+					}
 					return;
 				}
 
-				document.getElementById('place-order-btn').style.display = 'block';
+				const placeOrderBtn = document.getElementById('place-order-btn');
+				if (placeOrderBtn) {
+					placeOrderBtn.style.display = 'block';
+				}
 				
 				let html = '';
 				let subtotal = 0;
 
-				cart.forEach(item => {
+				cart.forEach((item, index) => {
 					const product = dataSource.products.find(p => p.productid === item.productId);
+					
 					if (product) {
 						const itemTotal = product.finalprice * item.quantity;
 						subtotal += itemTotal;
@@ -799,8 +781,14 @@
 				container.innerHTML = html;
 				
 				// Update totals
-				document.getElementById('order-subtotal').textContent = `$${subtotal.toFixed(2)}`;
-				document.getElementById('order-total').textContent = `৳${subtotal.toFixed(2)}`;
+				const subtotalElement = document.getElementById('order-subtotal');
+				const totalElement = document.getElementById('order-total');
+				if (subtotalElement) {
+					subtotalElement.textContent = `৳${subtotal.toFixed(2)}`;
+				}
+				if (totalElement) {
+					totalElement.textContent = `৳${subtotal.toFixed(2)}`;
+				}
 			}
 
 			// Select payment method
@@ -858,7 +846,160 @@
 			function saveOrder(order) {
 				const user = getCurrentUser();
 				if (user) {
+					if (!user.orders) {
+						user.orders = [];
+					}
 					user.orders.push(order);
 					setCurrentUser(user);
+					
+					// Clear cart after successful order
+					user.cartItems = [];
+					setCurrentUser(user);
+					
+					showCustomAlert('Order placed successfully!', 'success');
+					setTimeout(() => {
+						window.location.href = 'order-history.html';
+					}, 2000);
 				}
-			}							
+			}
+
+			// Generate product image based on type
+			function getProductImage(productType, productName='') {
+				if (productType === "CPU") {
+					return "cpu.png";
+				} else if (productType === "GPU") {
+					return "gpu.png";
+				} else if (productType === "RAM") {
+					return "ram.png";
+				} else if (productType === "Device") {
+					return "shop01.png";
+				} else if (productType === "Storage") {
+					if (productName.toLowerCase().includes("ssd")) {
+						return "ssd.png";
+					} 
+					else  {
+						return "hdd.png";
+					}
+				} else {
+					return "default.png";
+				}
+			}
+
+			// Update quantity function
+			function updateQuantity(productId, newQuantity) {
+				if (newQuantity < 1) {
+					removeFromCart(productId);
+					return;
+				}
+				
+				const cart = getCart();
+				const item = cart.find(item => item.productId === productId);
+				if (item) {
+					item.quantity = newQuantity;
+					saveCart(cart);
+					loadCheckoutCart();
+				}
+			}
+
+			// Display current user information
+			function displayCurrentUserInfo() {
+				const user = getCurrentUser();
+				if (!user) {
+					return null;
+				}
+				
+				// Extract relevant fields following the user object structure
+				const userInfo = {
+					id: user.id,
+					email: user.email,
+					userName: user.userName,
+					role: user.role,
+					phone: user.phone,
+					address: user.address,
+					createdAt: user.createdAt,
+					wishlist: user.wishlist || [],
+					cartItems: user.cartItems || []
+				};
+				
+				return userInfo;
+			}
+
+			// Initialize checkout page
+			document.addEventListener('DOMContentLoaded', function() {
+				try {
+					// Check if required functions are available
+					if (typeof getCurrentUserId === 'undefined') {
+						return;
+					}
+					if (typeof getCurrentUser === 'undefined') {
+						return;
+					}
+					if (typeof updateAuthLink === 'undefined') {
+						return;
+					}
+					
+					// Update authentication link
+					updateAuthLink('checkout');
+					
+					// Check if user is logged in
+					const userId = getCurrentUserId();
+					
+					if (!userId) {
+						showCustomAlert('Please log in to access checkout!', 'error');
+						setTimeout(() => {
+							window.location.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname);
+						}, 2000);
+						return;
+					}
+
+					// Display current user information
+					displayCurrentUserInfo();
+
+					// Load cart items
+					loadCheckoutCart();
+					
+					// Update cart and wishlist counts
+					updateCartCount();
+					updateWishlistCount();
+					
+				} catch (error) {
+					// Handle errors silently
+				}
+			});
+
+			function populateUserInfo() {
+				const user = getCurrentUser();
+				if (user) {
+					$('#user-name').val(user.userName);
+					$('#user-email').val(user.email);
+					$('#user-phone').val(user.phone);
+					$('#user-address').val(user.address);
+					// $('#user-notes').val(user.notes);
+
+					
+				}
+			}
+
+			$(document).ready(function() {
+				// Fallback initialization if DOMContentLoaded didn't work
+				const container = document.getElementById('checkout-cart-items');
+				if (container && container.children.length === 0) {
+					try {
+						updateAuthLink('checkout');
+						const userId = getCurrentUserId();
+						if (userId) {
+							loadCheckoutCart();
+							updateCartCount();
+							updateWishlistCount();
+							populateUserInfo();
+						}
+					} catch (error) {
+						// Handle errors silently
+					}
+				}
+			});
+		</script>
+
+	</body>
+
+</html>
