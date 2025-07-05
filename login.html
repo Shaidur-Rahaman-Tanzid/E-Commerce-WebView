@@ -315,10 +315,19 @@
                 if (user) {
                     setCurrentUserId(user.id);
                     saveUsersToStorage(usersArr);
-                    // Redirect to returnUrl if present
-                    const params = new URLSearchParams(window.location.search);
-                    const returnUrl = params.get('returnUrl');
-                    window.location.href = returnUrl ? returnUrl : 'index.html';
+                    
+                    // Check if user is admin and redirect accordingly
+                    console.log('User role:', user.role);
+                    if (user.role === 'admin') {
+                        console.log('Redirecting admin user to dashboard');
+                        window.location.href = 'dashbord.html';
+                    } else {
+                        console.log('Redirecting regular user to index or returnUrl');
+                        // Redirect to returnUrl if present, otherwise to index
+                        const params = new URLSearchParams(window.location.search);
+                        const returnUrl = params.get('returnUrl');
+                        window.location.href = returnUrl ? returnUrl : 'index.html';
+                    }
                 } else {
                     showError('password-error', 'Invalid username/email or password.');
                 }

@@ -367,6 +367,7 @@
 					<li><a href="#"><i class="fa fa-map-marker"></i> Rajshshi, Bangladesh</a></li>
 				</ul>
 				<ul class="header-links pull-right">
+					<li id="dashboard-link" style="display: none;"><a href="dashbord.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 					<li><a href="profile.html"><i class="fa fa-user-o"></i> Profile</a></li>
 					<li><a href="login.html" id="auth-link"><i class="fa fa-user-o auth-link"></i> LogIn</a></li>
 				</ul>
@@ -1192,6 +1193,9 @@
 			// Update cart count
 			updateCartCount();
 
+			// Update auth link and dashboard visibility
+			updateAuthLink();
+
 		});
 
 		// Function to populate header search categories from dataSource
@@ -1488,8 +1492,10 @@
 		function updateAuthLink() {
 			const userId = getCurrentUserId();
 			const authLink = document.getElementById('auth-link');
-			// const authLink = document.getElementsByClassName('auth-link');
+			const dashboardLink = document.getElementById('dashboard-link');
+			
 			if (!authLink) return;
+			
 			if (userId) {
 				authLink.innerHTML = '<i class="fa fa-user-o"></i> Logout';
 				authLink.href = '#';
@@ -1498,10 +1504,28 @@
 					removeCurrentUserId();
 					window.location.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
 				};
+				
+				// Show dashboard link if user is admin
+				if (dashboardLink) {
+					const user = getCurrentUser();
+					console.log('Current user:', user);
+					if (user && user.role === 'admin') {
+						dashboardLink.style.display = 'inline-block';
+						console.log('Showing dashboard link for admin user');
+					} else {
+						dashboardLink.style.display = 'none';
+						console.log('Hiding dashboard link - user is not admin or not logged in');
+					}
+				}
 			} else {
 				authLink.innerHTML = '<i class="fa fa-user-o"></i> LogIn';
 				authLink.href = 'login.html?returnUrl=' + encodeURIComponent(window.location.pathname + window.location.search);
 				authLink.onclick = null;
+				
+				// Hide dashboard link when not logged in
+				if (dashboardLink) {
+					dashboardLink.style.display = 'none';
+				}
 			}
 		}
 		document.addEventListener('DOMContentLoaded', updateAuthLink);

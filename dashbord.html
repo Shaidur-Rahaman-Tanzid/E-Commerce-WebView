@@ -887,6 +887,20 @@
     <script src="js/dataSource.js"></script>
     
     <script>
+        $(document).ready(function() {
+            // Assume getCurrentUser() is defined in dataSource.js
+            const user = getCurrentUser();
+            if (!user || user.role !== 'admin') {
+                // Show permission message
+                $('body').html('<div class="container mt-5"><div class="alert alert-danger text-center" role="alert">You do not have permission to access this page.</div></div>');
+                // Redirect to index.html after short delay
+                setTimeout(function() {
+                    window.location.href = 'index.html';
+                }, 2000);
+            }
+        });
+
+
         let allProducts = [];
 
         // Function to render product list
