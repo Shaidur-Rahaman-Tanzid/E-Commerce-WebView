@@ -716,6 +716,7 @@
                 cancelled: cancelledOrders,
                 totalSpent: totalSpent
             });
+
             
             updateOrderStats(totalOrders, deliveredOrders, pendingOrders, totalSpent);
             
@@ -731,6 +732,26 @@
             // Show current user info
             console.log('Loaded orders for user:', currentUser.userName, '(ID:', currentUser.id, ')');
         }
+        function getProductImage(productType, productName='') {
+			if (productType === "CPU") {
+				return "cpu.png";
+			} else if (productType === "GPU") {
+				return "gpu.png";
+			} else if (productType === "RAM") {
+				return "ram.png";
+			} else if (productType === "Device") {
+				return "shop01.png";
+			} else if (productType === "Storage") {
+				if (productName.toLowerCase().includes("ssd")) {
+					return "ssd.png";
+				} 
+				else  {
+					return "hdd.png";
+				}
+			} else {
+				return "default.png";
+			}
+		}
         
         function updateOrderStats(total, delivered, pending, totalSpent) {
             console.log('Updating order stats:', { total, delivered, pending, totalSpent });
@@ -765,12 +786,12 @@
                 order.items.forEach(item => {
                     const product = products.find(p => p.productid === item.productId);
                     const productName = product ? product.productname : 'Unknown Product';
-                    const productImage = product ? `img/${product.productname.toLowerCase().replace(/\s+/g, '')}.png` : 'img/default.png';
-                    
+                    // const productImage = product ? `img/${product.productname.toLowerCase().replace(/\s+/g, '')}.png` : 'img/default.png';
+                    const img = getProductImage(product.producttypename, product.productname);
                     itemsHtml += `
                         <div class="order-product">
                             <div class="order-product-img">
-                                <img src="${productImage}" alt="${productName}" onerror="this.src='img/default.png'">
+                                <img src="img/${img}" alt="${productName}" onerror="this.src='img/${img}'">
                             </div>
                             <div class="order-product-details">
                                 <h5 class="order-product-name">${productName}</h5>
