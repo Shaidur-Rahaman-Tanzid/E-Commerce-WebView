@@ -393,6 +393,9 @@
                                 <strong>Warranty:</strong> ${product.warrantymonths} months
                             </div>
                             <div class="product-detail">
+                                <strong>Stock:</strong> ${product.stock}
+                            </div>
+                            <div class="product-detail">
                                 <strong>Rating:</strong> <span class="rating">${product.rating} ⭐</span>
                             </div>
                         </div>
@@ -490,14 +493,10 @@
             checkSource();
             
             // Check if dataSource is loaded
-            if (typeof dataSource === 'undefined') {
-                console.error('dataSource is not loaded!');
-                $('#productList').html('<div class="alert alert-danger">Error: Product data could not be loaded. Please check if dataSource.js is accessible.</div>');
-                return;
-            }
+            
             
             // Store products data for searching
-            allProducts = dataSource.products || [];
+            allProducts = getAllProductsFromStorage();
             
             if (allProducts.length === 0) {
                 console.warn('No products found in dataSource');
@@ -544,30 +543,74 @@
                 return;
             }
 
-            $.ajax({
-                url: 'https://localhost:7111/api/product',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    alert('Product added successfully!');
-                    $('#addProductForm')[0].reset();
-                    updateFinalPrice(); // Reset final price
+            // Add product to local storage using helper functions
+            // Assume getAllProductsFromStorage() and saveAllProductsToStorage(products) are available
+
+            // Generate a new product object (with a new productid)
+            const newProduct = {
+                productid: Date.now(), // simple unique id, replace with better logic if needed
+                productname: data.name,
+                description: data.description,
+                warrantymonths: data.warrantyMonths,
+                producttypeid: data.productTypeId,
+                categoryid: data.categoryId,
+                brandid: data.brandId,
+                vendorid: data.vendorId,
+                purchaseprice: data.purchasePrice,
+                salesprice: data.salesPrice,
+                discountprice: data.discountPrice,
+                finalprice: data.finalPrice,
+                priceeffectivefrom: data.priceEffectiveFrom,
+                priceeffectiveto: data.priceEffectiveTo,
+                // Optionally, add default values for fields not in the form
+                stock: 0,
+                rating: 0,
+                brandname: $('#productBrand option:selected').text(),
+                categoryname: $('#productCategory option:selected').text(),
+                vendorname: $('#productVendor option:selected').text(),
+                producttypename: $('#productType option:selected').text()
+            };
+
+            // Get current products from storage
+            let products = getAllProductsFromStorage();
+            products.push(newProduct);
+
+            // Save updated products list to storage
+            saveAllProductsToStorage(products);
+
+            // Update global allProducts and re-render list
+            allProducts = products;
+            renderProductList();
+
+            // Reset form and close modal
+            $('#addProductForm')[0].reset();
+            updateFinalPrice();
+            $('#addProductModal').modal('hide');
+
+            // $.ajax({
+            //     url: 'https://localhost:7111/api/product',
+            //     type: 'POST',
+            //     contentType: 'application/json',
+            //     data: JSON.stringify(data),
+            //     success: function (response) {
+            //         alert('Product added successfully!');
+            //         $('#addProductForm')[0].reset();
+            //         updateFinalPrice(); // Reset final price
                     
-                    // If the API returns the new product, add it to the list
-                    if (response && response.productid) {
-                        allProducts.push(response);
-                        renderProductList();
-                    }
+            //         // If the API returns the new product, add it to the list
+            //         if (response && response.productid) {
+            //             allProducts.push(response);
+            //             renderProductList();
+            //         }
                     
-                    // Close the modal
-                    $('#addProductModal').modal('hide');
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Failed to add product.');
-                }
-            });
+            //         // Close the modal
+            //         $('#addProductModal').modal('hide');
+            //     },
+            //     error: function (xhr, status, error) {
+            //         console.error('Error:', error);
+            //         alert('Failed to add product.');
+            //     }
+            // });
         });
     </script>
 

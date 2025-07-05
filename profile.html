@@ -659,10 +659,10 @@
             let users = window.users || [];
             
             // Initialize with default user if no user is logged in
-            if (!localStorage.getItem('currentUserEmail')) {
-                localStorage.setItem('currentUserEmail', 'sahidtanzid2014@gmail.com');
-                localStorage.setItem('isLoggedIn', 'true');
+            if (!getCurrentUserId()) {
+                setCurrentUserId('sahidtanzid2014@gmail.com');
             }
+                
             
             // Load user profile data from dataSource
             loadProfileData();
@@ -673,14 +673,8 @@
         });
 
         function loadProfileData() {
-            // Get current user from localStorage or default to user with email sahidtanzid2014@gmail.com
-            let currentUserEmail = localStorage.getItem('currentUserEmail') || 'sahidtanzid2014@gmail.com';
-            
-            // Get users from window object
-            let users = window.users || [];
-            
-            // Find user in the users array from dataSource.js
-            const currentUser = users.find(user => user.email === currentUserEmail);
+            // Use helper functions from dataSource.js to get current user and orders
+            const currentUser = getCurrentUser();
             
             if (currentUser) {
                 // Update profile information
@@ -704,10 +698,10 @@
                 }
                 $('#userCreatedAt').text(createdAt);
 
-                // Calculate user statistics from orders data
-                const userOrders = window.orders ? window.orders.filter(order => order.userId === currentUser.id) : [];
+                // Calculate user statistics from orders data using helper
+                const userOrders = getOrdersByUserId(currentUser.id) || [];
                 const totalOrders = userOrders.length;
-                // Calculate total spent excluding cancelled orders (same as order-history.html)
+                // Calculate total spent excluding cancelled orders
                 const totalSpent = userOrders
                     .filter(order => order.status !== 'cancelled')
                     .reduce((sum, order) => sum + order.total, 0);
@@ -736,7 +730,7 @@
                 $('#wishlistItems').text('0');
                 $('#reviewsGiven').text('0');
                 
-                console.log('No user found for email:', currentUserEmail);
+                console.log('No user found or not logged in');
             }
         }
 

@@ -96,7 +96,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.60792+06:00",
             "product_updated_on": "2025-06-22T03:02:57.60792+06:00",
-            "rating": 4.2
+            "rating": 4.2,
+            "stock": 30
         },
         {
             "brandid": "50a02b77-83e0-4b67-85c6-7f68c2e1a321",
@@ -120,7 +121,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.608713+06:00",
             "product_updated_on": "2025-06-22T03:02:57.608713+06:00",
-            "rating": 4.7
+            "rating": 4.7,
+            "stock": 30
         },
         {
             "brandid": "b7e1e8c2-2c3a-4e7a-9b2d-1f2e3d4c5b6a", // Intel brand id (example)
@@ -144,7 +146,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T10:00:00.000000+06:00",
             "product_updated_on": "2025-06-22T10:00:00.000000+06:00",
-            "rating": 4.1
+            "rating": 4.1,
+            "stock": 30
         },
         {
             "brandid": "da284414-e355-485e-bf83-3d0ac9d57ff0",
@@ -168,7 +171,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-05-07T09:06:38.391795+06:00",
             "product_updated_on": "2025-05-07T09:06:38.391795+06:00",
-            "rating": 4.0
+            "rating": 4.0,
+            "stock": 30
         },
         {
             "brandid": "c60b7b1a-3e60-4b5c-80e6-ffffc401c0da",
@@ -192,7 +196,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.596395+06:00",
             "product_updated_on": "2025-06-22T03:02:57.596395+06:00",
-            "rating": 4.5
+            "rating": 4.5,
+            "stock": 30
         },
         {
             "brandid": "05e8302a-d454-4e73-bf6c-22991f6bd793",
@@ -216,7 +221,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-05-07T09:06:38.391795+06:00",
             "product_updated_on": "2025-05-07T09:06:38.391795+06:00",
-            "rating": 4.9
+            "rating": 4.9,
+            "stock": 30
         },
         {
             "brandid": "05e8302a-d454-4e73-bf6c-22991f6bd793",
@@ -240,7 +246,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.610094+06:00",
             "product_updated_on": "2025-06-22T03:02:57.610094+06:00",
-            "rating": 3.9
+            "rating": 3.9,
+            "stock": 30
         },
         {
             "brandid": "d48fe9c2-c9f1-4899-9d38-bc4c2e8df35d",
@@ -264,7 +271,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.602272+06:00",
             "product_updated_on": "2025-06-22T03:02:57.602272+06:00",
-            "rating": 4.3
+            "rating": 4.3,
+            "stock": 30
         },
         {
             "brandid": "d48fe9c2-c9f1-4899-9d38-bc4c2e8df35d",
@@ -288,7 +296,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.611483+06:00",
             "product_updated_on": "2025-06-22T03:02:57.611483+06:00",
-            "rating": 3.7
+            "rating": 3.7,
+            "stock": 30
         },
         {
             "brandid": "1c8476fc-09f6-45b4-a30e-27a1c00bcb2d",
@@ -312,7 +321,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.599668+06:00",
             "product_updated_on": "2025-06-22T03:02:57.599668+06:00",
-            "rating": 4.6
+            "rating": 4.6,
+            "stock": 30
         },
         {
             "brandid": "50a02b77-83e0-4b67-85c6-7f68c2e1a321",
@@ -336,7 +346,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:44.647057+06:00",
             "product_updated_on": "2025-06-22T03:02:44.647057+06:00",
-            "rating": 4.8
+            "rating": 4.8,
+            "stock": 30
         },
         {
             "brandid": "50a02b77-83e0-4b67-85c6-7f68c2e1a321",
@@ -360,7 +371,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.603647+06:00",
             "product_updated_on": "2025-06-22T03:02:57.603647+06:00",
-            "rating": 4.1
+            "rating": 4.1,
+            "stock": 30
         },
         {
             "brandid": "da284414-e355-485e-bf83-3d0ac9d57ff0",
@@ -384,7 +396,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.602953+06:00",
             "product_updated_on": "2025-06-22T03:02:57.602953+06:00",
-            "rating": 3.6
+            "rating": 3.6,
+            "stock": 30
         },
         {
             "brandid": "da284414-e355-485e-bf83-3d0ac9d57ff0",
@@ -408,7 +421,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.605163+06:00",
             "product_updated_on": "2025-06-22T03:02:57.605163+06:00",
-            "rating": 4.4
+            "rating": 4.4,
+            "stock": 30
         },
         {
             "brandid": "da284414-e355-485e-bf83-3d0ac9d57ff0",
@@ -432,7 +446,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.609443+06:00",
             "product_updated_on": "2025-06-22T03:02:57.609443+06:00",
-            "rating": 3.5
+            "rating": 3.5,
+            "stock": 30
         },
         {
             "brandid": "3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd",
@@ -456,7 +471,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.606001+06:00",
             "product_updated_on": "2025-06-22T03:02:57.606001+06:00",
-            "rating": 4.0
+            "rating": 4.0,
+            "stock": 30
         },
         {
             "brandid": "c60b7b1a-3e60-4b5c-80e6-ffffc401c0da",
@@ -480,7 +496,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-05-07T09:06:38.391795+06:00",
             "product_updated_on": "2025-05-07T09:06:38.391795+06:00",
-            "rating": 4.5
+            "rating": 4.5,
+            "stock": 30
         },
         {
             "brandid": "c60b7b1a-3e60-4b5c-80e6-ffffc401c0da",
@@ -504,7 +521,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.607305+06:00",
             "product_updated_on": "2025-06-22T03:02:57.607305+06:00",
-            "rating": 3.8
+            "rating": 3.8,
+            "stock": 30
         },
         {
             "brandid": "05e8302a-d454-4e73-bf6c-22991f6bd793",
@@ -528,7 +546,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.604393+06:00",
             "product_updated_on": "2025-06-22T03:02:57.604393+06:00",
-            "rating": 4.2
+            "rating": 4.2,
+            "stock": 30
         },
         {
             "brandid": "5cd95e9f-d55a-4a7e-b110-402d5a6a2100",
@@ -552,7 +571,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.601424+06:00",
             "product_updated_on": "2025-06-22T03:02:57.601424+06:00",
-            "rating": 3.9
+            "rating": 3.9,
+            "stock": 30
         },
         {
             "brandid": "d48fe9c2-c9f1-4899-9d38-bc4c2e8df35d",
@@ -576,7 +596,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.606648+06:00",
             "product_updated_on": "2025-06-22T03:02:57.606648+06:00",
-            "rating": 4.6
+            "rating": 4.6,
+            "stock": 30
         },
         {
             "brandid": "3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd",
@@ -600,7 +621,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-05-07T09:06:38.391795+06:00",
             "product_updated_on": "2025-05-07T09:06:38.391795+06:00",
-            "rating": 4.4
+            "rating": 4.4,
+            "stock": 30
         },
         {
             "brandid": "3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd",
@@ -624,7 +646,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.600572+06:00",
             "product_updated_on": "2025-06-22T03:02:57.600572+06:00",
-            "rating": 3.8
+            "rating": 3.8,
+            "stock": 30
         },
         {
             "brandid": "3ade70e3-1652-46ee-b1f7-8dcb2ab91fcd",
@@ -648,7 +671,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.610734+06:00",
             "product_updated_on": "2025-06-22T03:02:57.610734+06:00",
-            "rating": 4.1
+            "rating": 4.1,
+            "stock": 30
         },
         {
             "brandid": "05e8302a-d454-4e73-bf6c-22991f6bd793",
@@ -672,7 +696,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:41.933521+06:00",
             "product_updated_on": "2025-06-22T03:02:41.933521+06:00",
-            "rating": 4.9
+            "rating": 4.9,
+            "stock": 30
         },
         {
             "brandid": "b8e1a2c3-4d5f-6789-abcd-ef0123456789",
@@ -696,7 +721,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.700000+06:00",
             "product_updated_on": "2025-06-22T03:02:57.700000+06:00",
-            "rating": 4.4
+            "rating": 4.4,
+            "stock": 30
         },
         {
             "brandid": "b8e1a2c3-4d5f-6789-abcd-ef0123456789",
@@ -720,7 +746,8 @@ const dataSource = {
             "priceeffectivefrom": "2025-05-13T00:00:00+06:00",
             "product_created_on": "2025-06-22T03:02:57.800000+06:00",
             "product_updated_on": "2025-06-22T03:02:57.800000+06:00",
-            "rating": 4.7
+            "rating": 4.7,
+            "stock": 30
         },
         
     ],
@@ -1074,6 +1101,45 @@ const STORAGE_KEYS = {
     ORDERS: 'pc_shop__orders',
     CURRENT_USER: 'pc_shop__current_user'   
 };
+
+// Helper functions for ALL_PRODUCTS (products array in dataSource)
+function getAllProductsFromStorage() {
+    const productsStr = localStorage.getItem(STORAGE_KEYS.ALL_PRODUCTS);
+    if (productsStr) {
+        try {
+            return JSON.parse(productsStr);
+        } catch (e) {
+            return dataSource.products || [];
+        }
+    }
+    return dataSource.products || [];
+}
+
+function saveAllProductsToStorage(productsArr) {
+    localStorage.setItem(STORAGE_KEYS.ALL_PRODUCTS, JSON.stringify(productsArr));
+}
+
+function addProductToStorage(product) {
+    let productsArr = getAllProductsFromStorage();
+    productsArr.push(product);
+    saveAllProductsToStorage(productsArr);
+}
+
+function updateProductInStorage(updatedProduct) {
+    let productsArr = getAllProductsFromStorage();
+    const idx = productsArr.findIndex(p => p.productid === updatedProduct.productid);
+    if (idx !== -1) {
+        productsArr[idx] = updatedProduct;
+        saveAllProductsToStorage(productsArr);
+    }
+}
+
+function removeProductFromStorage(productId) {
+    let productsArr = getAllProductsFromStorage();
+    productsArr = productsArr.filter(p => p.productid !== productId);
+    saveAllProductsToStorage(productsArr);
+}
+
 
 // Helper functions for current user id
 function setCurrentUserId(id) {

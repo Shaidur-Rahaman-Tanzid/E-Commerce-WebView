@@ -1177,7 +1177,7 @@ function saveWishlist(wishlist) {
 
 // Add product to wishlist
 function addToWishlist(productId) {
-    const product = dataSource.products.find(p => p.productid === productId);
+    const product = getAllProductsFromStorage().find(p => p.productid === productId);
     if (!product) {
         console.error('Product not found:', productId);
         showCustomAlert('Product not found!', 'error');
@@ -1227,7 +1227,7 @@ function saveCart(cart) {
 
 // Add product to cart
 function addToCart(productId, quantity = 1) {
-    const product = dataSource.products.find(p => p.productid === productId);
+    const product = getAllProductsFromStorage().find(p => p.productid === productId);
     if (!product) {
         console.error('Product not found:', productId);
         showCustomAlert('Product not found!', 'error');
@@ -1354,7 +1354,7 @@ function generateStarRating(rating) {
 
 // Open quick view modal
 function openQuickView(productId) {
-    const product = dataSource.products.find(p => p.productid === productId);
+    const product = getAllProductsFromStorage().find(p => p.productid === productId);
     if (!product) {
         console.error('Product not found:', productId);
         alert('Product not found!');
@@ -1428,7 +1428,7 @@ function addToWishlistFromModal() {
 
 // Add to compare (placeholder function)
 function addToCompare(productId) {
-    const product = dataSource.products.find(p => p.productid === productId);
+    const product = getAllProductsFromStorage().find(p => p.productid === productId);
     if (product) {
         showCustomAlert(`Added ${product.productname} to compare list!`, 'success');
         console.log('Added to compare:', product);
@@ -1742,7 +1742,7 @@ function search1() {
     // console.log('search1');
     // console.log(dataSource);
     // Filter and render
-    const filteredProducts = filterProducts(dataSource.products, filters);
+    const filteredProducts = filterProducts(getAllProductsFromStorage(), filters);
     renderProducts({ product: filteredProducts });
 }
 
@@ -1765,7 +1765,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update authentication link
     updateAuthLink('store');
 
-    console.log("Products available:", dataSource.products.length);
+    console.log("Products available:", getAllProductsFromStorage().length);
     console.log("Running search1 on page load...");
     search1(); // <-- This should now work
 
